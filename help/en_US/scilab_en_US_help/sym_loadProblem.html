@@ -1,0 +1,102 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>sym_loadProblem</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="sym_loadMPS.html">&lt;&lt; sym_loadMPS</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="sym_loadProblemBasic.html">sym_loadProblemBasic &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Symphony Toolbox</a> &gt;&gt; <a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a> &gt; sym_loadProblem</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">sym_loadProblem</h1>
+		<p class="refpurpose">Load a problem into Symphony</p></div>
+
+	<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+		<div class="synopsis"><pre><span class="functionid">sym_loadProblem</span><span class="default">(</span><span class="default">nbVar</span><span class="default">,</span><span class="default">nbConstr</span><span class="default">,</span><span class="default">varLB</span><span class="default">,</span><span class="default">varUB</span><span class="default">,</span><span class="default">objCoeff</span><span class="default">,</span><span class="default">isInt</span><span class="default">,</span><span class="default">objSense</span><span class="default">,</span><span class="default">conMatrix</span><span class="default">,</span><span class="default">conLB</span><span class="default">,</span><span class="default">conUB</span><span class="default">)</span></pre></div></div>
+
+	<div class="refsection"><h3 class="title">Description</h3>
+
+		<p class="para">Loads a MIP problem into Symphony. All the necessary data can be given through a single function call.</p>
+		<p class="para">The type of constraint is automatically deduced from the constraint bounds.</p></div>
+
+	<div class="refsection"><h3 class="title">Arguments</h3>
+
+		<dl><dt><span class="term">nbVar</span>
+				<dd><p class="para">Number of variables</p></dd></dt>
+			<dt><span class="term">nbConstr</span>
+				<dd><p class="para">Number of constraints</p></dd></dt>
+			<dt><span class="term">varLB</span>
+				<dd><p class="para">Matrix containing lower bounds of the variables (must have size 1 row and nbVar columns). Bound can be negative infinity</p></dd></dt>
+			<dt><span class="term">varUB</span>
+				<dd><p class="para">Matrix containing upper bounds of the variables (must have size 1 row and nbVar columns). Bound can be infinity</p></dd></dt>
+			<dt><span class="term">objCoeff</span>
+				<dd><p class="para">Matrix containing coefficients of the variables in the objective (must have size 1 row and nbVar columns)</p></dd></dt>
+			<dt><span class="term">isInt</span>
+				<dd><p class="para">Boolean matrix representing wether a variable is constrained to be an integer (must have size 1 row and nbVar columns)</p></dd></dt>
+			<dt><span class="term">objSense</span>
+				<dd><p class="para">The sense (maximization/minimization) of the objective. Use sym_minimize or sym_maximize here</p></dd></dt>
+			<dt><span class="term">conMatrix</span>
+				<dd><p class="para">Sparse matrix representing the constraint matrix (must have size nbConstr rows and nbVar columns)</p></dd></dt>
+			<dt><span class="term">conLB</span>
+				<dd><p class="para">Matrix containing lower bounds of the constraints (must have size nbConstr rows and 1 column)</p></dd></dt>
+			<dt><span class="term">conUB</span>
+				<dd><p class="para">Matrix containing upper bounds of the constraints (must have size nbConstr rows and 1 column)</p></dd></dt></dl></div>
+
+	<div class="refsection"><h3 class="title">Return value</h3>
+		
+		<p class="para">Returns 0 if the problem was successfully loaded into Symphony</p></div>
+
+	<div class="refsection"><h3 class="title">Examples</h3>
+
+		<div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">sym_loadProblem</span><span class="scilabopenclose">(</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabconstants">%t</span><span class="scilabdefault">,</span><span class="scilabconstants">%t</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabid">sym_maximize</span><span class="scilabdefault">,</span><a class="scilabcommand" href="scilab://sparse">sparse</a><span class="scilabopenclose">(</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">;</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span><span class="scilabopenclose">)</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">;</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabnumber">7</span><span class="scilabdefault">;</span><span class="scilabnumber">6.5</span><span class="scilabopenclose">]</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+	<div class="refsection"><h3 class="title">Authors</h3>
+
+		<ul class="itemizedlist"><li class="member">Keyur Joshi</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="sym_loadMPS.html">&lt;&lt; sym_loadMPS</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="sym_loadProblemBasic.html">sym_loadProblemBasic &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

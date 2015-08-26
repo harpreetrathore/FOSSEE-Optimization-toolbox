@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN" "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<toc version="1.0">
+<tocitem target="index" text="Symphony Toolbox">
+<tocitem target="section_19f4f1e5726c01d683e8b82be0a7e910" text="Symphony Toolbox">
+<tocitem target="sym_addConstr" text="sym_addConstr"/>
+<tocitem target="sym_addVar" text="sym_addVar"/>
+<tocitem target="sym_close" text="sym_close"/>
+<tocitem target="sym_deleteConstrs" text="sym_deleteConstrs"/>
+<tocitem target="sym_deleteVars" text="sym_deleteVars"/>
+<tocitem target="sym_getConstrActivity" text="sym_getConstrActivity"/>
+<tocitem target="sym_getConstrLower" text="sym_getConstrLower"/>
+<tocitem target="sym_getConstrRange" text="sym_getConstrRange"/>
+<tocitem target="sym_getConstrSense" text="sym_getConstrSense"/>
+<tocitem target="sym_getConstrUpper" text="sym_getConstrUpper"/>
+<tocitem target="sym_getDblParam" text="sym_getDblParam"/>
+<tocitem target="sym_getInfinity" text="sym_getInfinity"/>
+<tocitem target="sym_getIntParam" text="sym_getIntParam"/>
+<tocitem target="sym_getIterCount" text="sym_getIterCount"/>
+<tocitem target="sym_getMatrix" text="sym_getMatrix"/>
+<tocitem target="sym_getNumConstr" text="sym_getNumConstr"/>
+<tocitem target="sym_getNumElements" text="sym_getNumElements"/>
+<tocitem target="sym_getNumVar" text="sym_getNumVar"/>
+<tocitem target="sym_getObjCoeff" text="sym_getObjCoeff"/>
+<tocitem target="sym_getObjSense" text="sym_getObjSense"/>
+<tocitem target="sym_getObjVal" text="sym_getObjVal"/>
+<tocitem target="sym_getPrimalBound" text="sym_getPrimalBound"/>
+<tocitem target="sym_getRhs" text="sym_getRhs"/>
+<tocitem target="sym_getStatus" text="sym_getStatus"/>
+<tocitem target="sym_getStrParam" text="sym_getStrParam"/>
+<tocitem target="sym_getVarLower" text="sym_getVarLower"/>
+<tocitem target="sym_getVarSoln" text="sym_getVarSoln"/>
+<tocitem target="sym_getVarUpper" text="sym_getVarUpper"/>
+<tocitem target="sym_isAbandoned" text="sym_isAbandoned"/>
+<tocitem target="sym_isBinary" text="sym_isBinary"/>
+<tocitem target="sym_isContinuous" text="sym_isContinuous"/>
+<tocitem target="sym_isEnvActive" text="sym_isEnvActive"/>
+<tocitem target="sym_isInfeasible" text="sym_isInfeasible"/>
+<tocitem target="sym_isInteger" text="sym_isInteger"/>
+<tocitem target="sym_isIterLimitReached" text="sym_isIterLimitReached"/>
+<tocitem target="sym_isOptimal" text="sym_isOptimal"/>
+<tocitem target="sym_isTargetGapAchieved" text="sym_isTargetGapAchieved"/>
+<tocitem target="sym_isTimeLimitReached" text="sym_isTimeLimitReached"/>
+<tocitem target="sym_loadMPS" text="sym_loadMPS"/>
+<tocitem target="sym_loadProblem" text="sym_loadProblem"/>
+<tocitem target="sym_loadProblemBasic" text="sym_loadProblemBasic"/>
+<tocitem target="sym_open" text="sym_open"/>
+<tocitem target="sym_resetParams" text="sym_resetParams"/>
+<tocitem target="sym_setConstrLower" text="sym_setConstrLower"/>
+<tocitem target="sym_setConstrType" text="sym_setConstrType"/>
+<tocitem target="sym_setConstrUpper" text="sym_setConstrUpper"/>
+<tocitem target="sym_setContinuous" text="sym_setContinuous"/>
+<tocitem target="sym_setDblParam" text="sym_setDblParam"/>
+<tocitem target="sym_setIntParam" text="sym_setIntParam"/>
+<tocitem target="sym_setInteger" text="sym_setInteger"/>
+<tocitem target="sym_setObjCoeff" text="sym_setObjCoeff"/>
+<tocitem target="sym_setObjSense" text="sym_setObjSense"/>
+<tocitem target="sym_setPrimalBound" text="sym_setPrimalBound"/>
+<tocitem target="sym_setStrParam" text="sym_setStrParam"/>
+<tocitem target="sym_setVarLower" text="sym_setVarLower"/>
+<tocitem target="sym_setVarSoln" text="sym_setVarSoln"/>
+<tocitem target="sym_setVarUpper" text="sym_setVarUpper"/>
+<tocitem target="sym_solve" text="sym_solve"/>
+</tocitem>
+</tocitem>
+</toc>
