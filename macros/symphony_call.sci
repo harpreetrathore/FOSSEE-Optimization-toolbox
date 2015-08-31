@@ -40,6 +40,8 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
             iter = sym_getIterCount();
     end
     
+    status = sym_getStatus();
+    
 //    //Closing Symphony Environment
 //    sym_close();
 

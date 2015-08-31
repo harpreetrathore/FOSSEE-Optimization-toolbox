@@ -13,27 +13,27 @@ function setOptions(varagin)
 
     options = varagin(1);
     nbOpt = size(options,2);
-    //Check the number of options which should be even
-    if(pmodulo(nbOpt,2)) then
-        errmsg = msprintf(gettext("%s: Odd number of arguments, the number should be even"), "setOptions");
-        error(errmsg)
-    end
     
+
+    
+    
+    value = strtod(options)
+
     if (nbOpt~=0) then
         for i = 1:(nbOpt/2)
         
         //Setting the parameters
           
             //Check if the given parameter is String
-            if (type(options(2*i))==10) then
-                sym_setStrParam(options(2*i - 1),options(2*i));
+            if (value(2*i) == %nan ) then
+                sym_setStrParam(options(2*i - 1),value(2*i));
           
             //Check if the given parameter is Double
-            elseif(type(options(2*i))==1) then
-                sym_setDblParam(options(2*i - 1),options(2*i));
+            elseif(type(value(2*i))==1) then
+                sym_setDblParam(options(2*i - 1),value(2*i));
              
             //Check if the given parameter is Integer
-            elseif(type(options(2*i))==8)
+            elseif(type(value(2*i))==8)
                 sym_setIntParam(options(2*i - 1),options(2*i)); 
             end
           

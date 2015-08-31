@@ -33,7 +33,7 @@ function [xopt,fopt,iter] = symphony (varargin)
   //   conUB = a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints
   //   objSense = The sense (maximization/minimization) of the objective. Use 1(sym_minimize ) or -1 (sym_maximize) here
   
-  //   xopt = a nx1 matrix of doubles, the computed solution of the optimization problem
+  //   xopt = a 1xn matrix of doubles, the computed solution of the optimization problem
   //   fopt = a 1x1 matrix of doubles, the function value at x
   //   iter = a 1x1 matrix of doubles, contains the number od iterations done by symphony
   //   
@@ -91,31 +91,31 @@ function [xopt,fopt,iter] = symphony (varargin)
    
 
 //Check the size of constraint which should equal to the number of constraints
-   if ( size(LB) ~= nbCon) then
+   if ( size(conMatrix,1) ~= nbCon) then
       errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphony");
       error(errmsg);
    end
 
 //Check the size of Lower Bound which should equal to the number of variables
-   if ( size(LB) ~= nbVar) then
+   if ( size(LB,2) ~= nbVar) then
       errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphony");
       error(errmsg);
    end
 
 //Check the size of Upper Bound which should equal to the number of variables
-   if ( size(UB) ~= nbVar) then
+   if ( size(UB,2) ~= nbVar) then
       errmsg = msprintf(gettext("%s: The Upper Bound is not equal to the number of variables"), "Symphony");
       error(errmsg);
    end
 
-//Check the size of Lower Bound which should equal to the number of constraints
-   if ( size(conLB) ~= nbCon) then
+//Check the size of constraints of Lower Bound which should equal to the number of constraints
+   if ( size(conLB,1) ~= nbCon) then
       errmsg = msprintf(gettext("%s: The Lower Bound of constraints is not equal to the number of constraints"), "Symphony");
       error(errmsg);
    end
 
-//Check the size of Upper Bound which should equal to the number of constraints
-   if ( size(conUB) ~= nbCon) then
+//Check the size of constraints of Upper Bound which should equal to the number of constraints
+   if ( size(conUB,1) ~= nbCon) then
       errmsg = msprintf(gettext("%s: The Upper Bound of constraints is not equal to the number of constraints"), "Symphony");
       error(errmsg);
    end

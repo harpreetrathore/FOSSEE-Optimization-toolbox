@@ -95,6 +95,8 @@ conLB=repmat(0,nbCon,1);
 // Upper Bound of constraints
 conUB=[11927 13727 11551 13056 13460 ]';
 
+options = ["time_limit" "10"]
+
 // The expected solution :
 
 // Output variables
@@ -104,7 +106,7 @@ xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 0 0 0 0 0 
 fopt = [ 24381 ]
 
 // Calling Symphony
-[x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1)
+[x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
 
  
 //========= E N D === O F === D E M O =========//
