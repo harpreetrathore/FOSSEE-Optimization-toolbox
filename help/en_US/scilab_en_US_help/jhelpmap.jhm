@@ -61,4 +61,6 @@
 <mapID target="sym_setVarSoln" url="sym_setVarSoln.html"/>
 <mapID target="sym_setVarUpper" url="sym_setVarUpper.html"/>
 <mapID target="sym_solve" url="sym_solve.html"/>
+<mapID target="symphony" url="symphony.html"/>
+<mapID target="symphony_mat" url="symphony_mat.html"/>
 </map>

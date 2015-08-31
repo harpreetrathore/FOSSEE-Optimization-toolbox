@@ -14,9 +14,6 @@ function setOptions(varagin)
     options = varagin(1);
     nbOpt = size(options,2);
     
-
-    
-    
     value = strtod(options)
 
     if (nbOpt~=0) then

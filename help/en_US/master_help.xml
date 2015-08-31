@@ -59,6 +59,8 @@
 <!ENTITY a3bb05f0eb958e796e0474de1226c67c3 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/sym_setVarSoln.xml">
 <!ENTITY a33c0464a5b3293d925481bf20488ebc7 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/sym_setVarUpper.xml">
 <!ENTITY a9c0f2487231abebc5433bb8ae36d82ae SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/sym_solve.xml">
+<!ENTITY aca972f273143ecb39f56b42e4723ac67 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony.xml">
+<!ENTITY a9953e61e8dd264a86df73772d3055e7f SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony_mat.xml">
 <!--End Entities-->
 ]>
 <book version="5.0-subset Scilab" xml:lang="en_US"
@@ -69,12 +71,12 @@
       xmlns:mml="http://www.w3.org/1998/Math/MathML"
       xmlns:html="http://www.w3.org/1999/xhtml"
       xmlns:db="http://docbook.org/ns/docbook">
-  <info xml:id='symphony_toolbox_manual'>
-    <title>Symphony Toolbox</title>
+  <info xml:id='symphony_manual'>
+    <title>Symphony</title>
   </info>
 
 <part xml:id='section_19f4f1e5726c01d683e8b82be0a7e910'>
-<title>Symphony Toolbox</title>
+<title>Symphony</title>
 &ad63afa57bd1e41e497243af3416a7a96;
 &a8247e87aade4dbfbcfc9153f85bf8990;
 &af05f97223726eec3eddcdaeb7913034b;
@@ -133,5 +135,7 @@
 &a3bb05f0eb958e796e0474de1226c67c3;
 &a33c0464a5b3293d925481bf20488ebc7;
 &a9c0f2487231abebc5433bb8ae36d82ae;
+&aca972f273143ecb39f56b42e4723ac67;
+&a9953e61e8dd264a86df73772d3055e7f;
 </part>
 </book>
