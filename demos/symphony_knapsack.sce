@@ -106,12 +106,11 @@ fopt = [ 24381 ]
 // Calling Symphony
 [x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1)
 
-halt()   // Press return to continue
  
 //========= E N D === O F === D E M O =========//
 //
 // Load this script into the editor
 //
-filename = "fmincon.sce";
+filename = "symphony_knapsack.sce";
 dname = get_absolute_file_path(filename);
 editor ( dname + filename );
