@@ -1,0 +1,100 @@
+// Copyright (C) 2015 - IIT Bombay - FOSSEE
+//
+// Author: Harpreet Singh
+// Organization: FOSSEE, IIT Bombay
+// Email: harpreet.mertia@gmail.com
+// This file must be used under the terms of the CeCILL.
+// This source file is licensed as described in the file COPYING, which
+// you should have received as part of this distribution.  The terms
+// are also available at
+// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
+mprintf("Start Symphony\n");
+
+if ( isdef("sym_open") ) then
+        warning("Library is already loaded");
+        return;
+end
+
+etc_tlbx  = get_absolute_file_path("Symphony.start");
+etc_tlbx  = getshortpathname(etc_tlbx);
+root_tlbx = strncpy( etc_tlbx, length(etc_tlbx)-length("\etc\") );
+
+//Load  functions library
+// =============================================================================
+mprintf("\tLoad macros\n");
+pathmacros = pathconvert( root_tlbx ) + "macros" + filesep();
+symphony_lib = lib(pathmacros);
+clear pathmacros;
+
+// load gateways
+// =============================================================================
+
+mprintf("\tLoad gateways\n");
+[a, opt] = getversion();
+Version = opt(2);
+ilib_verbose(0);
+if getos()=="Windows" then
+    error(msprintf(gettext("Module is not for Windows.")));
+else
+//    lib_path = root_tlbx + "/thirdparty/linux/lib/" + Version;
+//    link(lib_path + "/libcoinblas.so.1.4.2");
+//    link(lib_path + "/libcoinlapack.so.1.5.2");
+//    link(lib_path + "/libCoinUtils.so.3.10.6");
+//    link(lib_path + "/libClp.so.1.13.6");
+//    link(lib_path + "/libClpSolver.so.1.13.6");
+//    link(lib_path + "/libOsi.so.1.12.4");
+//    link(lib_path + "/libOsiCommonTests.so.1.12.4");
+//    link(lib_path + "/libOsiClp.so.1.13.6");
+//    link(lib_path + "/libCgl.so.1.9.4");
+//    link(lib_path + "/libSym.so.3.6.10");
+//    link(lib_path + "/libOsiSym.so.3.6.10");
+
+    lib_path = "/home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/";
+    link(lib_path + "/libCoinUtils.la");
+    link(lib_path + "/libClp.la");
+    link(lib_path + "/libClpSolver.la");
+    link(lib_path + "/libOsi.la");
+    link(lib_path + "/libOsiCommonTests.la");
+    link(lib_path + "/libOsiClp.la");
+    link(lib_path + "/libCgl.la");
+    link(lib_path + "/libSym.la");
+    link(lib_path + "/libOsiSym.la");
+
+end
+exec(pathconvert(root_tlbx + filesep() + "sci_gateway" + filesep() + "loader_gateway.sce",%f));
+
+
+
+
+// Load and add help chapter
+// =============================================================================
+if ( %t ) then
+if or(getscilabmode() == ["NW";"STD"]) then
+        mprintf("\tLoad help\n");
+        path_addchapter = pathconvert(root_tlbx+"/jar");
+        if ( isdir(path_addchapter) <> [] ) then
+                add_help_chapter("Symphony", path_addchapter, %F);
+                clear add_help_chapter;
+        end
+        clear path_addchapter;
+end
+end
+
+// add demos
+// =============================================================================
+
+if ( %t ) then
+if or(getscilabmode() == ["NW";"STD"]) then
+    mprintf("\tLoad demos\n");
+    pathdemos = pathconvert(root_tlbx+"/demos/sci_symphony.dem.gateway.sce",%f,%t);
+    add_demo("Symphony",pathdemos);
+    clear pathdemos ;
+end
+end
+
+// =============================================================================
+
+clear root_tlbx;
+clear etc_tlbx;
+

@@ -38,17 +38,16 @@ if getos()=="Windows" then
     error(msprintf(gettext("Module is not for Windows.")));
 else
     lib_path = root_tlbx + "/thirdparty/linux/lib/" + Version;
-    link(lib_path + "/libcoinblas.so.1.4.2");
-    link(lib_path + "/libcoinlapack.so.1.5.2");
-    link(lib_path + "/libCoinUtils.so.3.10.6");
-    link(lib_path + "/libClp.so.1.13.6");
-    link(lib_path + "/libClpSolver.so.1.13.6");
-    link(lib_path + "/libOsi.so.1.12.4");
-    link(lib_path + "/libOsiCommonTests.so.1.12.4");
-    link(lib_path + "/libOsiClp.so.1.13.6");
-    link(lib_path + "/libCgl.so.1.9.4");
-    link(lib_path + "/libSym.so.3.6.10");
-    link(lib_path + "/libOsiSym.so.3.6.10");
+    link(lib_path + "/libCoinUtils.so");
+    link(lib_path + "/libClp.so");
+    link(lib_path + "/libClpSolver.so");
+    link(lib_path + "/libOsi.so");
+    link(lib_path + "/libOsiCommonTests.so");
+    link(lib_path + "/libOsiClp.so");
+    link(lib_path + "/libCgl.so");
+    link(lib_path + "/libSym.so");
+    link(lib_path + "/libOsiSym.so");
+
 end
 exec(pathconvert(root_tlbx + filesep() + "sci_gateway" + filesep() + "loader_gateway.sce",%f));
 

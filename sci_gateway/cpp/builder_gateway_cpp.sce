@@ -26,6 +26,7 @@ C_Flags=["-w -fpermissive -I"+tools_path+"include/coin -Wl,-rpath="+tools_path+"
 
 Linker_Flag = ["-L"+tools_path+"lib/"+Version+filesep()+"libSym"]
 
+
 //Name of All the Functions
 Function_Names = [
 		//for opening/closing environment and checking if it is open/close

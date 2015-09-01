@@ -14,7 +14,7 @@ library_names='libSym.so.3.6.10 libSym.so.3 libSym.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libCgl.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libOsiClp.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libClpSolver.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libClp.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libOsi.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libCoinUtils.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libcoinlapack.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib/libcoinblas.la -lgfortranbegin -lgfortran -lgomp'
+dependency_libs=' /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libCgl.la /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libOsiClp.la /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libClpSolver.la /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libClp.la /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libOsi.la /home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib/libCoinUtils.la'
 
 # Version information for libSym.
 current=9
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/harpreet/Downloads/SYMPHONY-5.6.10/build/x64//lib'
+libdir='/home/harpreet/symphony_work/SYMPHONY-5.6.10/build-debug/lib'

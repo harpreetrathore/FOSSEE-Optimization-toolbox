@@ -42,7 +42,7 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
     
     status = sym_getStatus();
 
-//    //Closing Symphony Environment
-//    sym_close();
+    //Closing Symphony Environment
+    sym_close();
 
 endfunction
