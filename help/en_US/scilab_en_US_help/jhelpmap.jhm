@@ -3,6 +3,9 @@
 <map version="1.0">
 <mapID target="index" url="index.html"/>
 <mapID target="section_19f4f1e5726c01d683e8b82be0a7e910" url="section_19f4f1e5726c01d683e8b82be0a7e910.html"/>
+<mapID target="symphony" url="symphony.html"/>
+<mapID target="symphony_mat" url="symphony_mat.html"/>
+<mapID target="section_508f0b211d17ea6769714cc144e6b731" url="section_508f0b211d17ea6769714cc144e6b731.html"/>
 <mapID target="sym_addConstr" url="sym_addConstr.html"/>
 <mapID target="sym_addVar" url="sym_addVar.html"/>
 <mapID target="sym_close" url="sym_close.html"/>
@@ -61,6 +64,4 @@
 <mapID target="sym_setVarSoln" url="sym_setVarSoln.html"/>
 <mapID target="sym_setVarUpper" url="sym_setVarUpper.html"/>
 <mapID target="sym_solve" url="sym_solve.html"/>
-<mapID target="symphony" url="symphony.html"/>
-<mapID target="symphony_mat" url="symphony_mat.html"/>
 </map>

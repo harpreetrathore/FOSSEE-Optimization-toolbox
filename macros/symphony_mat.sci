@@ -10,7 +10,7 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 function [xopt,fopt,iter] = symphony_mat (varargin)
-  // Solves a mixed integer linear programming constrained optimization problem.
+  // Solves a mixed integer linear programming constrained optimization problem in intlinprog format.
   //
   //   Calling Sequence
   //   xopt = symphony_mat(f,intcon,A,b)

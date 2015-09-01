@@ -17,7 +17,7 @@
 
   <refnamediv>
     <refname>symphony_mat</refname>
-    <refpurpose>Solves a mixed integer linear programming constrained optimization problem.</refpurpose>
+    <refpurpose>Solves a mixed integer linear programming constrained optimization problem in intlinprog format.</refpurpose>
   </refnamediv>
 
 

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE toc PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN" "http://java.sun.com/products/javahelp/toc_1_0.dtd">
 <toc version="1.0">
-<tocitem target="index" text="Symphony">
-<tocitem target="section_19f4f1e5726c01d683e8b82be0a7e910" text="Symphony">
+<tocitem target="index" text="Symphony Toolbox">
+<tocitem target="section_19f4f1e5726c01d683e8b82be0a7e910" text="Symphony Toolbox">
+<tocitem target="symphony" text="symphony"/>
+<tocitem target="symphony_mat" text="symphony_mat"/>
+<tocitem target="section_508f0b211d17ea6769714cc144e6b731" text="Symphony Native Functions">
 <tocitem target="sym_addConstr" text="sym_addConstr"/>
 <tocitem target="sym_addVar" text="sym_addVar"/>
 <tocitem target="sym_close" text="sym_close"/>
@@ -61,8 +64,7 @@
 <tocitem target="sym_setVarSoln" text="sym_setVarSoln"/>
 <tocitem target="sym_setVarUpper" text="sym_setVarUpper"/>
 <tocitem target="sym_solve" text="sym_solve"/>
-<tocitem target="symphony" text="symphony"/>
-<tocitem target="symphony_mat" text="symphony_mat"/>
+</tocitem>
 </tocitem>
 </tocitem>
 </toc>

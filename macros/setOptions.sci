@@ -9,9 +9,9 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function setOptions(varagin)
+function setOptions(varargin)
 
-    options = varagin(1);
+    options = varargin(1);
     nbOpt = size(options,2);
     
     value = strtod(options)

@@ -14,6 +14,9 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
     //Opening Symphony environment 
     sym_open();
 
+    //Setting Options for the Symphpony
+    setOptions(options);
+
    //Choosing to launch basic or advanced version
     if(~issparse(conMatrix)) then
         sym_loadProblemBasic(nbVar,nbCon,LB,UB,objCoef,isInt,objSense,conMatrix,conLB,conUB);
@@ -23,9 +26,6 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
         sym_loadProblem(nbVar,nbCon,LB,UB,objCoef,isInt,objSense,conMatrix_advanced,conLB,conUB);
     end
 
-
-    //Setting Options for the Symphpony
-    setOptions(options);
 
     op = sym_solve();
     
@@ -41,7 +41,7 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
     end
     
     status = sym_getStatus();
-    
+
 //    //Closing Symphony Environment
 //    sym_close();
 
