@@ -14,7 +14,7 @@ library_names='libClpSolver.so.1.13.6 libClpSolver.so.1 libClpSolver.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libClp.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libCoinUtils.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libcoinblas.la -lgfortranbegin -lgfortran'
+dependency_libs=' /home/fossee/SYMPHONY-5.6.10/build/lib/libClp.la /home/fossee/SYMPHONY-5.6.10/build/lib/libCoinUtils.la'
 
 # Version information for libClpSolver.
 current=14
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib'
+libdir='/home/fossee/SYMPHONY-5.6.10/build/lib'

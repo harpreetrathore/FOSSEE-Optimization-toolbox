@@ -14,7 +14,7 @@ library_names='libOsiSym.so.3.6.10 libOsiSym.so.3 libOsiSym.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libSym.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libCgl.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libOsiClp.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libClpSolver.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libClp.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libOsi.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libCoinUtils.la /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libcoinblas.la -lgfortranbegin -lgfortran -lgomp'
+dependency_libs=' /home/fossee/SYMPHONY-5.6.10/build/lib/libSym.la /home/fossee/SYMPHONY-5.6.10/build/lib/libCgl.la /home/fossee/SYMPHONY-5.6.10/build/lib/libOsiClp.la /home/fossee/SYMPHONY-5.6.10/build/lib/libClpSolver.la /home/fossee/SYMPHONY-5.6.10/build/lib/libClp.la /home/fossee/SYMPHONY-5.6.10/build/lib/libOsi.la /home/fossee/SYMPHONY-5.6.10/build/lib/libCoinUtils.la'
 
 # Version information for libOsiSym.
 current=9
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib'
+libdir='/home/fossee/SYMPHONY-5.6.10/build/lib'

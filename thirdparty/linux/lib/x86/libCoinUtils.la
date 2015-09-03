@@ -14,7 +14,7 @@ library_names='libCoinUtils.so.3.10.6 libCoinUtils.so.3 libCoinUtils.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib/libcoinblas.la -lgfortranbegin -lgfortran'
+dependency_libs=''
 
 # Version information for libCoinUtils.
 current=13
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/harpreet/Downloads/SYMPHONY-5.6.10/build/x32//lib'
+libdir='/home/fossee/SYMPHONY-5.6.10/build/lib'
