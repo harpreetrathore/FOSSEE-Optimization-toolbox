@@ -1,7 +1,5 @@
 mode (-1)
 
-clc
-
 // Reference
 // 
 // This problem is taken from 
@@ -78,11 +76,14 @@ intcon = []
 for i = 1:nbVar
     intcon = [intcon i];
 end
+
+options = ["time_limit" "40"];
+
 // The expected solution :
 // Output variables
 xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 1 0 0 1 0 0 1 0]
 // Optimal value
 fopt = [ 24381 ]
 // Calling Symphony
-[x,f,iter] = symphony_mat(objCoef,intcon,conMatrix,conUB,[],[],lb,ub);
+[x,f,iter] = symphony_mat(objCoef,intcon,conMatrix,conUB,[],[],lb,ub,options);
 

@@ -9,7 +9,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options)
+function [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options)
 
     //Opening Symphony environment 
     sym_open();
@@ -32,17 +32,21 @@ function [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMat
     xopt = [];
     fopt = [];
     status = [];
-    iter = [];
+    output = [];
     
      if (~op) then
             xopt = sym_getVarSoln();
+            // Symphony gives a row matrix converting it to column matrix
+            xopt = xopt';
+            
             fopt = sym_getObjVal();
-            iter = sym_getIterCount();
     end
     
     status = sym_getStatus();
+    
+    output = struct("Iterations"      , []);
+      
+      output.Iterations = sym_getIterCount();
 
-    //Closing Symphony Environment
-    sym_close();
 
 endfunction

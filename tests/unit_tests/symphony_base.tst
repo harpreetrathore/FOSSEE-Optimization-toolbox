@@ -76,12 +76,9 @@ conub = [ 25; 1.25; 1.25]
 isInt = [repmat(%t,1,4) repmat(%f,1,4)];
 
 // Calling Symphony
-[x,f,iter] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1);
+[x,f,status,output] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1);
 
-//In Symphony Library for optimal solution status = 227
-status = sym_getStatus();
-
-assert_close ( x , [1 1 0 1 7.25 0 0.25 3.5] , 1.e-7 );
+assert_close ( x , [1 1 0 1 7.25 0 0.25 3.5]' , 1.e-7 );
 assert_close ( f , [ 8495] , 1.e-7 );
 
 assert_checkequal( status , 227 );

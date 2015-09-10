@@ -1,7 +1,5 @@
 mode (-1)
 
-clc
-
 // Reference
 // 
 // This problem is taken from 
@@ -106,7 +104,7 @@ xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 0 0 0 0 0 
 fopt = [ 24381 ]
 
 // Calling Symphony
-[x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
+[x,f,status,output]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
 
  
 //========= E N D === O F === D E M O =========//

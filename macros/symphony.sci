@@ -9,7 +9,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [xopt,fopt,iter] = symphony (varargin)
+function [xopt,fopt,status,output] = symphony (varargin)
   // Solves a  mixed integer linear programming constrained optimization problem.
   //
   //   Calling Sequence
@@ -32,7 +32,8 @@ function [xopt,fopt,iter] = symphony (varargin)
   //   options : a 1xq marix of string, provided to set the paramters in symphony 
   //   xopt : a 1xn matrix of doubles, the computed solution of the optimization problem
   //   fopt : a 1x1 matrix of doubles, the function value at x
-  //   iter : a 1x1 matrix of doubles, contains the number od iterations done by symphony
+  //   status : status flag from symphony
+  //   output : The output data structure contains detailed informations about the optimization process.
   //   
   //   Description
   //   Search the minimum or maximum of a constrained mixed integer linear programming optimization problem specified by :
@@ -220,7 +221,7 @@ function [xopt,fopt,iter] = symphony (varargin)
       error(errmsg);
    end
 
-   [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options);
+   [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options);
 
 endfunction
 

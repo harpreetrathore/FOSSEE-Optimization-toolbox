@@ -9,7 +9,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-function [xopt,fopt,iter] = symphony_mat (varargin)
+function [xopt,fopt,status,iter] = symphony_mat (varargin)
   // Solves a mixed integer linear programming constrained optimization problem in intlinprog format.
   //
   //   Calling Sequence
@@ -236,6 +236,6 @@ function [xopt,fopt,iter] = symphony_mat (varargin)
     
     objSense = 1;
     
-   [xopt,fopt,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,lb,ub,conMatrix,conLB,conUB,objSense,options);
+   [xopt,fopt,status,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,lb,ub,conMatrix,conLB,conUB,objSense,options);
 
 endfunction
