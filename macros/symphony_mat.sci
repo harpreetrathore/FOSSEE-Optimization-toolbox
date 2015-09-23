@@ -17,7 +17,7 @@ function [xopt,fopt,status,iter] = symphony_mat (varargin)
   //   xopt = symphony_mat(f,intcon,A,b,Aeq,beq)
   //   xopt = symphony_mat(f,intcon,A,b,Aeq,beq,lb,ub)
   //   xopt = symphony_mat(f,intcon,A,b,Aeq,beq,lb,ub,options)
-  //   [xopt,fopt,iter] = symphony_mat( ... )
+  //   [xopt,fopt,status,output] = symphony_mat( ... )
   //   
   //   Parameters
   //   f : a 1xn matrix of doubles, where n is number of variables, contains coefficients of the variables in the objective 
@@ -31,22 +31,22 @@ function [xopt,fopt,status,iter] = symphony_mat (varargin)
   //   options : a 1xq marix of string, provided to set the paramters in symphony
   //   xopt : a 1xn matrix of doubles, the computed solution of the optimization problem
   //   fopt : a 1x1 matrix of doubles, the function value at x
-  //   iter : a 1x1 matrix of doubles, contains the number od iterations done by symphony
+  //   output : The output data structure contains detailed informations about the optimization process.
   //   
   //   Description
   //   Search the minimum or maximum of a constrained mixed integer linear programming optimization problem specified by :
   //   find the minimum or maximum of f(x) such that 
   //
   //   <latex>
-  //   \begin{eqnarray}
-  //   \mbox{min}_{x}    & f(x) \\
-  //   \mbox{subject to} & c(x) \leq 0 \\
-  //                      & c_{eq}(x) = 0 \\
-  //                      & Ax \leq b \\
-  //                      & A_{eq} x = b_{eq} \\
-  //                      & lb \leq x \leq ub
+  //    \begin{eqnarray}
+  //    &\mbox{min}_{x}
+  //    & f(x) \\
+  //    & \text{subject to} & conLB \leq C(x) \leq conUB \\
+  //    & & lb \leq x \leq ub \\
   //    \end{eqnarray}
-  //    </latex>
+  //   </latex>
+  //   
+  //   We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.
   //
   // Examples
   //    // Objective function

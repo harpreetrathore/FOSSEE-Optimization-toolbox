@@ -28,7 +28,7 @@
    xopt = symphony_mat(f,intcon,A,b,Aeq,beq)
    xopt = symphony_mat(f,intcon,A,b,Aeq,beq,lb,ub)
    xopt = symphony_mat(f,intcon,A,b,Aeq,beq,lb,ub,options)
-   [xopt,fopt,iter] = symphony_mat( ... )
+   [xopt,fopt,status,output] = symphony_mat( ... )
    
    </synopsis>
 </refsynopsisdiv>
@@ -58,8 +58,8 @@
       <listitem><para> a 1xn matrix of doubles, the computed solution of the optimization problem</para></listitem></varlistentry>
    <varlistentry><term>fopt :</term>
       <listitem><para> a 1x1 matrix of doubles, the function value at x</para></listitem></varlistentry>
-   <varlistentry><term>iter :</term>
-      <listitem><para> a 1x1 matrix of doubles, contains the number od iterations done by symphony</para></listitem></varlistentry>
+   <varlistentry><term>output :</term>
+      <listitem><para> The output data structure contains detailed informations about the optimization process.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -72,14 +72,15 @@ find the minimum or maximum of f(x) such that
    <para>
 <latex>
 \begin{eqnarray}
-\mbox{min}_{x}    &amp; f(x) \\
-\mbox{subject to} &amp; c(x) \leq 0 \\
-&amp; c_{eq}(x) = 0 \\
-&amp; Ax \leq b \\
-&amp; A_{eq} x = b_{eq} \\
-&amp; lb \leq x \leq ub
+&amp;\mbox{min}_{x}
+&amp; f(x) \\
+&amp; \text{subject to} &amp; conLB \leq C(x) \leq conUB \\
+&amp; &amp; lb \leq x \leq ub \\
 \end{eqnarray}
 </latex>
+   </para>
+   <para>
+We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.
    </para>
    <para>
 </para>

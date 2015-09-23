@@ -16,7 +16,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
   //   xopt = symphony(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB)
   //   xopt = symphony(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense)
   //   xopt = symphony(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options)
-  //   [xopt,fopt,iter] = symphony( ... )
+  //   [xopt,fopt,status,output] = symphony( ... )
   //   
   //   Parameters
   //   nbVar : a 1 x 1 matrix of doubles, number of variables
@@ -43,12 +43,12 @@ function [xopt,fopt,status,output] = symphony (varargin)
   //    \begin{eqnarray}
   //    &\mbox{min}_{x}
   //    & f(x) \\
-  //    & \text{subject to} & conLB \geq C(x) \leq conUB \\
-  //    & & lb \geq x \leq ub \\
+  //    & \text{subject to} & conLB \leq C(x) \leq conUB \\
+  //    & & lb \leq x \leq ub \\
   //    \end{eqnarray}
   //   </latex>
   //   
-  //   
+  //   We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.
   //
   //   Examples
   //    //A basic case : 

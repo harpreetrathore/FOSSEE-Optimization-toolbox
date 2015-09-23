@@ -41,7 +41,7 @@
 <span class="default">xopt</span><span class="default"> = </span><span class="functionid">symphony_mat</span><span class="default">(</span><span class="default">f</span><span class="default">,</span><span class="default">intcon</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">)</span>
 <span class="default">xopt</span><span class="default"> = </span><span class="functionid">symphony_mat</span><span class="default">(</span><span class="default">f</span><span class="default">,</span><span class="default">intcon</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">)</span>
 <span class="default">xopt</span><span class="default"> = </span><span class="functionid">symphony_mat</span><span class="default">(</span><span class="default">f</span><span class="default">,</span><span class="default">intcon</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">options</span><span class="default">)</span>
-<span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">iter</span><span class="default">] = </span><span class="functionid">symphony_mat</span><span class="default">( ... )</span></pre></div></div>
+<span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">status</span><span class="default">,</span><span class="default">output</span><span class="default">] = </span><span class="functionid">symphony_mat</span><span class="default">( ... )</span></pre></div></div>
 
 <div class="refsection"><h3 class="title">Parameters</h3>
    <dl><dt><span class="term">f :</span>
@@ -66,13 +66,14 @@
       <dd><p class="para">a 1xn matrix of doubles, the computed solution of the optimization problem</p></dd></dt>
    <dt><span class="term">fopt :</span>
       <dd><p class="para">a 1x1 matrix of doubles, the function value at x</p></dd></dt>
-   <dt><span class="term">iter :</span>
-      <dd><p class="para">a 1x1 matrix of doubles, contains the number od iterations done by symphony</p></dd></dt></dl></div>
+   <dt><span class="term">output :</span>
+      <dd><p class="para">The output data structure contains detailed informations about the optimization process.</p></dd></dt></dl></div>
 
 <div class="refsection"><h3 class="title">Description</h3>
    <p class="para">Search the minimum or maximum of a constrained mixed integer linear programming optimization problem specified by :
 find the minimum or maximum of f(x) such that</p>
-   <p class="para"><span><img src='./_LaTeX_symphony_mat.xml_1.png' style='position:relative;top:64px;width:186px;height:136px'/></span></p>
+   <p class="para"><span><img src='./_LaTeX_symphony_mat.xml_1.png' style='position:relative;top:31px;width:293px;height:70px'/></span></p>
+   <p class="para">We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.</p>
    <p class="para"></p></div>
 
 <div class="refsection"><h3 class="title">Examples</h3>

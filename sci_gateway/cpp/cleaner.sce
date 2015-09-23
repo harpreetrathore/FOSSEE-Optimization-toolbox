@@ -10,12 +10,12 @@ if fileinfo('loader.sce') <> [] then
   mdelete('loader.sce');
 end
 // ------------------------------------------------------
-if fileinfo('libsymphonytools.so') <> [] then
-  mdelete('libsymphonytools.so');
+if fileinfo('libFAMOS.so') <> [] then
+  mdelete('libFAMOS.so');
 end
 // ------------------------------------------------------
-if fileinfo('libsymphonytools.c') <> [] then
-  mdelete('libsymphonytools.c');
+if fileinfo('libFAMOS.c') <> [] then
+  mdelete('libFAMOS.c');
 end
 // ------------------------------------------------------
 chdir(curdir);

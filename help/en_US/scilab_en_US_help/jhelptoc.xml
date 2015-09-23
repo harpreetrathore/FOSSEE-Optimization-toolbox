@@ -3,6 +3,7 @@
 <toc version="1.0">
 <tocitem target="index" text="Symphony Toolbox">
 <tocitem target="section_19f4f1e5726c01d683e8b82be0a7e910" text="Symphony Toolbox">
+<tocitem target="qpipopt" text="qpipopt"/>
 <tocitem target="symphony" text="symphony"/>
 <tocitem target="symphony_mat" text="symphony_mat"/>
 <tocitem target="section_508f0b211d17ea6769714cc144e6b731" text="Symphony Native Functions">

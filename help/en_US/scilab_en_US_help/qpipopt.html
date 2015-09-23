@@ -1,0 +1,143 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>qpipopt</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">&lt;&lt; Symphony Toolbox</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="symphony.html">symphony &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">Symphony Toolbox</a> &gt;&gt; <a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a> &gt; qpipopt</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">qpipopt</h1>
+    <p class="refpurpose">Solves a linear quadratic problem.</p></div>
+
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipopt</span><span class="default">(</span><span class="default">nbVar</span><span class="default">,</span><span class="default">nbCon</span><span class="default">,</span><span class="default">Q</span><span class="default">,</span><span class="default">p</span><span class="default">,</span><span class="default">LB</span><span class="default">,</span><span class="default">UB</span><span class="default">,</span><span class="default">conMatrix</span><span class="default">,</span><span class="default">conLB</span><span class="default">,</span><span class="default">conUB</span><span class="default">)</span>
+<span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lamda</span><span class="default">] = </span><span class="functionid">qpipopt</span><span class="default">( ... )</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Parameters</h3>
+   <dl><dt><span class="term">nbVar :</span>
+      <dd><p class="para">a 1 x 1 matrix of doubles, number of variables</p></dd></dt>
+   <dt><span class="term">nbCon :</span>
+      <dd><p class="para">a 1 x 1 matrix of doubles, number of constraints</p></dd></dt>
+   <dt><span class="term">Q :</span>
+      <dd><p class="para">a n x n matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</p></dd></dt>
+   <dt><span class="term">p :</span>
+      <dd><p class="para">a 1 x n matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</p></dd></dt>
+   <dt><span class="term">LB :</span>
+      <dd><p class="para">a 1 x n matrix of doubles, where n is number of variables, contains lower bounds of the variables.</p></dd></dt>
+   <dt><span class="term">UB :</span>
+      <dd><p class="para">a 1 x n matrix of doubles, where n is number of variables, contains upper bounds of the variables.</p></dd></dt>
+   <dt><span class="term">conMatrix :</span>
+      <dd><p class="para">a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix</p></dd></dt>
+   <dt><span class="term">conLB :</span>
+      <dd><p class="para">a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints.</p></dd></dt>
+   <dt><span class="term">conUB :</span>
+      <dd><p class="para">a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints.</p></dd></dt>
+   <dt><span class="term">xopt :</span>
+      <dd><p class="para">a 1xn matrix of doubles, the computed solution of the optimization problem.</p></dd></dt>
+   <dt><span class="term">fopt :</span>
+      <dd><p class="para">a 1x1 matrix of doubles, the function value at x.</p></dd></dt>
+   <dt><span class="term">exitflag :</span>
+      <dd><p class="para">Integer identifying the reason the algorithm terminated.</p></dd></dt>
+   <dt><span class="term">output :</span>
+      <dd><p class="para">Structure containing information about the optimization.</p></dd></dt>
+   <dt><span class="term">lambda :</span>
+      <dd><p class="para">Structure containing the Lagrange multipliers at the solution x (separated by constraint type).</p></dd></dt></dl></div>
+
+<div class="refsection"><h3 class="title">Description</h3>
+   <p class="para">Search the minimum of a constrained linear quadratic optimization problem specified by :
+find the minimum of f(x) such that</p>
+   <p class="para"><span><img src='./_LaTeX_qpipopt.xml_1.png' style='position:relative;top:31px;width:293px;height:70px'/></span></p>
+   <p class="para">We are calling IPOpt for solving the quadratic problem, IPOpt is a library written in C++. The code has been written by ​Andreas Wächter and ​Carl Laird.</p>
+   <p class="para"></p></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Find x in R^6 such that:</span>
+
+<span class="scilabid">conMatrix</span><span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span>
+<span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">4</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilabnumber">6</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span>
+<span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span>
+<span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">conLB</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">2</span> <span class="scilabnumber">3</span> <span class="scilaboperator">-</span><span class="scilabconstants">%inf</span> <span class="scilaboperator">-</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span><span class="scilabdefault">;</span>
+<span class="scilabid">conUB</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">2</span> <span class="scilabnumber">3</span> <span class="scilaboperator">-</span><span class="scilabnumber">1</span> <span class="scilabnumber">2.5</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span><span class="scilabdefault">;</span>
+<span class="scilabcomment">//with  x between ci and cs:</span>
+<span class="scilabid">lb</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1000</span> <span class="scilaboperator">-</span><span class="scilabnumber">10000</span> <span class="scilabnumber">0</span> <span class="scilaboperator">-</span><span class="scilabnumber">1000</span> <span class="scilaboperator">-</span><span class="scilabnumber">1000</span> <span class="scilaboperator">-</span><span class="scilabnumber">1000</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">10000</span> <span class="scilabnumber">100</span> <span class="scilabnumber">1.5</span> <span class="scilabnumber">100</span> <span class="scilabnumber">100</span> <span class="scilabnumber">1000</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabcomment">//and minimize 0.5*x</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*Q*x + p</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*x with</span>
+<span class="scilabid">p</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilabnumber">2</span><span class="scilabdefault">;</span><span class="scilabnumber">3</span><span class="scilabdefault">;</span><span class="scilabnumber">4</span><span class="scilabdefault">;</span><span class="scilabnumber">5</span><span class="scilabdefault">;</span><span class="scilabnumber">6</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span> <span class="scilabid">Q</span><span class="scilaboperator">=</span><a class="scilabcommand" href="scilab://eye">eye</a><span class="scilabopenclose">(</span><span class="scilabnumber">6</span><span class="scilabdefault">,</span><span class="scilabnumber">6</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">nbVar</span> <span class="scilaboperator">=</span> <span class="scilabnumber">6</span><span class="scilabdefault">;</span>
+<span class="scilabid">nbCon</span> <span class="scilaboperator">=</span> <span class="scilabnumber">5</span><span class="scilabdefault">;</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span><span class="scilaboperator">=</span><span class="scilabid">qpipopt</span><span class="scilabopenclose">(</span><span class="scilabid">nbVar</span><span class="scilabdefault">,</span><span class="scilabid">nbCon</span><span class="scilabdefault">,</span><span class="scilabid">Q</span><span class="scilabdefault">,</span><span class="scilabid">p</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabdefault">,</span><span class="scilabid">conMatrix</span><span class="scilabdefault">,</span><span class="scilabid">conLB</span><span class="scilabdefault">,</span><span class="scilabid">conUB</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//min. -8*x1 -16*x2 + x1^2 + 4* x2^2</span>
+<span class="scilabcomment">//  such that</span>
+<span class="scilabcomment">//     x1 + x2 </span><span class="scilabcomment">&#0060;</span><span class="scilabcomment">= 5,</span>
+<span class="scilabcomment">//     x1 </span><span class="scilabcomment">&#0060;</span><span class="scilabcomment">= 3,</span>
+<span class="scilabcomment">//     x1 </span><span class="scilabcomment">&#0062;</span><span class="scilabcomment">= 0,</span>
+<span class="scilabcomment">//     x2 </span><span class="scilabcomment">&#0062;</span><span class="scilabcomment">= 0</span>
+<span class="scilabid">conMatrix</span><span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">1</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">conLB</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">conUB</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">5</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabcomment">//with  x between ci and cs:</span>
+<span class="scilabid">lb</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabcomment">//and minimize 0.5*x</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*Q*x + p</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*x with</span>
+<span class="scilabid">p</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">8</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">16</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">Q</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">;</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">4</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">nbVar</span> <span class="scilaboperator">=</span> <span class="scilabnumber">2</span><span class="scilabdefault">;</span>
+<span class="scilabid">nbCon</span> <span class="scilaboperator">=</span> <span class="scilabnumber">1</span><span class="scilabdefault">;</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">qpipopt</span><span class="scilabopenclose">(</span><span class="scilabid">nbVar</span><span class="scilabdefault">,</span><span class="scilabid">nbCon</span><span class="scilabdefault">,</span><span class="scilabid">Q</span><span class="scilabdefault">,</span><span class="scilabid">p</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabdefault">,</span><span class="scilabid">conMatrix</span><span class="scilabdefault">,</span><span class="scilabid">conLB</span><span class="scilabdefault">,</span><span class="scilabid">conUB</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Authors</h3>
+   <ul class="itemizedlist"><li class="member">Keyur Joshi, Saikiran, Iswarya, Harpreet Singh</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">&lt;&lt; Symphony Toolbox</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="symphony.html">symphony &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

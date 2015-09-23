@@ -9,7 +9,7 @@
 // are also available at
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
-mprintf("Start Symphony\n");
+mprintf("Start FAMOS\n");
 
 if ( isdef("sym_open") ) then
         warning("Library is already loaded");
@@ -47,6 +47,11 @@ else
     link(lib_path + "/libCgl.so");
     link(lib_path + "/libSym.so");
     link(lib_path + "/libOsiSym.so");
+    link(lib_path + "/libcoinblas.so");
+    link(lib_path + "/libcoinmetis.so");
+    link(lib_path + "/libcoinmumps.so");
+    link(lib_path + "/libipopt.so");
+
 
 end
 exec(pathconvert(root_tlbx + filesep() + "sci_gateway" + filesep() + "loader_gateway.sce",%f));
