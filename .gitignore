@@ -1,0 +1,17 @@
+# Scilab generates these by itself upon running builder.sce
+cleaner.sce
+loader.sce
+unloader.sce
+*.bin
+
+# Libraries
+lib*.c
+*.so
+
+# Temporary files
+*~
+*.swp
+
+# Other
+*.pdf
+*.gz
