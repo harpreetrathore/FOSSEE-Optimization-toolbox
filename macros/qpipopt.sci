@@ -21,9 +21,9 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
   //   nbVar : a 1 x 1 matrix of doubles, number of variables
   //   nbCon : a 1 x 1 matrix of doubles, number of constraints
   //   Q : a n x n matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
-  //   p : a 1 x n matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
-  //   LB : a 1 x n matrix of doubles, where n is number of variables, contains lower bounds of the variables.
-  //   UB : a 1 x n matrix of doubles, where n is number of variables, contains upper bounds of the variables.
+  //   p : a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
+  //   LB : a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.
+  //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
   //   conMatrix : a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix 
   //   conLB : a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints. 
   //   conUB : a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints.
