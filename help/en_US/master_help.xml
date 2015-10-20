@@ -2,6 +2,7 @@
 <!DOCTYPE book [
 <!--Begin Entities-->
 <!ENTITY a6b85f6e0c98751f20b68663a23cb4cd2 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/qpipopt.xml">
+<!ENTITY a44928acec52adf395379e18fcff06730 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/qpipopt_mat.xml">
 <!ENTITY aca972f273143ecb39f56b42e4723ac67 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony.xml">
 <!ENTITY a9953e61e8dd264a86df73772d3055e7f SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony_mat.xml">
 <!ENTITY acc223314e8a8bc290a13618df33a6237 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/Symphony Native Function/sym_addConstr.xml">
@@ -79,6 +80,7 @@
 <part xml:id='section_19f4f1e5726c01d683e8b82be0a7e910'>
 <title>Symphony Toolbox</title>
 &a6b85f6e0c98751f20b68663a23cb4cd2;
+&a44928acec52adf395379e18fcff06730;
 &aca972f273143ecb39f56b42e4723ac67;
 &a9953e61e8dd264a86df73772d3055e7f;
 <chapter xml:id='section_508f0b211d17ea6769714cc144e6b731'>

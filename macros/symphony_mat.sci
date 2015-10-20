@@ -153,7 +153,7 @@ function [xopt,fopt,status,iter] = symphony_mat (varargin)
    [lhs , rhs] = argn();
 	
 //To check the number of argument given by user
-   if ( rhs < 4 | rhs = 5 | rhs = 7 | rhs > 9 ) then
+   if ( rhs < 4 | rhs == 5 | rhs == 7 | rhs > 9 ) then
     errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be in the set [4 6 8 9]"), "Symphony", rhs);
     error(errmsg)
    end

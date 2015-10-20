@@ -44,11 +44,13 @@ bool QuadNLP::get_bounds_info(Index n, Number* x_l, Number* x_u, Index m, Number
 	for(i=0;i<n;i++){
 		x_l[i]=varLB_[i];
 		x_u[i]=varUB_[i];
+		sciprint("VarLU %lf %lf \n",x_l[i],x_u[i]);
 		}
 
 	for(i=0;i<m;i++){
 		g_l[i]=conLB_[i];
 		g_u[i]=conUB_[i];
+		sciprint("conLU %lf %lf \n",g_l[i],g_u[i]);
 		}
 	return true;
 	}

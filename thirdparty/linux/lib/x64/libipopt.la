@@ -14,7 +14,7 @@ library_names='libipopt.so.1.10.4 libipopt.so.1 libipopt.so'
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /home/harpreet/symphony_work/Ipopt-3.12.4/symbuild/lib/libcoinmumps.la /home/harpreet/symphony_work/Ipopt-3.12.4/symbuild/lib/libcoinmetis.la /home/harpreet/symphony_work/Ipopt-3.12.4/symbuild/lib/libcoinlapack.la /home/harpreet/symphony_work/Ipopt-3.12.4/symbuild/lib/libcoinblas.la -lgfortran -lquadmath -ldl'
+dependency_libs=' /home/harpreet/Downloads/Ipopt-3.12.4/build/lib/libcoinmumps.la /home/harpreet/Downloads/Ipopt-3.12.4/build/lib/libcoinlapack.la /home/harpreet/Downloads/Ipopt-3.12.4/build/lib/libcoinblas.la -lgfortran -lquadmath -ldl'
 
 # Version information for libipopt.
 current=11
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/harpreet/symphony_work/Ipopt-3.12.4/symbuild/lib'
+libdir='/home/harpreet/Downloads/Ipopt-3.12.4/build/lib'

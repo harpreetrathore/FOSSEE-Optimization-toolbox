@@ -48,7 +48,6 @@ else
     link(lib_path + "/libSym.so");
     link(lib_path + "/libOsiSym.so");
     link(lib_path + "/libcoinblas.so");
-    link(lib_path + "/libcoinlapack.so");
     link(lib_path + "/libcoinmumps.so");
     link(lib_path + "/libipopt.so");
 

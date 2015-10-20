@@ -93,7 +93,7 @@ conLB=repmat(0,nbCon,1);
 // Upper Bound of constraints
 conUB=[11927 13727 11551 13056 13460 ]';
 
-options = ["time_limit" "40"];
+options = ["tie_limit" "40"];
 
 // The expected solution :
 
