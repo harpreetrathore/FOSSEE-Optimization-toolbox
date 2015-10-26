@@ -75,8 +75,8 @@ class QuadNLP : public TNLP
 		/*
 		 * Constructor 
 		*/
-		QuadNLP(Index nV, Index nC, Number *qM, Number *lM, Number *cM, Number *cUB, Number *cLB, Number *vUB, Number *vLB,Number *vG):
-			numVars_(nV),numConstr_(nC),qMatrix_(qM),lMatrix_(lM),conMatrix_(cM),conUB_(cUB),conLB_(cLB),varUB_(vUB),varLB_(vLB),varGuess_(vG),finalX_(0), finalZl_(0), finalZu_(0), finalObjVal_(1e20){	}
+		QuadNLP(Index nV, Index nC, Number *qM, Number *lM, Number *cM, Number *cUB, Number *cLB, Number *vUB, Number *vLB):
+			numVars_(nV),numConstr_(nC),qMatrix_(qM),lMatrix_(lM),conMatrix_(cM),conUB_(cUB),conLB_(cLB),varUB_(vUB),varLB_(vLB),finalX_(0), finalZl_(0), finalZu_(0), finalObjVal_(1e20){	}
 
 
 		/* Go to :

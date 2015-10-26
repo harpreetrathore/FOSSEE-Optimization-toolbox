@@ -296,7 +296,7 @@ int sci_solveqp(char *fname)
 	
 		using namespace Ipopt;
 
-		SmartPtr<QuadNLP> Prob = new QuadNLP(nVars,nCons,QItems,PItems,ConItems,conUB,conLB,varUB,varLB,init_guess);
+		SmartPtr<QuadNLP> Prob = new QuadNLP(nVars,nCons,QItems,PItems,ConItems,conUB,conLB,varUB,varLB);
 		SmartPtr<IpoptApplication> app = IpoptApplicationFactory();
   		app->RethrowNonIpoptException(true);
 

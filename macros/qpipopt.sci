@@ -15,6 +15,7 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
   //
   //   Calling Sequence
   //   xopt = qpipopt(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB)
+  //   xopt = qpipopt(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB,x0)
   //   [xopt,fopt,exitflag,output,lamda] = qpipopt( ... )
   //   
   //   Parameters
@@ -26,7 +27,8 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
   //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
   //   conMatrix : a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix 
   //   conLB : a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints. 
-  //   conUB : a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints.
+  //   conUB : a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints. 
+  //   x0 : a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.
   //   xopt : a 1xn matrix of doubles, the computed solution of the optimization problem.
   //   fopt : a 1x1 matrix of doubles, the function value at x.
   //   exitflag : Integer identifying the reason the algorithm terminated.
@@ -92,8 +94,8 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
    [lhs , rhs] = argn();
 	
 //To check the number of argument given by user
-   if ( rhs ~= 9 ) then
-    errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be 9"), "qpipopt", rhs);
+   if ( rhs < 9 | rhs > 10 ) then
+    errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be 9 or 10"), "qpipopt", rhs);
     error(errmsg)
    end
    
@@ -107,6 +109,12 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
    conMatrix = varargin(7);
    conLB = varargin(8);
    conUB = varargin(9);
+   
+   if ( rhs<10 ) then
+      x0 = repmat(0,1,nbVar)
+   else
+      x0 = varargin(10);
+  end
    
    //IPOpt wants it in row matrix form
    p = p';
@@ -160,11 +168,17 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
 
    //Check the size of constraints of Upper Bound which should equal to the number of constraints
    if ( size(conUB,2) ~= nbCon) then
-      errmsg = msprintf(gettext("%s: The Upper Bound of constraints is not equal to the number of constraints"), "qp_ipopt");
+      errmsg = msprintf(gettext("%s: The Upper Bound of constraints is not equal to the number of constraints"), "qpipopt");
       error(errmsg);
    end
     
-   [xopt,fopt,status,iter,Zl,Zu,lmbda] = solveqp(nbVar,nbCon,Q,p,conMatrix,conLB,conUB,LB,UB);
+   //Check the size of initial of variables which should equal to the number of variables
+   if ( size(x0,2) ~= nbVar) then
+      errmsg = msprintf(gettext("%s: The initial guess of variables is not equal to the number of variables"), "qpipopt");
+      error(errmsg);
+   end
+    
+   [xopt,fopt,status,iter,Zl,Zu,lmbda] = solveqp(nbVar,nbCon,Q,p,conMatrix,conLB,conUB,LB,UB,x0);
    
    xopt = xopt';
    exitflag = status;
