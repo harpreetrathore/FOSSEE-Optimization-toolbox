@@ -21,7 +21,11 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
   //   Parameters
   //   nbVar : a 1 x 1 matrix of doubles, number of variables
   //   nbCon : a 1 x 1 matrix of doubles, number of constraints
+<<<<<<< HEAD
   //   Q : a n x n symmetric matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
+=======
+  //   Q : a n x n matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
+>>>>>>> c2679735a3443017e003ca095d0476bae2dd8e40
   //   p : a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
   //   LB : a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.
   //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
