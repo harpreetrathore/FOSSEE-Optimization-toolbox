@@ -50,7 +50,7 @@ int sci_sym_set_defaults(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -123,7 +123,7 @@ int sci_sym_set_int_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -181,7 +181,7 @@ int sci_sym_get_int_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -243,7 +243,7 @@ int sci_sym_set_dbl_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -302,7 +302,7 @@ int sci_sym_get_dbl_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -363,7 +363,7 @@ int sci_sym_set_str_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}
@@ -421,7 +421,7 @@ int sci_sym_get_str_param(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 
 	return 0;
 	}

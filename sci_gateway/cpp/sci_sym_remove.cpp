@@ -126,7 +126,7 @@ int sci_sym_delete_cols(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	free(value);//freeing the memory of the allocated pointer
 	return 0;
 	}
@@ -242,7 +242,7 @@ int sci_sym_delete_rows(char *fname, unsigned long fname_len){
 		}
 
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	free(value);//freeing the memory of the allocated pointer
 	return 0;
 	}

@@ -16,7 +16,7 @@ function [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,
 
     //Setting Options for the Symphpony
     setOptions(options);
-
+    
    //Choosing to launch basic or advanced version
     if(~issparse(conMatrix)) then
         sym_loadProblemBasic(nbVar,nbCon,LB,UB,objCoef,isInt,objSense,conMatrix,conLB,conUB);
@@ -26,8 +26,8 @@ function [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,
         sym_loadProblem(nbVar,nbCon,LB,UB,objCoef,isInt,objSense,conMatrix_advanced,conLB,conUB);
     end
 
-
     op = sym_solve();
+    disp(op);
     
     xopt = [];
     fopt = [];

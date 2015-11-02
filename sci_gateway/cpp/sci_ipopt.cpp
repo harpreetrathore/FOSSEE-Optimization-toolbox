@@ -4,6 +4,7 @@
 	Sai Kiran
 	Keyur Joshi
 	Iswarya
+	Harpreet Singh
  */
 
 
@@ -51,13 +52,14 @@ bool readSparse(int arg,int *iRows,int *iCols,int *iNbItem,int** piNbItemRow, in
 int sci_solveqp(char *fname)
 {
 	
-	CheckInputArgument(pvApiCtx, 10, 10); // We need total 10 input arguments.
+	CheckInputArgument(pvApiCtx, 11, 11); // We need total 10 input arguments.
 	CheckOutputArgument(pvApiCtx, 7, 7);
 	
 	// Error management variable
 	SciErr sciErr;
-	int retVal=0, *piAddressVarQ = NULL,*piAddressVarP = NULL,*piAddressVarCM = NULL,*piAddressVarCUB = NULL,*piAddressVarCLB = NULL, 		*piAddressVarLB = NULL,*piAddressVarUB = NULL,*piAddressVarG = NULL;
-	double *QItems=NULL,*PItems=NULL,*ConItems=NULL,*conUB=NULL,*conLB=NULL,*varUB=NULL,*varLB=NULL,*init_guess = NULL,x,f,iter;
+	int retVal=0, *piAddressVarQ = NULL,*piAddressVarP = NULL,*piAddressVarCM = NULL,*piAddressVarCUB = NULL,*piAddressVarCLB = NULL, 		*piAddressVarLB = NULL,*piAddressVarUB = NULL,*piAddressVarG = NULL,*piAddressVarParam = NULL;
+	double *QItems=NULL,*PItems=NULL,*ConItems=NULL,*conUB=NULL,*conLB=NULL,*varUB=NULL,*varLB=NULL,*init_guess = NULL;
+	double *cpu_time=NULL, *max_iter=NULL, x,f,iter;
 	static unsigned int nVars = 0,nCons = 0;
 	unsigned int temp1 = 0,temp2 = 0;
 
@@ -294,6 +296,34 @@ int sci_solveqp(char *fname)
 		return 0;
 	}
 	
+	//Setting the parameters
+	/* get Address of inputs */
+	sciErr = getVarAddressFromPosition(pvApiCtx, 11, &piAddressVarParam);
+	if (sciErr.iErr)
+	{
+		printError(&sciErr, 0);
+		return 0;
+	}
+
+	temp1 = 1;
+	temp2 = 1;
+
+	/* get matrix */
+	sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddressVarParam, 2, &temp1,&temp2, &max_iter);
+	if (sciErr.iErr)
+	{
+		printError(&sciErr, 0);
+		return 0;
+	}
+
+	/* get matrix */
+	sciErr = getMatrixOfDoubleInList(pvApiCtx, piAddressVarParam, 4, &temp1,&temp2, &cpu_time);
+	if (sciErr.iErr)
+	{
+		printError(&sciErr, 0);
+		return 0;
+	}
+
 		using namespace Ipopt;
 
 		SmartPtr<QuadNLP> Prob = new QuadNLP(nVars,nCons,QItems,PItems,ConItems,conUB,conLB,varUB,varLB,init_guess);
@@ -304,6 +334,8 @@ int sci_solveqp(char *fname)
 		// Note: The following choices are only examples, they might not be
 		//       suitable for your optimization problem.
 		app->Options()->SetNumericValue("tol", 1e-7);
+		app->Options()->SetIntegerValue("max_iter", (int)*max_iter);
+		app->Options()->SetNumericValue("max_cpu_time", *cpu_time);
 		app->Options()->SetStringValue("mu_strategy", "adaptive");
 
 		// Indicates whether all equality constraints are linear 

@@ -8,18 +8,18 @@
 dlname='libcoinmumps.so.1'
 
 # Names of this library.
-library_names='libcoinmumps.so.1.4.7 libcoinmumps.so.1 libcoinmumps.so'
+library_names='libcoinmumps.so.1.5.4 libcoinmumps.so.1 libcoinmumps.so'
 
 # The name of the static archive.
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=''
+dependency_libs=' -lblas -L/usr/lib/gcc/i686-linux-gnu/4.6 -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../i386-linux-gnu -L/usr/lib/gcc/i686-linux-gnu/4.6/../../../../lib -L/lib/i386-linux-gnu -L/lib/../lib -L/usr/lib/i386-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/i686-linux-gnu/4.6/../../.. -lgfortran -lm -lquadmath'
 
 # Version information for libcoinmumps.
-current=5
-age=4
-revision=7
+current=6
+age=5
+revision=4
 
 # Is this an already installed library?
 installed=yes
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/tonio/Ipopt-3.11.0/build/lib'
+libdir='/home/mushirahmed/Desktop/Ipopt-3.12.4/build32_ipopt/lib'

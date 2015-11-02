@@ -8,18 +8,18 @@
 dlname='libipopt.so.1'
 
 # Names of this library.
-library_names='libipopt.so.1.9.0 libipopt.so.1 libipopt.so'
+library_names='libipopt.so.1.10.4 libipopt.so.1 libipopt.so'
 
 # The name of the static archive.
 old_library=''
 
 # Libraries that this one depends upon.
-dependency_libs=''
+dependency_libs=' /home/mushirahmed/Desktop/Ipopt-3.12.4/build32_ipopt/lib/libcoinmumps.la -lgfortran -lquadmath -llapack -lblas -ldl'
 
 # Version information for libipopt.
-current=10
-age=9
-revision=0
+current=11
+age=10
+revision=4
 
 # Is this an already installed library?
 installed=yes
@@ -32,4 +32,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/tonio/Ipopt-3.11.0/build/lib'
+libdir='/home/mushirahmed/Desktop/Ipopt-3.12.4/build32_ipopt/lib'

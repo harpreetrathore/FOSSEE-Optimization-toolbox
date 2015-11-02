@@ -162,7 +162,7 @@ int sci_sym_get_dbl_arr(char *fname, unsigned long fname_len){
 
 	//assign result position to output argument
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	return 0;
 	}
 
@@ -230,7 +230,7 @@ int sci_sym_get_row_sense(char *fname, unsigned long fname_len) {
 
 	//assign result position to output argument
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	return 0;	
 	}
 
@@ -339,7 +339,7 @@ int sci_sym_get_matrix(char *fname, unsigned long fname_len){
 
 	//assign result position to output argument
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx) + 1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	return 0;
 	}
 

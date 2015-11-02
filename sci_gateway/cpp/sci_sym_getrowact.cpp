@@ -58,7 +58,7 @@ int sci_sym_getRowActivity(char *fname){
 		return 1;
 	}
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	
 	delete[] rowAct;
 	

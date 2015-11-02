@@ -71,7 +71,8 @@ function [xopt,fopt,status,output] = symphony (varargin)
   //    xopt = [1 1 0 1 7.25 0 0.25 3.5]
   //    fopt = [8495]
   //    // Calling Symphony
-  //    [x,f,iter] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1);
+  //    [x,f,status,output] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1)
+  //
     //    Examples
     //    // An advanced case where we set some options in symphony
     //    // This problem is taken from 
@@ -145,7 +146,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
     //    conLB=repmat(0,nbCon,1);
     //    // Upper Bound of constraints
     //    conUB=[11927 13727 11551 13056 13460 ]';
-    //    options = ["time_limit" "25"]
+    //    options = list("time_limit", 25);
     //    // The expected solution :
     //    // Output variables
     //    xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 .. 
@@ -154,7 +155,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
     //    // Optimal value
     //    fopt = [ 24381 ]
     //    // Calling Symphony
-    //    [x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
+    //    [x,f,status,output] = symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
     //
     // Authors
     // Keyur Joshi, Saikiran, Iswarya, Harpreet Singh
@@ -185,7 +186,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
    end
    
    if (rhs<11) then
-      options = [];
+      options = list();
    else
       options = varargin(11);
    end
@@ -224,4 +225,3 @@ function [xopt,fopt,status,output] = symphony (varargin)
    [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options);
 
 endfunction
-

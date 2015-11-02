@@ -173,7 +173,7 @@ int return0toScilab()
 	//make it the output variable
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
 	//return it to scilab
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	return 0;
 }
 
@@ -189,6 +189,6 @@ int returnDoubleToScilab(double retVal)
 		return 1;
 	}
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 	return 0;
 }

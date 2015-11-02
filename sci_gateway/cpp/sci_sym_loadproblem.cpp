@@ -42,7 +42,7 @@ static void cleanupBeforeExit()
 		return;
 	}
 	AssignOutputVariable(pvApiCtx, 1) = nbInputArgument(pvApiCtx)+1;
-	ReturnArguments(pvApiCtx);
+	//ReturnArguments(pvApiCtx);
 }
 
 static int checkNumArgs()

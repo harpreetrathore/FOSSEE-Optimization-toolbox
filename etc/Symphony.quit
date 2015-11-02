@@ -10,3 +10,27 @@
 // http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 
 
+function quitModule()
+
+    etc_tlbx  = get_absolute_file_path("Symphony.quit");
+    etc_tlbx  = getshortpathname(etc_tlbx);
+    root_tlbx = strncpy( etc_tlbx, length(etc_tlbx)-length("\etc\") );
+
+    //unlink libraries
+    [bOK, ilib] = c_link('FAMOS');
+    if bOK then
+        ulink(ilib);
+    end
+
+    // Remove Preferences GUI
+    // =============================================================================
+    if getscilabmode() == "STD" then
+    removeModulePreferences(root_tlbx);
+    end
+
+endfunction
+
+
+quitModule();
+clear quitModule;
+

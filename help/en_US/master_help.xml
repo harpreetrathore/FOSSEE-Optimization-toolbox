@@ -2,9 +2,9 @@
 <!DOCTYPE book [
 <!--Begin Entities-->
 <!ENTITY a6b85f6e0c98751f20b68663a23cb4cd2 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/qpipopt.xml">
-<!ENTITY a44928acec52adf395379e18fcff06730 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/qpipopt_mat.xml">
+<!ENTITY a8549a3935858ed104f4749ca2243456a SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/qpipoptmat.xml">
 <!ENTITY aca972f273143ecb39f56b42e4723ac67 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony.xml">
-<!ENTITY a9953e61e8dd264a86df73772d3055e7f SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphony_mat.xml">
+<!ENTITY a9910ada35b57b0581e8a77d145abac4a SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/symphonymat.xml">
 <!ENTITY acc223314e8a8bc290a13618df33a6237 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/Symphony Native Function/sym_addConstr.xml">
 <!ENTITY a5e032b3334f53385f0ce250f0d5c18f2 SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/Symphony Native Function/sym_addVar.xml">
 <!ENTITY a11ac5af5f92741f96e56398fe6113c1a SYSTEM "/home/harpreet/symphony_work/symphony/help/en_US/Symphony Native Function/sym_close.xml">
@@ -80,9 +80,9 @@
 <part xml:id='section_19f4f1e5726c01d683e8b82be0a7e910'>
 <title>Symphony Toolbox</title>
 &a6b85f6e0c98751f20b68663a23cb4cd2;
-&a44928acec52adf395379e18fcff06730;
+&a8549a3935858ed104f4749ca2243456a;
 &aca972f273143ecb39f56b42e4723ac67;
-&a9953e61e8dd264a86df73772d3055e7f;
+&a9910ada35b57b0581e8a77d145abac4a;
 <chapter xml:id='section_508f0b211d17ea6769714cc144e6b731'>
 <title>Symphony Native Functions</title>
 &acc223314e8a8bc290a13618df33a6237;

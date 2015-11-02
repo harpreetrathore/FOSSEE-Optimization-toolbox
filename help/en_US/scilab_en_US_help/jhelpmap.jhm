@@ -4,9 +4,9 @@
 <mapID target="index" url="index.html"/>
 <mapID target="section_19f4f1e5726c01d683e8b82be0a7e910" url="section_19f4f1e5726c01d683e8b82be0a7e910.html"/>
 <mapID target="qpipopt" url="qpipopt.html"/>
-<mapID target="qpipopt_mat" url="qpipopt_mat.html"/>
+<mapID target="qpipoptmat" url="qpipoptmat.html"/>
 <mapID target="symphony" url="symphony.html"/>
-<mapID target="symphony_mat" url="symphony_mat.html"/>
+<mapID target="symphonymat" url="symphonymat.html"/>
 <mapID target="section_508f0b211d17ea6769714cc144e6b731" url="section_508f0b211d17ea6769714cc144e6b731.html"/>
 <mapID target="sym_addConstr" url="sym_addConstr.html"/>
 <mapID target="sym_addVar" url="sym_addVar.html"/>

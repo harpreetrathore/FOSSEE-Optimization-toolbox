@@ -12,9 +12,8 @@
 function setOptions(varargin)
 
     options = varargin(1);
-    nbOpt = size(options,2);
+    nbOpt = size(options);
     
-    value = strtod(options)
 
     if (nbOpt~=0) then
         for i = 1:(nbOpt/2)
@@ -22,21 +21,19 @@ function setOptions(varargin)
         //Setting the parameters
           
             //Check if the given parameter is String
-            if (value(2*i) == %nan ) then
-                sym_setStrParam(options(2*i - 1),value(2*i));
+            if (type(options(2*i)) == 10 ) then
+                sym_setStrParam(options(2*i - 1),options(2*i));
           
             //Check if the given parameter is Double
-            elseif(type(value(2*i))==1) then
-                sym_setDblParam(options(2*i - 1),value(2*i));
+            elseif(type(options(2*i))==1) then
+                sym_setDblParam(options(2*i - 1),options(2*i));
              
             //Check if the given parameter is Integer
-            elseif(type(value(2*i))==8)
+            elseif(type(options(2*i))==8)
                 sym_setIntParam(options(2*i - 1),options(2*i)); 
             end
-          
-        end
+         end
     end
     
-        
 endfunction
 

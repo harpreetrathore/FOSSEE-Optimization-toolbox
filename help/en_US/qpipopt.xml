@@ -25,6 +25,8 @@
    <title>Calling Sequence</title>
    <synopsis>
    xopt = qpipopt(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB)
+   xopt = qpipopt(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB,x0)
+   xopt = qpipopt(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB,x0,param)
    [xopt,fopt,exitflag,output,lamda] = qpipopt( ... )
    
    </synopsis>
@@ -40,17 +42,21 @@
    <varlistentry><term>Q :</term>
       <listitem><para> a n x n symmetric matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</para></listitem></varlistentry>
    <varlistentry><term>p :</term>
-      <listitem><para> a 1 x n matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
+      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
    <varlistentry><term>LB :</term>
-      <listitem><para> a 1 x n matrix of doubles, where n is number of variables, contains lower bounds of the variables.</para></listitem></varlistentry>
+      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.</para></listitem></varlistentry>
    <varlistentry><term>UB :</term>
-      <listitem><para> a 1 x n matrix of doubles, where n is number of variables, contains upper bounds of the variables.</para></listitem></varlistentry>
+      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.</para></listitem></varlistentry>
    <varlistentry><term>conMatrix :</term>
       <listitem><para> a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix</para></listitem></varlistentry>
    <varlistentry><term>conLB :</term>
       <listitem><para> a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints.</para></listitem></varlistentry>
    <varlistentry><term>conUB :</term>
       <listitem><para> a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints.</para></listitem></varlistentry>
+   <varlistentry><term>x0 :</term>
+      <listitem><para> a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.</para></listitem></varlistentry>
+   <varlistentry><term>param :</term>
+      <listitem><para> a list containing the the parameters to be set.</para></listitem></varlistentry>
    <varlistentry><term>xopt :</term>
       <listitem><para> a 1xn matrix of doubles, the computed solution of the optimization problem.</para></listitem></varlistentry>
    <varlistentry><term>fopt :</term>
@@ -104,7 +110,9 @@ ub=[10000; 100; 1.5; 100; 100; 1000];
 p=[1; 2; 3; 4; 5; 6]; Q=eye(6,6);
 nbVar = 6;
 nbCon = 5;
-[xopt,fopt,exitflag,output,lambda]=qpipopt(nbVar,nbCon,Q,p,lb,ub,conMatrix,conLB,conUB)
+x0 = repmat(0,nbVar,1);
+param = list("MaxIter", 300, "CpuTime", 100);
+[xopt,fopt,exitflag,output,lambda]=qpipopt(nbVar,nbCon,Q,p,lb,ub,conMatrix,conLB,conUB,x0,param)
 
    ]]></programlisting>
 </refsection>

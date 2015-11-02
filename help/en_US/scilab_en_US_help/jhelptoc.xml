@@ -4,9 +4,9 @@
 <tocitem target="index" text="Symphony Toolbox">
 <tocitem target="section_19f4f1e5726c01d683e8b82be0a7e910" text="Symphony Toolbox">
 <tocitem target="qpipopt" text="qpipopt"/>
-<tocitem target="qpipopt_mat" text="qpipopt_mat"/>
+<tocitem target="qpipoptmat" text="qpipoptmat"/>
 <tocitem target="symphony" text="symphony"/>
-<tocitem target="symphony_mat" text="symphony_mat"/>
+<tocitem target="symphonymat" text="symphonymat"/>
 <tocitem target="section_508f0b211d17ea6769714cc144e6b731" text="Symphony Native Functions">
 <tocitem target="sym_addConstr" text="sym_addConstr"/>
 <tocitem target="sym_addVar" text="sym_addVar"/>

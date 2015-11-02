@@ -11,6 +11,6 @@
 
 demopath = get_absolute_file_path("sci_symphony.dem.gateway.sce");
 
-subdemolist = ["Symphony for knapsack", "symphony_knapsack.sce"];
+subdemolist = ["Symphony", "symphony.dem.sce"; "SymphonyMat", "symphonymat.dem.sce"; "Qpipopt", "qpipopt.dem.sce"; "QpipoptMat", "qpipoptmat.dem.sce";];
 
 subdemolist(:,2) = demopath + subdemolist(:,2);

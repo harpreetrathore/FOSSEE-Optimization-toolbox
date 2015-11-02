@@ -14,11 +14,12 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
   // Solves a linear quadratic problem.
   //
   //   Calling Sequence
-  //   xopt = qpipoptmat(nbVar,nbCon,Q,p,LB,UB,conMatrix,conLB,conUB)
   //   x = qpipoptmat(H,f)
   //   x = qpipoptmat(H,f,A,b)
   //   x = qpipoptmat(H,f,A,b,Aeq,beq)
   //   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub)
+  //   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0)
+  //   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0,param)
   //   [xopt,fopt,exitflag,output,lamda] = qpipoptmat( ... )
   //   
   //   Parameters
@@ -30,6 +31,8 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
   //   beq : a vector of doubles, represents the linear coefficients in the equality constraints
   //   LB : a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.
   //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
+  //   x0 : a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.
+  //   param : a list containing the the parameters to be set.
   //   xopt : a nx1 matrix of doubles, the computed solution of the optimization problem.
   //   fopt : a 1x1 matrix of doubles, the function value at x.
   //   exitflag : Integer identifying the reason the algorithm terminated.
@@ -64,9 +67,11 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
   //      b = [-1; 2.5];
   //      lb=[-1000; -10000; 0; -1000; -1000; -1000];
   //      ub=[10000; 100; 1.5; 100; 100; 1000];
+  //      x0 = repmat(0,6,1);
+  //	  param = list("MaxIter", 300, "CpuTime", 100);
   //      //and minimize 0.5*x'*Q*x + p'*x with
   //      f=[1; 2; 3; 4; 5; 6]; H=eye(6,6);
-  //      [xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub)
+  //      [xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,[],param)
   //      clear H f A b Aeq beq lb ub;
   //    
   // Examples 
@@ -93,8 +98,8 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
    [lhs , rhs] = argn();
 	
 //To check the number of argument given by user
-   if ( rhs < 2 | rhs == 3 | rhs == 5 | rhs == 7 | rhs > 8 ) then
-    errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be in the set of [2 4 6 8]"), "qpipopt", rhs);
+   if ( rhs < 2 | rhs == 3 | rhs == 5 | rhs == 7 | rhs > 10 ) then
+    errmsg = msprintf(gettext("%s: Unexpected number of input arguments : %d provided while should be in the set of [2 4 6 8 9 10]"), "qpipoptmat", rhs);
     error(errmsg)
    end
    
@@ -126,7 +131,50 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
       LB = varargin(7);
       UB = varargin(8);
   end
-  
+
+
+  if ( rhs<9 | size(varargin(9)) ==0 ) then
+      x0 = repmat(0,nbVar,1)
+  else
+      x0 = varargin(9);
+  end
+
+   if ( rhs<10 ) then
+      param = list();
+   else
+      param =varargin(10);
+   end
+   
+
+   if (modulo(size(param),2)) then
+	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "qpipoptmat");
+	error(errmsg);
+   end
+
+   if (modulo(size(param),2)) then
+	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "qpipoptmat");
+	error(errmsg);
+   end
+
+
+   options = list(..
+      "MaxIter"     , [3000], ...
+      "CpuTime"   , [600] ...
+      );
+
+   for i = 1:(size(param))/2
+        
+       	select param(2*i-1)
+    	case "MaxIter" then
+          		options(2*i-1) = param(2*i);
+       	case "CpuTime" then
+          		options(2*i-1) = param(2*i);
+    	else
+    	      errmsg = msprintf(gettext("%s: Unrecognized parameter name ''%s''."), "qpipoptmat", param(2*i-1));
+    	      error(errmsg)
+    	end
+   end
+
    nbConInEq = size(A,1);
    nbConEq = size(Aeq,1);
 
@@ -168,33 +216,41 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
       error(errmsg);
    end
 
-//Check the size of Upper Bound which should equal to the number of variables
+   //Check the size of Upper Bound which should equal to the number of variables
    if ( size(UB,1) ~= nbVar) then
       errmsg = msprintf(gettext("%s: The Upper Bound is not equal to the number of variables"), "qpipoptmat");
       error(errmsg);
    end
 
-//Check the size of constraints of Lower Bound which should equal to the number of constraints
+   //Check the size of constraints of Lower Bound which should equal to the number of constraints
    if ( size(b,1) ~= nbConInEq & size(b,1) ~= 0) then
       errmsg = msprintf(gettext("%s: The Lower Bound of inequality constraints is not equal to the number of constraints"), "qpipoptmat");
       error(errmsg);
    end
 
-//Check the size of constraints of Upper Bound which should equal to the number of constraints
+   //Check the size of constraints of Upper Bound which should equal to the number of constraints
    if ( size(beq,1) ~= nbConEq & size(beq,1) ~= 0) then
       errmsg = msprintf(gettext("%s: The Upper Bound of equality constraints is not equal to the number of constraints"), "qpipoptmat");
       error(errmsg);
    end
+
+   //Check the size of initial of variables which should equal to the number of variables
+   if ( size(x0,1) ~= nbVar) then
+      errmsg = msprintf(gettext("%s: The initial guess of variables is not equal to the number of variables"), "qpipoptmat");
+      error(errmsg);
+   end
+
    
    //Converting it into ipopt format
    f = f';
    LB = LB';
    UB = UB';
+   x0 = x0';
    conMatrix = [Aeq;A];
    nbCon = size(conMatrix,1);
    conLB = [beq; repmat(-%inf,nbConInEq,1)]';
    conUB = [beq;b]' ; 
-   [xopt,fopt,status,iter,Zl,Zu,lmbda] = solveqp(nbVar,nbCon,H,f,conMatrix,conLB,conUB,LB,UB);
+   [xopt,fopt,status,iter,Zl,Zu,lmbda] = solveqp(nbVar,nbCon,H,f,conMatrix,conLB,conUB,LB,UB,x0,options);
    
    xopt = xopt';
    exitflag = status;

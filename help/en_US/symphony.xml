@@ -114,7 +114,8 @@ isInt = [repmat(%t,1,4) repmat(%f,1,4)];
 xopt = [1 1 0 1 7.25 0 0.25 3.5]
 fopt = [8495]
 // Calling Symphony
-[x,f,iter] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1);
+[x,f,status,output] = symphony(8,3,c,isInt,lb,ub,conMatrix,conlb,conub,1)
+
    ]]></programlisting>
 </refsection>
 
@@ -193,7 +194,7 @@ isInt = repmat(%t,1,nbVar)
 conLB=repmat(0,nbCon,1);
 // Upper Bound of constraints
 conUB=[11927 13727 11551 13056 13460 ]';
-options = ["time_limit" "25"]
+options = list("time_limit", 25);
 // The expected solution :
 // Output variables
 xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 ..
@@ -202,7 +203,7 @@ xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 ..
 // Optimal value
 fopt = [ 24381 ]
 // Calling Symphony
-[x,f,iter]= symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
+[x,f,status,output] = symphony(nbVar,nbCon,p,isInt,lb,ub,conMatrix,conLB,conUB,-1,options)
 
    ]]></programlisting>
 </refsection>
