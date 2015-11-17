@@ -19,20 +19,20 @@ function [xopt,fopt,status,output] = symphony (varargin)
   //   [xopt,fopt,status,output] = symphony( ... )
   //   
   //   Parameters
-  //   nbVar : a 1 x 1 matrix of doubles, number of variables
-  //   nbCon : a 1 x 1 matrix of doubles, number of constraints
-  //   objCoeff : a 1 x n matrix of doubles, where n is number of variables, contains coefficients of the variables in the objective 
-  //   isInt : a 1 x n matrix of boolean, where n is number of variables, representing wether a variable is constrained to be an integer 
-  //   LB : a 1 x n matrix of doubles, where n is number of variables, contains lower bounds of the variables. Bound can be negative infinity
-  //   UB : a 1 x n matrix of doubles, where n is number of variables, contains upper bounds of the variables. Bound can be infinity
-  //   conMatrix : a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix 
-  //   conLB : a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints. 
-  //   conUB : a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints
-  //   objSense : The sense (maximization/minimization) of the objective. Use 1(sym_minimize ) or -1 (sym_maximize) here
-  //   options : a 1xq marix of string, provided to set the paramters in symphony 
-  //   xopt : a 1xn matrix of doubles, the computed solution of the optimization problem
-  //   fopt : a 1x1 matrix of doubles, the function value at x
-  //   status : status flag from symphony
+  //   nbVar : a double, number of variables.
+  //   nbCon : a double, number of constraints.
+  //   objCoeff : a 1 x n matrix of doubles, where n is number of variables, represents coefficients of the variables in the objective.
+  //   isInt : a vector of boolean, represents wether a variable is constrained to be an integer.
+  //   LB : a vector of doubles, represents lower bounds of the variables.
+  //   UB : a vector of doubles, represents upper bounds of the variables.
+  //   conMatrix : a matrix of doubles, represents  matrix representing the constraint matrix.
+  //   conLB : a vector of doubles, represents lower bounds of the constraints. 
+  //   conUB : a vector of doubles, represents upper bounds of the constraints
+  //   objSense : The sense (maximization/minimization) of the objective. Use 1(sym_minimize ) or -1 (sym_maximize) here.
+  //   options : a a list containing the the parameters to be set.
+  //   xopt : a vector of doubles, the computed solution of the optimization problem.
+  //   fopt : a double, the function value at x.
+  //   status : status flag from symphony.
   //   output : The output data structure contains detailed informations about the optimization process.
   //   
   //   Description
@@ -53,11 +53,11 @@ function [xopt,fopt,status,output] = symphony (varargin)
   //   Examples
   //    //A basic case : 
   //    // Objective function
-  //    c = [350*5,330*3,310*4,280*6,500,450,400,100]
+  //    c = [350*5,330*3,310*4,280*6,500,450,400,100]';
   //    // Lower Bound of variable
-  //    lb = repmat(0,1,8);
+  //    lb = repmat(0,8,1);
   //    // Upper Bound of variables
-  //    ub = [repmat(1,1,4) repmat(%inf,1,4)];
+  //    ub = [repmat(1,4,1);repmat(%inf,4,1)];
   //    // Constraint Matrix
   //    conMatrix = [5,3,4,6,1,1,1,1;
   //                 5*0.05,3*0.04,4*0.05,6*0.03,0.08,0.07,0.06,0.03;
@@ -90,7 +90,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
     //            957 798 669 625 467 1051 552 717 654 388 559 555 1104 783 ..
     //            959 668 507 855 986 831 821 825 868 852 832 828 799 686 ..
     //            510 671 575 740 510 675 996 636 826 1022 1140 654 909 799 ..
-    //            1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]
+    //            1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]';
     //    //Constraint Matrix
     //    conMatrix = [ 
     //                    //Constraint 1
@@ -137,16 +137,16 @@ function [xopt,fopt,status,output] = symphony (varargin)
     //    nbCon = size(conMatrix,1)
     //    nbVar = size(conMatrix,2)
     //    // Lower Bound of variables
-    //    lb = repmat(0,1,nbVar)
+    //    lb = repmat(0,nbVar,1)
     //    // Upper Bound of variables
-    //    ub = repmat(1,1,nbVar)
+    //    ub = repmat(1,nbVar,1)
     //    // Row Matrix for telling symphony that the is integer or not
     //    isInt = repmat(%t,1,nbVar)
     //    // Lower Bound of constrains
     //    conLB=repmat(0,nbCon,1);
     //    // Upper Bound of constraints
     //    conUB=[11927 13727 11551 13056 13460 ]';
-    //    options = ["time_limit" "25"]
+    //    options = list("time_limit", 25);
     //    // The expected solution :
     //    // Output variables
     //    xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 .. 
@@ -185,42 +185,102 @@ function [xopt,fopt,status,output] = symphony (varargin)
       objSense = varargin(10);
    end
    
-   if (rhs<11) then
+   if (rhs<11|size(varargin(11))==0) then
       options = list();
    else
       options = varargin(11);
    end
-   
 
-//Check the size of constraint which should equal to the number of constraints
+// Check if the user gives row vector 
+// and Changing it to a column matrix
+
+   if (size(isInt,2)== [nbVar]) then
+	isInt = isInt';
+   end
+
+   if (size(LB,2)== [nbVar]) then
+	LB = LB';
+   end
+
+   if (size(UB,2)== [nbVar]) then
+	UB = UB';
+   end
+
+   if (size(conLB,2)== [nbVar]) then
+	conLB = conLB';
+   end
+
+   if (size(conUB,2)== [nbVar]) then
+	conUB = conUB';
+   end
+
+
+   if (size(objCoef,2)~=1) then
+	errmsg = msprintf(gettext("%s: Objective Coefficients should be a column matrix"), "Symphony");
+	error(errmsg);
+   end
+
+   if (size(objCoef,1)~=nbVar) then
+	errmsg = msprintf(gettext("%s: Number of variables in Objective Coefficients is not equal to number of variables given"), "Symphony");
+	error(errmsg);
+   end
+
+   //Check the size of isInt which should equal to the number of variables
+   if(size(isInt,1)~=nbVar) then
+	errmsg = msprintf(gettext("%s: The size of isInt is not equal to the number of variables"), "Symphony");
+	error(errmsg);
+   end
+
+   //Check the size of lower bound of inequality constraint which should equal to the number of constraints
+   if ( size(conLB,1) ~= nbCon) then
+      errmsg = msprintf(gettext("%s: The Lower Bound of constraint is not equal to the number of constraint"), "Symphony");
+      error(errmsg);
+   end
+
+   //Check the size of lower bound of inequality constraint which should equal to the number of constraints
+   if ( size(conUB,1) ~= nbCon) then
+      errmsg = msprintf(gettext("%s: The Upper Bound of constraint is not equal to the number of constraint"), "Symphony");
+      error(errmsg);
+   end
+
+   //Check the row of constraint which should equal to the number of constraints
    if ( size(conMatrix,1) ~= nbCon) then
+      errmsg = msprintf(gettext("%s: The number of rows in constraint should be equal to the number of constraints"), "Symphony");
+      error(errmsg);
+   end
+
+   //Check the column of constraint which should equal to the number of variables
+   if ( size(conMatrix,2) ~= nbVar) then
+      errmsg = msprintf(gettext("%s: The number of columns in constraint should equal to the number of variables"), "Symphony");
+      error(errmsg);
+   end
+
+   //Check the size of Lower Bound which should equal to the number of variables
+   if ( size(LB,1) ~= nbVar) then
       errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphony");
       error(errmsg);
    end
 
-//Check the size of Lower Bound which should equal to the number of variables
-   if ( size(LB,2) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphony");
-      error(errmsg);
-   end
-
-//Check the size of Upper Bound which should equal to the number of variables
-   if ( size(UB,2) ~= nbVar) then
+   //Check the size of Upper Bound which should equal to the number of variables
+   if ( size(UB,1) ~= nbVar) then
       errmsg = msprintf(gettext("%s: The Upper Bound is not equal to the number of variables"), "Symphony");
       error(errmsg);
    end
-
-//Check the size of constraints of Lower Bound which should equal to the number of constraints
-   if ( size(conLB,1) ~= nbCon) then
-      errmsg = msprintf(gettext("%s: The Lower Bound of constraints is not equal to the number of constraints"), "Symphony");
+   
+   if (type(options) ~= 15) then
+      errmsg = msprintf(gettext("%s: Options should be a list "), "Symphony");
       error(errmsg);
    end
-
-//Check the size of constraints of Upper Bound which should equal to the number of constraints
-   if ( size(conUB,1) ~= nbCon) then
-      errmsg = msprintf(gettext("%s: The Upper Bound of constraints is not equal to the number of constraints"), "Symphony");
-      error(errmsg);
+   
+   if (modulo(size(options),2)) then
+	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "Symphony");
+	error(errmsg);
    end
+
+   LB = LB';
+   UB = UB';
+   isInt = isInt';
+   objCoef = objCoef';
 
    [xopt,fopt,status,output] = symphony_call(nbVar,nbCon,objCoef,isInt,LB,UB,conMatrix,conLB,conUB,objSense,options);
 
