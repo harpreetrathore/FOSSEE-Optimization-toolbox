@@ -39,29 +39,29 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>H :</term>
-      <listitem><para> a n x n matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</para></listitem></varlistentry>
    <varlistentry><term>f :</term>
-      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
    <varlistentry><term>A :</term>
-      <listitem><para> a m x n matrix of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
    <varlistentry><term>b :</term>
-      <listitem><para> a column vector of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
    <varlistentry><term>Aeq :</term>
-      <listitem><para> a meq x n matrix of doubles, represents the linear coefficients in the equality constraints</para></listitem></varlistentry>
+      <listitem><para> a matrix of doubles, represents the linear coefficients in the equality constraints</para></listitem></varlistentry>
    <varlistentry><term>beq :</term>
       <listitem><para> a vector of doubles, represents the linear coefficients in the equality constraints</para></listitem></varlistentry>
    <varlistentry><term>LB :</term>
-      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, where n is number of variables, contains lower bounds of the variables.</para></listitem></varlistentry>
    <varlistentry><term>UB :</term>
-      <listitem><para> a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, where n is number of variables, contains upper bounds of the variables.</para></listitem></varlistentry>
    <varlistentry><term>x0 :</term>
-      <listitem><para> a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, contains initial guess of variables.</para></listitem></varlistentry>
    <varlistentry><term>param :</term>
       <listitem><para> a list containing the the parameters to be set.</para></listitem></varlistentry>
    <varlistentry><term>xopt :</term>
-      <listitem><para> a nx1 matrix of doubles, the computed solution of the optimization problem.</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, the computed solution of the optimization problem.</para></listitem></varlistentry>
    <varlistentry><term>fopt :</term>
-      <listitem><para> a 1x1 matrix of doubles, the function value at x.</para></listitem></varlistentry>
+      <listitem><para> a double, the function value at x.</para></listitem></varlistentry>
    <varlistentry><term>exitflag :</term>
       <listitem><para> Integer identifying the reason the algorithm terminated.</para></listitem></varlistentry>
    <varlistentry><term>output :</term>
@@ -113,7 +113,7 @@ x0 = repmat(0,6,1);
 param = list("MaxIter", 300, "CpuTime", 100);
 //and minimize 0.5*x'*Q*x + p'*x with
 f=[1; 2; 3; 4; 5; 6]; H=eye(6,6);
-[xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,[],param);
+[xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,[],param)
 clear H f A b Aeq beq lb ub;
 
    ]]></programlisting>

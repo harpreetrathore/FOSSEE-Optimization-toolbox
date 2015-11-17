@@ -20,19 +20,19 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
   //   [xopt,fopt,exitflag,output,lamda] = qpipopt( ... )
   //   
   //   Parameters
-  //   nbVar : a 1 x 1 matrix of doubles, number of variables
-  //   nbCon : a 1 x 1 matrix of doubles, number of constraints
-  //   Q : a n x n symmetric matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
-  //   p : a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
-  //   LB : a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.
-  //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
-  //   conMatrix : a m x n matrix of doubles, where n is number of variables and m is number of constraints, contains  matrix representing the constraint matrix 
-  //   conLB : a m x 1 matrix of doubles, where m is number of constraints, contains lower bounds of the constraints. 
-  //   conUB : a m x 1 matrix of doubles, where m is number of constraints, contains upper bounds of the constraints. 
-  //   x0 : a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.
+  //   nbVar : a double, number of variables
+  //   nbCon : a double, number of constraints
+  //   Q : a symmetric matrix of doubles, represents coefficients of quadratic in the quadratic problem.
+  //   p : a vector of doubles, represents coefficients of linear in the quadratic problem
+  //   LB : a vector of doubles, contains lower bounds of the variables.
+  //   UB : a vector of doubles, where n is number of variables, contains upper bounds of the variables.
+  //   conMatrix : a matrix of doubles, contains  matrix representing the constraint matrix 
+  //   conLB : a vector of doubles, contains lower bounds of the constraints. 
+  //   conUB : a vector of doubles, contains upper bounds of the constraints. 
+  //   x0 : a vector of doubles, contains initial guess of variables.
   //   param : a list containing the the parameters to be set.
-  //   xopt : a 1xn matrix of doubles, the computed solution of the optimization problem.
-  //   fopt : a 1x1 matrix of doubles, the function value at x.
+  //   xopt : a vector of doubles, the computed solution of the optimization problem.
+  //   fopt : a double, the function value at x.
   //   exitflag : Integer identifying the reason the algorithm terminated.
   //   output : Structure containing information about the optimization.
   //   lambda : Structure containing the Lagrange multipliers at the solution x (separated by constraint type).
@@ -114,17 +114,29 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
    conLB = varargin(8);
    conUB = varargin(9);
 
-   
+    if (size(LB,2)==0) then
+        LB = repmat(-%inf,nbVar,1);
+    end
+    
+    if (size(UB,2)==0) then
+        UB = repmat(%inf,nbVar,1);
+    end
+    
    if ( rhs<10 | size(varargin(10)) ==0 ) then
       x0 = repmat(0,nbVar,1);
    else
       x0 = varargin(10);
   end
    
-   if ( rhs<11 ) then
+   if ( rhs<11 | size(varargin(11)) ==0 ) then
       param = list(); 
    else
       param =varargin(11);
+   end
+   
+   if (type(param) ~= 15) then
+      errmsg = msprintf(gettext("%s: param should be a list "), "qpipopt");
+      error(errmsg);
    end
    
    if (modulo(size(param),2)) then
@@ -137,6 +149,7 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
       "MaxIter"     , [3000], ...
       "CpuTime"   , [600] ...
       );
+      
 
    for i = 1:(size(param))/2
        	select param(2*i-1)
@@ -148,6 +161,33 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
     	      errmsg = msprintf(gettext("%s: Unrecognized parameter name ''%s''."), "qpipopt", param(2*i-1));
     	      error(errmsg)
     	end
+   end
+
+// Check if the user gives row vector 
+// and Changing it to a column matrix
+
+   if (size(p,2)== [nbVar]) then
+   	p=p';
+   end
+
+   if (size(LB,2)== [nbVar]) then
+	LB = LB';
+   end
+
+   if (size(UB,2)== [nbVar]) then
+      UB = UB';
+   end
+
+   if (size(conUB,2)== [nbCon]) then
+      conUB = conUB';
+   end
+
+   if (size(conLB,2)== [nbCon]) then
+      conLB = conLB';
+   end
+
+   if (size(x0,2)== [nbVar]) then
+	x0=x0';
    end
 
    //IPOpt wants it in row matrix form
@@ -176,10 +216,17 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
       error(errmsg);
    end
    
-   
-   //Check the size of constraint which should equal to the number of variables
-   if ( size(conMatrix,2) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The size of constraints is not equal to the number of variables"), "qpipopt");
+   if (nbCon) then
+          //Check the size of constraint which should equal to the number of variables
+       if ( size(conMatrix,2) ~= nbVar) then
+          errmsg = msprintf(gettext("%s: The size of constraints is not equal to the number of variables"), "qpipopt");
+          error(errmsg);
+       end
+   end
+
+   //Check the number of constraint
+   if ( size(conMatrix,1) ~= nbCon) then
+      errmsg = msprintf(gettext("%s: The number of constraints is not equal to the number of constraint given i.e. %d"), "qpipopt", nbCon);
       error(errmsg);
    end
 
@@ -209,9 +256,10 @@ function [xopt,fopt,exitflag,output,lambda] = qpipopt (varargin)
     
    //Check the size of initial of variables which should equal to the number of variables
    if ( size(x0,2) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The initial guess of variables is not equal to the number of variables"), "qpipopt");
-      error(errmsg);
+      warnmsg = msprintf(gettext("%s: Ignoring initial guess of variables as it is not equal to the number of variables"), "qpipopt");
+      warning(warnmsg);
    end
+
     
    
    [xopt,fopt,status,iter,Zl,Zu,lmbda] = solveqp(nbVar,nbCon,Q,p,conMatrix,conLB,conUB,LB,UB,x0,options);

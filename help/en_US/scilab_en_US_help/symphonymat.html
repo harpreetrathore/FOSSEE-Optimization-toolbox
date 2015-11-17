@@ -45,9 +45,9 @@
 
 <div class="refsection"><h3 class="title">Parameters</h3>
    <dl><dt><span class="term">f :</span>
-      <dd><p class="para">a 1xn matrix of doubles, where n is number of variables, contains coefficients of the variables in the objective</p></dd></dt>
+      <dd><p class="para">a vector of doubles, where n is number of variables, contains coefficients of the variables in the objective</p></dd></dt>
    <dt><span class="term">intcon :</span>
-      <dd><p class="para">Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable</p></dd></dt>
+      <dd><p class="para">Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable.</p></dd></dt>
    <dt><span class="term">A :</span>
       <dd><p class="para">Linear inequality constraint matrix, specified as a matrix of doubles. A represents the linear coefficients in the constraints A*x ≤ b. A has size M-by-N, where M is the number of constraints and N is number of variables</p></dd></dt>
    <dt><span class="term">b :</span>
@@ -72,7 +72,7 @@
 <div class="refsection"><h3 class="title">Description</h3>
    <p class="para">Search the minimum or maximum of a constrained mixed integer linear programming optimization problem specified by :
 find the minimum or maximum of f(x) such that</p>
-   <p class="para"><span><img src='./_LaTeX_symphonymat.xml_1.png' style='position:relative;top:31px;width:293px;height:70px'/></span></p>
+   <p class="para"><span><img src='./_LaTeX_symphonymat.xml_1.png' style='position:relative;top:40px;width:205px;height:88px'/></span></p>
    <p class="para">We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.</p>
    <p class="para"></p></div>
 
@@ -159,7 +159,7 @@ find the minimum or maximum of f(x) such that</p>
 <span class="scilabcomment">// Upper Bound of variables</span>
 <span class="scilabid">ub</span> <span class="scilaboperator">=</span> <a class="scilabmacro" href="scilab://repmat">repmat</a><span class="scilabopenclose">(</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabid">nbVar</span><span class="scilabopenclose">)</span>
 <span class="scilabcomment">// Lower Bound of constrains</span>
-<span class="scilabid">intcon</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span>
+<span class="scilabid">intcon</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
 <span class="scilabskeyword">for</span> <span class="scilabid">i</span> <span class="scilaboperator">=</span> <span class="scilabnumber">1</span><span class="scilabspecial">:</span><span class="scilabid">nbVar</span>
 <span class="scilabid">intcon</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabid">intcon</span> <span class="scilabid">i</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
 <span class="scilabskeyword">end</span>

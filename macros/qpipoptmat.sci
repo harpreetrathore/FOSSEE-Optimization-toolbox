@@ -23,18 +23,18 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
   //   [xopt,fopt,exitflag,output,lamda] = qpipoptmat( ... )
   //   
   //   Parameters
-  //   H : a n x n matrix of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
-  //   f : a n x 1 matrix of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
-  //   A : a m x n matrix of doubles, represents the linear coefficients in the inequality constraints
-  //   b : a column vector of doubles, represents the linear coefficients in the inequality constraints
-  //   Aeq : a meq x n matrix of doubles, represents the linear coefficients in the equality constraints
+  //   H : a vector of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.
+  //   f : a vector of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem
+  //   A : a vector of doubles, represents the linear coefficients in the inequality constraints
+  //   b : a vector of doubles, represents the linear coefficients in the inequality constraints
+  //   Aeq : a matrix of doubles, represents the linear coefficients in the equality constraints
   //   beq : a vector of doubles, represents the linear coefficients in the equality constraints
-  //   LB : a n x 1 matrix of doubles, where n is number of variables, contains lower bounds of the variables.
-  //   UB : a n x 1 matrix of doubles, where n is number of variables, contains upper bounds of the variables.
-  //   x0 : a m x 1 matrix of doubles, where m is number of constraints, contains initial guess of variables.
+  //   LB : a vector of doubles, where n is number of variables, contains lower bounds of the variables.
+  //   UB : a vector of doubles, where n is number of variables, contains upper bounds of the variables.
+  //   x0 : a vector of doubles, contains initial guess of variables.
   //   param : a list containing the the parameters to be set.
-  //   xopt : a nx1 matrix of doubles, the computed solution of the optimization problem.
-  //   fopt : a 1x1 matrix of doubles, the function value at x.
+  //   xopt : a vector of doubles, the computed solution of the optimization problem.
+  //   fopt : a double, the function value at x.
   //   exitflag : Integer identifying the reason the algorithm terminated.
   //   output : Structure containing information about the optimization.
   //   lambda : Structure containing the Lagrange multipliers at the solution x (separated by constraint type).
@@ -108,7 +108,7 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
    nbVar = size(H,1);
 
    
-   if ( rhs<2 ) then
+   if ( rhs<3 ) then
       A = []
       b = []
    else
@@ -116,7 +116,7 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
       b = varargin(4);
   end
       
-   if ( rhs<4 ) then
+   if ( rhs<5 ) then
       Aeq = []
       beq = []
    else
@@ -124,7 +124,7 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
       beq = varargin(6);
   end
   
-  if ( rhs<6 ) then
+  if ( rhs<7 ) then
       LB = repmat(-%inf,nbVar,1);
       UB = repmat(%inf,nbVar,1);
    else
@@ -139,10 +139,24 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
       x0 = varargin(9);
   end
 
-   if ( rhs<10 ) then
+   if ( rhs<10 | size(varargin(10)) ==0 ) then
       param = list();
    else
       param =varargin(10);
+   end
+   
+   if (size(LB,2)==0) then
+        LB = repmat(-%inf,nbVar,1);
+    end
+    
+    if (size(UB,2)==0) then
+        UB = repmat(%inf,nbVar,1);
+    end
+    
+
+   if (type(param) ~= 15) then
+      errmsg = msprintf(gettext("%s: param should be a list "), "qpipopt");
+      error(errmsg);
    end
    
 
@@ -150,12 +164,6 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
 	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "qpipoptmat");
 	error(errmsg);
    end
-
-   if (modulo(size(param),2)) then
-	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "qpipoptmat");
-	error(errmsg);
-   end
-
 
    options = list(..
       "MaxIter"     , [3000], ...
@@ -178,34 +186,57 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
    nbConInEq = size(A,1);
    nbConEq = size(Aeq,1);
 
+// Check if the user gives row vector 
+// and Changing it to a column matrix
+
+
+   if (size(f,2)== [nbVar]) then
+      f=f';
+   end
+
+   if (size(LB,2)== [nbVar]) then
+	LB = LB';
+   end
+
+   if (size(UB,2)== [nbVar]) then
+	UB = UB';
+   end
+
+   if (size(b,2)==nbConInEq) then
+	b = b';
+   end
+
+   if (size(beq,2)== nbConEq) then
+	beq = beq';
+   end
+
+   if (size(x0,2)== [nbVar]) then
+	x0=x0';
+   end
+
    //Checking the H matrix which needs to be a symmetric matrix
-   if ( H~=H') then
+   if ( ~isequal(H,H')) then
       errmsg = msprintf(gettext("%s: H is not a symmetric matrix"), "qpipoptmat");
       error(errmsg);
    end
 
-   //Check the size of H which should equal to the number of variable
-   if ( size(H) ~= [nbVar nbVar]) then
-      errmsg = msprintf(gettext("%s: The Size of H is not equal to the number of variables"), "qpipoptmat");
-      error(errmsg);
-   end
    
    //Check the size of f which should equal to the number of variable
    if ( size(f,1) ~= [nbVar]) then
-      errmsg = msprintf(gettext("%s: The Size of f is not equal to the number of variables"), "qpipoptmat");
+      errmsg = msprintf(gettext("%s: The number of rows and columns in H must be equal the number of elements of f"), "qpipoptmat");
       error(errmsg);
    end
    
    
    //Check the size of inequality constraint which should be equal to the number of variables
    if ( size(A,2) ~= nbVar & size(A,2) ~= 0) then
-      errmsg = msprintf(gettext("%s: The size of inequality constraints is not equal to the number of variables"), "qpipoptmat");
+      errmsg = msprintf(gettext("%s: The number of columns in A must be the same as the number of elements of f"), "qpipoptmat");
       error(errmsg);
    end
 
    //Check the size of equality constraint which should be equal to the number of variables
    if ( size(Aeq,2) ~= nbVar & size(Aeq,2) ~= 0 ) then
-      errmsg = msprintf(gettext("%s: The size of equality constraints is not equal to the number of variables"), "qpipoptmat");
+      errmsg = msprintf(gettext("%s: The number of columns in Aeq must be the same as the number of elements of f"), "qpipoptmat");
       error(errmsg);
    end
 
@@ -224,20 +255,20 @@ function [xopt,fopt,exitflag,output,lambda] = qpipoptmat (varargin)
 
    //Check the size of constraints of Lower Bound which should equal to the number of constraints
    if ( size(b,1) ~= nbConInEq & size(b,1) ~= 0) then
-      errmsg = msprintf(gettext("%s: The Lower Bound of inequality constraints is not equal to the number of constraints"), "qpipoptmat");
+      errmsg = msprintf(gettext("%s: The number of rows in A must be the same as the number of elementsof b"), "qpipoptmat");
       error(errmsg);
    end
 
    //Check the size of constraints of Upper Bound which should equal to the number of constraints
    if ( size(beq,1) ~= nbConEq & size(beq,1) ~= 0) then
-      errmsg = msprintf(gettext("%s: The Upper Bound of equality constraints is not equal to the number of constraints"), "qpipoptmat");
+      errmsg = msprintf(gettext("%s: The number of rows in Aeq must be the same as the number of elements of beq"), "qpipoptmat");
       error(errmsg);
    end
 
    //Check the size of initial of variables which should equal to the number of variables
    if ( size(x0,1) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The initial guess of variables is not equal to the number of variables"), "qpipoptmat");
-      error(errmsg);
+      warnmsg = msprintf(gettext("%s: Ignoring initial guess of variables as it is not equal to the number of variables"), "qpipopt");
+      warning(warnmsg);
    end
 
    

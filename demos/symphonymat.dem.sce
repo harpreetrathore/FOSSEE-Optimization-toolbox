@@ -4,7 +4,7 @@ mode(1)
 //
 
 // Objective function
-c = [350*5,330*3,310*4,280*6,500,450,400,100]
+c = [350*5,330*3,310*4,280*6,500,450,400,100]'
 // Lower Bound of variable
 lb = repmat(0,1,8);
 // Upper Bound of variables
@@ -35,8 +35,9 @@ objCoef = -1*[   504 803 667 1103 834 585 811 856 690 832 846 813 868 793 ..
 957 798 669 625 467 1051 552 717 654 388 559 555 1104 783 ..
 959 668 507 855 986 831 821 825 868 852 832 828 799 686 ..
 510 671 575 740 510 675 996 636 826 1022 1140 654 909 799 ..
-1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]
-//Constraint Matrix
+1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]';
+//Constraint Matrix                                               
+
 conMatrix = [   //Constraint 1
 42 41 523 215 819 551 69 193 582 375 367 478 162 898 ..
 550 553 298 577 493 183 260 224 852 394 958 282 402 604 ..
@@ -78,14 +79,14 @@ conMatrix = [   //Constraint 1
 483 336 765 637 981 980 202 35 594 689 602 76 767 693 ..
 893 160 785 311 417 748 375 362 617 553 474 915 457 261 350 635 ;
 ];
-nbVar = size(objCoef,2)
+nbVar = size(objCoef,1)
 conUB=[11927 13727 11551 13056 13460 ];
 // Lower Bound of variables
 lb = repmat(0,1,nbVar)
 // Upper Bound of variables
 ub = repmat(1,1,nbVar)
 // Lower Bound of constrains
-intcon = []
+intcon = [];
 for i = 1:nbVar
 intcon = [intcon i];
 end

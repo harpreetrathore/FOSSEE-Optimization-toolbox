@@ -20,8 +20,8 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
   //   [xopt,fopt,status,output] = symphonymat( ... )
   //   
   //   Parameters
-  //   f : a 1xn matrix of doubles, where n is number of variables, contains coefficients of the variables in the objective 
-  //   intcon : Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable
+  //   f : a vector of doubles, where n is number of variables, contains coefficients of the variables in the objective 
+  //   intcon : Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable.
   //   A : Linear inequality constraint matrix, specified as a matrix of doubles. A represents the linear coefficients in the constraints A*x ≤ b. A has size M-by-N, where M is the number of constraints and N is number of variables
   //   b : Linear inequality constraint vector, specified as a vector of doubles. b represents the constant vector in the constraints A*x ≤ b. b has length M, where A is M-by-N
   //   Aeq : Linear equality constraint matrix, specified as a matrix of doubles. Aeq represents the linear coefficients in the constraints Aeq*x = beq. Aeq has size Meq-by-N, where Meq is the number of constraints and N is number of variables
@@ -41,7 +41,8 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
   //    \begin{eqnarray}
   //    &\mbox{min}_{x}
   //    & f(x) \\
-  //    & \text{subject to} & conLB \leq C(x) \leq conUB \\
+  //    & \text{subject to} & A.x \leq b \\
+  //    & & Aeq.x \leq beq \\
   //    & & lb \leq x \leq ub \\
   //    \end{eqnarray}
   //   </latex>
@@ -50,7 +51,7 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
   //
   // Examples
   //    // Objective function
-  //    c = [350*5,330*3,310*4,280*6,500,450,400,100]
+  //    c = [350*5,330*3,310*4,280*6,500,450,400,100]';
   //    // Lower Bound of variable
   //    lb = repmat(0,1,8);
   //    // Upper Bound of variables
@@ -81,7 +82,7 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
   //            957 798 669 625 467 1051 552 717 654 388 559 555 1104 783 ..
   //            959 668 507 855 986 831 821 825 868 852 832 828 799 686 ..
   //            510 671 575 740 510 675 996 636 826 1022 1140 654 909 799 ..
-  //            1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]
+  //            1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]';
   //    //Constraint Matrix
   //    conMatrix = [   //Constraint 1
   //                    42 41 523 215 819 551 69 193 582 375 367 478 162 898 ..
@@ -131,7 +132,7 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
   //    // Upper Bound of variables
   //    ub = repmat(1,1,nbVar)
   //    // Lower Bound of constrains
-  //    intcon = []
+  //    intcon = [];
   //    for i = 1:nbVar
   //        intcon = [intcon i];
   //    end
@@ -164,34 +165,24 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
    intcon = varargin(2)
    A = varargin(3)
    b = varargin(4)
-   
-   nbVar = size(objCoef,2);
-   nbCon = size(A,1);
-   
-   if ( rhs<4 ) then
+
+   if (size(objCoef,2)~=1) then
+	errmsg = msprintf(gettext("%s: Objective Coefficients should be a column matrix"), "Symphonymat");
+	error(errmsg);
+   end
+
+
+   nbVar = size(objCoef,1);
+
+   if ( rhs<5 ) then
       Aeq = []
       beq = []
    else
       Aeq = varargin(5);
       beq = varargin(6);
-      
-      if (size(Aeq,1)~=0) then
-           //Check the size of equality constraint which should equal to the number of inequality constraints
-            if ( size(Aeq,2) ~= nbVar) then
-                errmsg = msprintf(gettext("%s: The size of equality constraint is not equal to the number of variables"), "Symphony");
-                error(errmsg);
-            end
-          
-          //Check the size of upper bound of inequality constraint which should equal to the number of constraints
-            if ( size(beq,2) ~= size(Aeq,1)) then
-                errmsg = msprintf(gettext("%s: The equality constraint upper bound is not equal to the number of equality constraint"), "Symphony");
-                error(errmsg);
-            end
-      end
-      
    end
    
-   if ( rhs<6 ) then
+   if ( rhs<7 ) then
       lb = repmat(-%inf,1,nbVar);
       ub = repmat(%inf,1,nbVar);
    else
@@ -199,36 +190,105 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
       ub = varargin(8);
    end
    
-   if (rhs<9) then
+   if (rhs<9|size(varargin(9))==0) then
       options = list();
    else
       options = varargin(9);
    end
+
+   nbConInEq = size(A,1);
+   nbConEq = size(Aeq,1);
+
+// Check if the user gives row vector 
+// and Changing it to a column matrix
+
+   if (size(lb,2)== [nbVar]) then
+	lb = lb';
+   end
+
+   if (size(ub,2)== [nbVar]) then
+	ub = ub';
+   end
+
+   if (size(b,2)== [nbConInEq]) then
+	b = b';
+   end
+
+   if (size(beq,2)== [nbConEq]) then
+	beq = beq';
+   end
+
+    for i=1:size(intcon,2)
+	if(intcon(i)>nbVar) then
+		errmsg = msprintf(gettext("%s: The values inside intcon should not exceed total number of variable "), "Symphonymat");
+		error(errmsg);
+	end
+
+	if (intcon(i)<1) then
+		errmsg = msprintf(gettext("%s: The values inside intcon should be greater than 0 "), "Symphonymat");
+		error(errmsg);
+	end
+
+	if(modulo(intcon(i),1)) then
+		errmsg = msprintf(gettext("%s: The values inside intcon should be integer "), "Symphonymat");
+		error(errmsg);
+	end
+    end
+
+   //Check the size of inequality constraint which should equal to the number of inequality constraints
+   if ( size(A,2) ~= nbVar & size(A,2) ~= 0) then
+	errmsg = msprintf(gettext("%s: The size of inequality constraint is not equal to the number of variables"), "Symphonymat");
+	error(errmsg);
+   end
+
+
+   //Check the size of lower bound of inequality constraint which should equal to the number of constraints
+   if ( size(b,1) ~= size(A,1)) then
+      errmsg = msprintf(gettext("%s: The Lower Bound of inequality constraint is not equal to the number of constraint"), "Symphonymat");
+      error(errmsg);
+   end
+
+   //Check the size of equality constraint which should equal to the number of inequality constraints
+   if ( size(Aeq,2) ~= nbVar & size(Aeq,2) ~= 0) then
+	errmsg = msprintf(gettext("%s: The size of equality constraint is not equal to the number of variables"), "Symphonymat");
+	error(errmsg);
+   end
+
+   //Check the size of upper bound of equality constraint which should equal to the number of constraints
+   if ( size(beq,1) ~= size(Aeq,1)) then
+	errmsg = msprintf(gettext("%s: The equality constraint upper bound is not equal to the number of equality constraint"), "Symphonymat");
+	error(errmsg);
+   end
+
+   //Check the size of Lower Bound which should equal to the number of variables
+   if ( size(lb,1) ~= nbVar) then
+      errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphonymat");
+      error(errmsg);
+   end
+
+   //Check the size of Upper Bound which should equal to the number of variables
+   if ( size(ub,1) ~= nbVar) then
+      errmsg = msprintf(gettext("%s: The Upper Bound is not equal to the number of variables"), "Symphonymat");
+      error(errmsg);
+   end
+   
+   if (type(options) ~= 15) then
+      errmsg = msprintf(gettext("%s: Options should be a list "), "Symphonymat");
+      error(errmsg);
+   end
    
 
-//Check the size of lower bound of inequality constraint which should equal to the number of constraints
-   if ( size(b,2) ~= size(A,1)) then
-      errmsg = msprintf(gettext("%s: The Lower Bound of inequality constraint is not equal to the number of constraint"), "Symphony");
-      error(errmsg);
+   if (modulo(size(options),2)) then
+	errmsg = msprintf(gettext("%s: Size of parameters should be even"), "Symphonymat");
+	error(errmsg);
    end
 
-//Check the size of Lower Bound which should equal to the number of variables
-   if ( size(lb,2) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The Lower Bound is not equal to the number of variables"), "Symphony");
-      error(errmsg);
-   end
 
-//Check the size of Upper Bound which should equal to the number of variables
-   if ( size(ub,2) ~= nbVar) then
-      errmsg = msprintf(gettext("%s: The Upper Bound is not equal to the number of variables"), "Symphony");
-      error(errmsg);
-   end
-   
     //Changing the inputs in symphony's format 
     conMatrix = [A;Aeq]
     nbCon = size(conMatrix,1);
-    conLB = [repmat(-%inf,1,size(A,1)), beq]';
-    conUB = [b,beq]' ; 
+    conLB = [repmat(-%inf,size(A,1),1); beq];
+    conUB = [b;beq] ;
     
     isInt = repmat(%f,1,nbVar);
     for i=1:size(intcon,2)
@@ -236,7 +296,13 @@ function [xopt,fopt,status,iter] = symphonymat (varargin)
     end
     
     objSense = 1;
+
+    //Changing into row vector
+    lb = lb';
+    ub = ub';
+    objCoef = objCoef';
     
+
    [xopt,fopt,status,iter] = symphony_call(nbVar,nbCon,objCoef,isInt,lb,ub,conMatrix,conLB,conUB,objSense,options);
 
 endfunction

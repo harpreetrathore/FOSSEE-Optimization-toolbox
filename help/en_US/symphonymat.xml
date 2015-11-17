@@ -37,9 +37,9 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>f :</term>
-      <listitem><para> a 1xn matrix of doubles, where n is number of variables, contains coefficients of the variables in the objective</para></listitem></varlistentry>
+      <listitem><para> a vector of doubles, where n is number of variables, contains coefficients of the variables in the objective</para></listitem></varlistentry>
    <varlistentry><term>intcon :</term>
-      <listitem><para> Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable</para></listitem></varlistentry>
+      <listitem><para> Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable.</para></listitem></varlistentry>
    <varlistentry><term>A :</term>
       <listitem><para> Linear inequality constraint matrix, specified as a matrix of doubles. A represents the linear coefficients in the constraints A*x ≤ b. A has size M-by-N, where M is the number of constraints and N is number of variables</para></listitem></varlistentry>
    <varlistentry><term>b :</term>
@@ -74,7 +74,8 @@ find the minimum or maximum of f(x) such that
 \begin{eqnarray}
 &amp;\mbox{min}_{x}
 &amp; f(x) \\
-&amp; \text{subject to} &amp; conLB \leq C(x) \leq conUB \\
+&amp; \text{subject to} &amp; A.x \leq b \\
+&amp; &amp; Aeq.x \leq beq \\
 &amp; &amp; lb \leq x \leq ub \\
 \end{eqnarray}
 </latex>
@@ -176,7 +177,7 @@ lb = repmat(0,1,nbVar)
 // Upper Bound of variables
 ub = repmat(1,1,nbVar)
 // Lower Bound of constrains
-intcon = []
+intcon = [];
 for i = 1:nbVar
 intcon = [intcon i];
 end

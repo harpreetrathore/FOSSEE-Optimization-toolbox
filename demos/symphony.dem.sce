@@ -5,11 +5,11 @@ mode(1)
 
 //A basic case :
 // Objective function
-c = [350*5,330*3,310*4,280*6,500,450,400,100]
+c = [350*5,330*3,310*4,280*6,500,450,400,100]';
 // Lower Bound of variable
-lb = repmat(0,1,8);
+lb = repmat(0,8,1);
 // Upper Bound of variables
-ub = [repmat(1,1,4) repmat(%inf,1,4)];
+ub = [repmat(1,4,1);repmat(%inf,4,1)];
 // Constraint Matrix
 conMatrix = [5,3,4,6,1,1,1,1;
 5*0.05,3*0.04,4*0.05,6*0.03,0.08,0.07,0.06,0.03;
@@ -42,7 +42,7 @@ p = [   504 803 667 1103 834 585 811 856 690 832 846 813 868 793 ..
 957 798 669 625 467 1051 552 717 654 388 559 555 1104 783 ..
 959 668 507 855 986 831 821 825 868 852 832 828 799 686 ..
 510 671 575 740 510 675 996 636 826 1022 1140 654 909 799 ..
-1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]
+1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]';
 //Constraint Matrix
 conMatrix = [
 //Constraint 1
@@ -89,9 +89,9 @@ conMatrix = [
 nbCon = size(conMatrix,1)
 nbVar = size(conMatrix,2)
 // Lower Bound of variables
-lb = repmat(0,1,nbVar)
+lb = repmat(0,nbVar,1)
 // Upper Bound of variables
-ub = repmat(1,1,nbVar)
+ub = repmat(1,nbVar,1)
 // Row Matrix for telling symphony that the is integer or not
 isInt = repmat(%t,1,nbVar)
 // Lower Bound of constrains
