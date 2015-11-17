@@ -185,7 +185,7 @@ function [xopt,fopt,status,output] = symphony (varargin)
       objSense = varargin(10);
    end
    
-   if (rhs<11|size(varargin(11)==0)) then
+   if (rhs<11|size(varargin(11))==0) then
       options = list();
    else
       options = varargin(11);
