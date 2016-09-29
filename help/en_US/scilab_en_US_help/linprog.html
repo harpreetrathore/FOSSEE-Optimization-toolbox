@@ -1,0 +1,201 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>linprog</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="fminunc.html">&lt;&lt; fminunc</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="lsqlin.html">lsqlin &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">FOSSEE Optimization Toolbox</a> &gt;&gt; <a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a> &gt; linprog</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">linprog</h1>
+    <p class="refpurpose">Solves a linear programming problem.</p></div>
+
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">param</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">file</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">linprog</span><span class="default">(</span><span class="default">file</span><span class="default">,</span><span class="default">param</span><span class="default">)</span>
+<span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lambda</span><span class="default">] = </span><span class="functionid">linprog</span><span class="default">( ... )</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Parameters</h3>
+   <dl><dt><span class="term">c :</span>
+      <dd><p class="para">a vector of double, contains coefficients of the variables in the objective</p></dd></dt>
+   <dt><span class="term">A :</span>
+      <dd><p class="para">a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</p></dd></dt>
+   <dt><span class="term">b :</span>
+      <dd><p class="para">a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</p></dd></dt>
+   <dt><span class="term">Aeq :</span>
+      <dd><p class="para">a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</p></dd></dt>
+   <dt><span class="term">beq :</span>
+      <dd><p class="para">a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</p></dd></dt>
+   <dt><span class="term">lb :</span>
+      <dd><p class="para">Lower bounds, specified as a vector or array of double. lb represents the lower bounds elementwise in lb ≤ x ≤ ub.</p></dd></dt>
+   <dt><span class="term">ub :</span>
+      <dd><p class="para">Upper bounds, specified as a vector or array of double. ub represents the upper bounds elementwise in lb ≤ x ≤ ub.</p></dd></dt>
+   <dt><span class="term">options :</span>
+      <dd><p class="para">a list containing the parameters to be set.</p></dd></dt>
+   <dt><span class="term">file :</span>
+      <dd><p class="para">a string describing the path to the mps file.</p></dd></dt>
+   <dt><span class="term">xopt :</span>
+      <dd><p class="para">a vector of double, the computed solution of the optimization problem.</p></dd></dt>
+   <dt><span class="term">fopt :</span>
+      <dd><p class="para">a double, the value of the function at x.</p></dd></dt>
+   <dt><span class="term">status :</span>
+      <dd><p class="para">status flag returned from symphony. See below for details.</p></dd></dt>
+   <dt><span class="term">output :</span>
+      <dd><p class="para">The output data structure contains detailed information about the optimization process. See below for details.</p></dd></dt>
+   <dt><span class="term">lambda :</span>
+      <dd><p class="para">The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</p></dd></dt></dl></div>
+
+<div class="refsection"><h3 class="title">Description</h3>
+   <p class="para">OSI-CLP is used for solving the linear programming problems, OSI-CLP is a library written in C++.
+Search the minimum of a constrained linear programming problem specified by :</p>
+   <p class="para"><span><img src='./_LaTeX_linprog.xml_1.png' style='position:relative;top:40px;width:212px;height:88px'/></span></p>
+   <p class="para">The routine calls Clp for solving the linear programming problem, Clp is a library written in C++.</p>
+   <p class="para">The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type &#0034;list&#0034; and contains the following fields. In the current version it only contains maxiter.
+<ul class="itemizedlist"><li>Syntax : options= list(&#0034;MaxIter&#0034;, [---]);</li>
+<li>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</li>
+<li>Default Values : options = list(&#0034;MaxIter&#0034;, [3000]);</li></ul></p>
+   <p class="para">The exitflag allows to know the status of the optimization which is given back by CLP.
+<ul class="itemizedlist"><li>exitflag=0 : Optimal Solution Found</li>
+<li>exitflag=1 : Primal Infeasible</li>
+<li>exitflag=2 : Dual Infeasible</li>
+<li>exitflag=3 : Maximum Number of Iterations Exceeded. Output may not be optimal.</li>
+<li>exitflag=4 : Solution Abandoned</li>
+<li>exitflag=5 : Primal objective limit reached.</li>
+<li>exitflag=6 : Dual objective limit reached.</li></ul></p>
+   <p class="para">The output data structure contains detailed informations about the optimization process.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>output.iterations: The number of iterations performed during the search</li>
+<li>output.constrviolation: The max-norm of the constraint violation.</li></ul></p>
+   <p class="para">The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>lambda.lower: The Lagrange multipliers for variable lower bounds.</li>
+<li>lambda.eqlin: The Lagrange multipliers for the linear equality constraints.</li>
+<li>lambda.ineqlin: The Lagrange multipliers for the linear inequality constraints.</li></ul></p>
+   <p class="para"></p></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Optimal problems</span>
+<span class="scilabcomment">//Linear program, linear inequality constraints</span>
+<span class="scilabid">c</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">3</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span>
+<span class="scilabid">A</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabopenclose">]</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lambda</span><span class="default">]=</span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">, </span><span class="default">A</span><span class="default">, </span><span class="default">b</span><span class="default">)</span>
+<span class="comment">// Press ENTER to continue</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Linear program with Linear Inequalities and Equalities`</span>
+<span class="scilabid">c</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">3</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span>
+<span class="scilabid">A</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabopenclose">]</span>
+<span class="scilabid">Aeq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabopenclose">]</span>
+<span class="scilabid">beq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">2</span><span class="scilabopenclose">]</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lambda</span><span class="default">]=</span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">, </span><span class="default">A</span><span class="default">, </span><span class="default">b</span><span class="default">, </span><span class="default">Aeq</span><span class="default">, </span><span class="default">beq</span><span class="default">)</span>
+<span class="comment">// Press ENTER to continue</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Linear program with all constraint types</span>
+<span class="scilabid">c</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">3</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span>
+<span class="scilabid">A</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabopenclose">]</span>
+<span class="scilabid">Aeq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">4</span><span class="scilabopenclose">]</span>
+<span class="scilabid">beq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilaboperator">/</span><span class="scilabnumber">2</span><span class="scilabopenclose">]</span>
+<span class="scilabid">lb</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">0.5</span><span class="scilabopenclose">]</span>
+<span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1.5</span><span class="scilabdefault">,</span><span class="scilabnumber">1.25</span><span class="scilabopenclose">]</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lambda</span><span class="default">]=</span><span class="functionid">linprog</span><span class="default">(</span><span class="default">c</span><span class="default">, </span><span class="default">A</span><span class="default">, </span><span class="default">b</span><span class="default">, </span><span class="default">Aeq</span><span class="default">, </span><span class="default">beq</span><span class="default">, </span><span class="default">lb</span><span class="default">, </span><span class="default">ub</span><span class="default">)</span>
+<span class="comment">// Press ENTER to continue</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Primal Infeasible Problem</span>
+<span class="scilabid">c</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span>
+<span class="scilabid">A</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabopenclose">]</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">4</span><span class="scilabopenclose">]</span>
+<span class="scilabid">Aeq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span>
+<span class="scilabid">beq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">10</span><span class="scilabdefault">,</span><span class="scilabnumber">100</span><span class="scilabopenclose">]</span>
+<span class="scilabid">lb</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span>
+<span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span>
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span><span class="scilaboperator">=</span> <span class="scilabid">linprog</span><span class="scilabopenclose">(</span><span class="scilabid">c</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabid">Aeq</span><span class="scilabdefault">,</span><span class="scilabid">beq</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabopenclose">)</span>
+<span class="scilabcomment">// Press ENTER to continue</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Dual Infeasible Problem</span>
+<span class="scilabid">c</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">7</span><span class="scilabopenclose">]</span><span class="scilaboperator">&#0039;</span>
+<span class="scilabid">A</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">4</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">4</span><span class="scilabopenclose">]</span>
+<span class="scilabid">b</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">8</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabopenclose">]</span>
+<span class="scilabid">Aeq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span>
+<span class="scilabid">beq</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span>
+<span class="scilabid">lb</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span>
+<span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabdefault">,</span><span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span>
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span><span class="scilaboperator">=</span> <span class="scilabid">linprog</span><span class="scilabopenclose">(</span><span class="scilabid">c</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabid">Aeq</span><span class="scilabdefault">,</span><span class="scilabid">beq</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabopenclose">)</span>
+<span class="scilabcomment">// Press ENTER to continue</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabid">filepath</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://get_absolute_file_path">get_absolute_file_path</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0039;</span><span class="scilabstring">linprog.dem.sce</span><span class="scilabstring">&#0039;</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
+<span class="scilabid">filepath</span> <span class="scilaboperator">=</span> <span class="scilabid">filepath</span> <span class="scilaboperator">+</span> <span class="scilabstring">&#0034;</span><span class="scilabstring">exmip1.mps</span><span class="scilabstring">&#0034;</span>
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span><span class="scilabid">linprog</span><span class="scilabopenclose">(</span><span class="scilabid">filepath</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Authors</h3>
+   <ul class="itemizedlist"><li class="member">Bhanu Priya Sayal, Guru Pradeep Reddy</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="fminunc.html">&lt;&lt; fminunc</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="lsqlin.html">lsqlin &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

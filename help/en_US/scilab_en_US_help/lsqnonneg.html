@@ -1,0 +1,131 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>lsqnonneg</title>
+    <style type="text/css" media="all">
+      @import url("scilab_code.css");
+      @import url("xml_code.css");
+      @import url("c_code.css");
+      @import url("style.css");
+    </style>
+  </head>
+  <body>
+    <div class="manualnavbar">
+    <table width="100%"><tr>
+      <td width="30%">
+    	<span class="previous"><a href="lsqnonlin.html">&lt;&lt; lsqnonlin</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="qpipopt.html">qpipopt &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+
+
+
+    <span class="path"><a href="index.html">FOSSEE Optimization Toolbox</a> &gt;&gt; <a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a> &gt; lsqnonneg</span>
+
+    <br /><br />
+    <div class="refnamediv"><h1 class="refname">lsqnonneg</h1>
+    <p class="refpurpose">Solves nonnegative least-squares curve fitting problems.</p></div>
+
+
+<div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
+   <div class="synopsis"><pre><span class="default">xopt</span><span class="default"> = </span><span class="functionid">lsqnonneg</span><span class="default">(</span><span class="default">C</span><span class="default">,</span><span class="default">d</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">lsqnonneg</span><span class="default">(</span><span class="default">C</span><span class="default">,</span><span class="default">d</span><span class="default">,</span><span class="default">param</span><span class="default">)</span>
+<span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">resnorm</span><span class="default">,</span><span class="default">residual</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lambda</span><span class="default">] = </span><span class="functionid">lsqnonneg</span><span class="default">( ... )</span></pre></div></div>
+
+<div class="refsection"><h3 class="title">Parameters</h3>
+   <dl><dt><span class="term">C :</span>
+      <dd><p class="para">a matrix of double, represents the multiplier of the solution x in the expression C⋅x - d. Number of columns in C is equal to the number of elements in x.</p></dd></dt>
+   <dt><span class="term">d :</span>
+      <dd><p class="para">a vector of double, represents the additive constant term in the expression C⋅x - d. Number of elements in d is equal to the number of rows in C matrix.</p></dd></dt>
+   <dt><span class="term">xopt :</span>
+      <dd><p class="para">a vector of double, the computed solution of the optimization problem.</p></dd></dt>
+   <dt><span class="term">resnorm :</span>
+      <dd><p class="para">a double, objective value returned as the scalar value norm(C⋅x-d)^2.</p></dd></dt>
+   <dt><span class="term">residual :</span>
+      <dd><p class="para">a vector of double, solution residuals returned as the vector d-C⋅x.</p></dd></dt>
+   <dt><span class="term">exitflag :</span>
+      <dd><p class="para">The exit status. See below for details.</p></dd></dt>
+   <dt><span class="term">output :</span>
+      <dd><p class="para">The structure consist of statistics about the optimization. See below for details.</p></dd></dt>
+   <dt><span class="term">lambda :</span>
+      <dd><p class="para">The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</p></dd></dt></dl></div>
+
+<div class="refsection"><h3 class="title">Description</h3>
+   <p class="para">Solves nonnegative least-squares curve fitting problems specified by :</p>
+   <p class="para"><span><img src='./_LaTeX_lsqnonneg.xml_1.png' style='position:relative;top:19px;width:193px;height:46px'/></span></p>
+   <p class="para">The routine calls Ipopt for solving the nonnegative least-squares curve fitting problems, Ipopt is a library written in C++.</p>
+   <p class="para">The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type &#0034;list&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>Syntax : options= list(&#0034;MaxIter&#0034;, [---], &#0034;CpuTime&#0034;, [---]);</li>
+<li>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</li>
+<li>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</li>
+<li>Default Values : options = list(&#0034;MaxIter&#0034;, [3000], &#0034;CpuTime&#0034;, [600]);</li></ul></p>
+   <p class="para">The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<ul class="itemizedlist"><li>exitflag=0 : Optimal Solution Found</li>
+<li>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</li>
+<li>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</li>
+<li>exitflag=3 : Stop at Tiny Step.</li>
+<li>exitflag=4 : Solved To Acceptable Level.</li>
+<li>exitflag=5 : Converged to a point of local infeasibility.</li></ul></p>
+   <p class="para">For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/</p>
+   <p class="para">The output data structure contains detailed informations about the optimization process.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>output.iterations: The number of iterations performed during the search</li>
+<li>output.constrviolation: The max-norm of the constraint violation.</li></ul></p>
+   <p class="para">The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>lambda.lower: The Lagrange multipliers for the lower bound constraints.</li>
+<li>lambda.upper: The Lagrange multipliers for the upper bound constraints.</li></ul></p>
+   <p class="para"></p></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">// A basic lsqnonneg problem</span>
+<span class="scilabid">C</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">1</span> <span class="scilabnumber">1</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">1</span> <span class="scilabnumber">1</span> <span class="scilabnumber">0</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">0</span> <span class="scilabnumber">1</span> <span class="scilabnumber">1</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">1</span> <span class="scilabnumber">0</span> <span class="scilabnumber">0</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">0</span> <span class="scilabnumber">0</span> <span class="scilabnumber">1</span><span class="scilabopenclose">]</span>
+<span class="scilabid">d</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">89</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">67</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">53</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">35</span><span class="scilabdefault">;</span>
+<span class="scilabnumber">20</span><span class="scilabdefault">;</span><span class="scilabopenclose">]</span>
+
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">resnorm</span><span class="scilabdefault">,</span><span class="scilabid">residual</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">lsqnonneg</span><span class="scilabopenclose">(</span><span class="scilabid">C</span><span class="scilabdefault">,</span><span class="scilabid">d</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Authors</h3>
+   <ul class="itemizedlist"><li class="member">Harpreet Singh</li></ul></div>
+    <br />
+
+    <div class="manualnavbar">
+    <table width="100%">
+    <tr><td colspan="3" class="next"><a href="http://bugzilla.scilab.org/enter_bug.cgi?product=Scilab%20software&component=Documentation%20pages" class="ulink">Report an issue</a></td></tr>
+<tr>
+      <td width="30%">
+    	<span class="previous"><a href="lsqnonlin.html">&lt;&lt; lsqnonlin</a></span>
+
+      </td>
+      <td width="40%" class="center">
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
+
+      </td>
+      <td width="30%" class="next">
+      	<span class="next"><a href="qpipopt.html">qpipopt &gt;&gt;</a></span>
+
+      </td>
+    </tr></table>
+      <hr />
+    </div>
+  </body>
+</html>

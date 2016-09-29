@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from lsqnonlin.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="lsqnonlin" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>lsqnonlin</refname>
+    <refpurpose>Solves a non linear data fitting problems.</refpurpose>
+  </refnamediv>
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   xopt = lsqnonlin(fun,x0)
+   xopt = lsqnonlin(fun,x0,lb,ub)
+   xopt = lsqnonlin(fun,x0,lb,ub,options)
+   [xopt,resnorm] = lsqnonlin( ... )
+   [xopt,resnorm,residual] = lsqnonlin( ... )
+   [xopt,resnorm,residual,exitflag] = lsqnonlin( ... )
+   [xopt,resnorm,residual,exitflag,output,lambda,gradient] = lsqnonlin( ... )
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>fun :</term>
+      <listitem><para> a function, representing the objective function and gradient (if given) of the problem</para></listitem></varlistentry>
+   <varlistentry><term>x0 :</term>
+      <listitem><para> a vector of double, contains initial guess of variables.</para></listitem></varlistentry>
+   <varlistentry><term>lb :</term>
+      <listitem><para> a vector of double, contains lower bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>ub :</term>
+      <listitem><para> a vector of double,  contains upper bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>options :</term>
+      <listitem><para> a list containing the parameters to be set.</para></listitem></varlistentry>
+   <varlistentry><term>xopt :</term>
+      <listitem><para> a vector of double, the computed solution of the optimization problem.</para></listitem></varlistentry>
+   <varlistentry><term>resnorm :</term>
+      <listitem><para> a double, objective value returned as the scalar value i.e. sum(fun(x).^2).</para></listitem></varlistentry>
+   <varlistentry><term>residual :</term>
+      <listitem><para> a vector of double, solution of objective function i.e. fun(x).</para></listitem></varlistentry>
+   <varlistentry><term>exitflag :</term>
+      <listitem><para> The exit status. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>output :</term>
+      <listitem><para> The structure consist of statistics about the optimization. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>lambda :</term>
+      <listitem><para> The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>gradient :</term>
+      <listitem><para> a vector of doubles, containing the Objective's gradient of the solution.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Search the minimum of a constrained non-linear least square problem specified by :
+   </para>
+   <para>
+<latex>
+\begin{eqnarray}
+&amp;\mbox{min}_{x}
+&amp; (f_1(x)^2 + f_2(x)^2 + ... + f_n(x)^2) \\
+&amp; lb \leq x \leq ub \\
+\end{eqnarray}
+</latex>
+   </para>
+   <para>
+The routine calls fmincon which calls Ipopt for solving the non-linear least square problem, Ipopt is a library written in C++.
+   </para>
+   <para>
+The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type "list" and contains the following fields.
+<itemizedlist>
+<listitem>Syntax : options= list("MaxIter", [---], "CpuTime", [---],"GradObj", "on");</listitem>
+<listitem>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</listitem>
+<listitem>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</listitem>
+<listitem>GradObj : a string, representing the gradient function is on or off.</listitem>
+<listitem>Default Values : options = list("MaxIter", [3000], "CpuTime", [600], "GradObj", "off");</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>exitflag=0 : Optimal Solution Found </listitem>
+<listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=3 : Stop at Tiny Step.</listitem>
+<listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
+<listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.iterations: The number of iterations performed during the search</listitem>
+<listitem>output.constrviolation: The max-norm of the constraint violation.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>lambda.lower: The Lagrange multipliers for the lower bound constraints.</listitem>
+<listitem>lambda.upper: The Lagrange multipliers for the upper bound constraints.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//A simple non-linear least square example taken from leastsq default present in scilab
+function y=yth(t, x)
+y  = x(1)*exp(-x(2)*t)
+endfunction
+// we have the m measures (ti, yi):
+m = 10;
+tm = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5]';
+ym = [0.79, 0.59, 0.47, 0.36, 0.29, 0.23, 0.17, 0.15, 0.12, 0.08]';
+// measure weights (here all equal to 1...)
+wm = ones(m,1);
+// and we want to find the parameters x such that the model fits the given
+// data in the least square sense:
+//
+//  minimize  f(x) = sum_i  wm(i)^2 ( yth(tm(i),x) - ym(i) )^2
+// initial parameters guess
+x0 = [1.5 ; 0.8];
+// in the first examples, we define the function fun and dfun
+// in scilab language
+function y=myfun(x, tm, ym, wm)
+y = wm.*( yth(tm, x) - ym )
+endfunction
+
+//  Calling Sequence
+[xopt,resnorm,residual,exitflag,output,lambda,gradient] = lsqnonlin(myfun,x0)
+// Press ENTER to continue
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//A basic example taken from leastsq default present in scilab with gradient
+function y=yth(t, x)
+y  = x(1)*exp(-x(2)*t)
+endfunction
+// we have the m measures (ti, yi):
+m = 10;
+tm = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5]';
+ym = [0.79, 0.59, 0.47, 0.36, 0.29, 0.23, 0.17, 0.15, 0.12, 0.08]';
+// measure weights (here all equal to 1...)
+wm = ones(m,1);
+// and we want to find the parameters x such that the model fits the given
+// data in the least square sense:
+//
+//  minimize  f(x) = sum_i  wm(i)^2 ( yth(tm(i),x) - ym(i) )^2
+// initial parameters guess
+x0 = [1.5 ; 0.8];
+// in the first examples, we define the function fun and dfun
+// in scilab language
+function [y,dy]=myfun(x, tm, ym, wm)
+y = wm.*( yth(tm, x) - ym )
+v = wm.*exp(-x(2)*tm)
+dy = [v , -x(1)*tm.*v]
+endfunction
+options = list("GradObj", "on")
+
+// Calling Sequence
+[xopt,resnorm,residual,exitflag,output,lambda,gradient] = lsqnonlin(myfun,x0,[],[],options)
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Harpreet Singh</member>
+   </simplelist>
+</refsection>
+</refentry>

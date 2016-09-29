@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from fminimax.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="fminimax" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>fminimax</refname>
+    <refpurpose>Solves minimax constraint problem</refpurpose>
+  </refnamediv>
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   xopt = fminimax(fun,x0)
+   xopt = fminimax(fun,x0,A,b)
+   xopt = fminimax(fun,x0,A,b,Aeq,beq)
+   xopt = fminimax(fun,x0,A,b,Aeq,beq,lb,ub)
+   xopt = fminimax(fun,x0,A,b,Aeq,beq,lb,ub,nonlinfun)
+   xopt = fminimax(fun,x0,A,b,Aeq,beq,lb,ub,nonlinfun,options)
+   [xopt, fval] = fminimax(.....)
+   [xopt, fval, maxfval]= fminimax(.....)
+   [xopt, fval, maxfval, exitflag]= fminimax(.....)
+   [xopt, fval, maxfval, exitflag, output]= fminimax(.....)
+   [xopt, fval, maxfval, exitflag, output, lambda]= fminimax(.....)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>fun:</term>
+      <listitem><para> The function to be minimized. fun is a function that accepts a vector x and returns a vector F, the objective functions evaluated at x.</para></listitem></varlistentry>
+   <varlistentry><term>x0 :</term>
+      <listitem><para> a vector of double, contains initial guess of variables.</para></listitem></varlistentry>
+   <varlistentry><term>A :</term>
+      <listitem><para> a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
+   <varlistentry><term>b :</term>
+      <listitem><para> a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
+   <varlistentry><term>Aeq :</term>
+      <listitem><para> a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
+   <varlistentry><term>beq :</term>
+      <listitem><para> a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
+   <varlistentry><term>lb :</term>
+      <listitem><para> a vector of double, contains lower bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>ub :</term>
+      <listitem><para> a vector of double,  contains upper bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>nonlinfun:</term>
+      <listitem><para> function that computes the nonlinear inequality constraints c⋅x ≤ 0 and nonlinear equality constraints c⋅x = 0.</para></listitem></varlistentry>
+   <varlistentry><term>xopt :</term>
+      <listitem><para> a vector of double, the computed solution of the optimization problem.</para></listitem></varlistentry>
+   <varlistentry><term>fopt :</term>
+      <listitem><para> a double, the value of the function at x.</para></listitem></varlistentry>
+   <varlistentry><term>maxfval:</term>
+      <listitem><para> a 1x1 matrix of doubles, the maximum value in vector fval</para></listitem></varlistentry>
+   <varlistentry><term>exitflag :</term>
+      <listitem><para> The exit status. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>output :</term>
+      <listitem><para> The structure consist of statistics about the optimization. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>lambda :</term>
+      <listitem><para> The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+fminimax minimizes the worst-case (largest) value of a set of multivariable functions, starting at an initial estimate. This is generally referred to as the minimax problem.
+   </para>
+   <para>
+<latex>
+\min_{x} \max_{i} F_{i}(x)\: \textrm{such that} \:\begin{cases}
+&amp; c(x) \leq 0 \\
+&amp; ceq(x) = 0 \\
+&amp; A.x \leq b \\
+&amp; Aeq.x = beq \\
+&amp; minmaxLb \leq x \leq minmaxUb
+\end{cases}
+</latex>
+   </para>
+   <para>
+Currently, fminimax calls fmincon which uses the ip-opt algorithm.
+   </para>
+   <para>
+max-min problems can also be solved with fminimax, using the identity
+   </para>
+   <para>
+<latex>
+\max_{x} \min_{i} F_{i}(x) = -\min_{x} \max_{i} \left( -F_{i}(x) \right)
+</latex>
+   </para>
+   <para>
+The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type "list" and contains the following fields.
+<itemizedlist>
+<listitem>Syntax : options= list("MaxIter", [---], "CpuTime", [---], "GradObj", ---, "GradCon", ---);</listitem>
+<listitem>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</listitem>
+<listitem>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</listitem>
+<listitem>GradObj : a function, representing the gradient function of the Objective in Vector Form.</listitem>
+<listitem>GradCon : a function, representing the gradient of the Non-Linear Constraints (both Equality and Inequality) of the problem. It is declared in such a way that gradient of non-linear inequality constraints are defined first as a separate Matrix (cg of size m2 X n or as an empty), followed by gradient of non-linear equality constraints as a separate Matrix (ceqg of size m2 X n or as an empty) where m2 &amp; m3 are number of non-linear inequality and equality constraints respectively.</listitem>
+<listitem>Default Values : options = list("MaxIter", [3000], "CpuTime", [600]);</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The objective function must have header :
+<programlisting>
+F = fun(x)
+</programlisting>
+where x is a n x 1 matrix of doubles and F is a m x 1 matrix of doubles where m is the total number of objective functions inside F.
+On input, the variable x contains the current point and, on output, the variable F must contain the objective function values.
+   </para>
+   <para>
+By default, the gradient options for fminimax are turned off and and fmincon does the gradient opproximation of minmaxObjfun. In case the GradObj option is off and GradConstr option is on, fminimax approximates minmaxObjfun gradient using numderivative toolbox.
+   </para>
+   <para>
+If we can provide exact gradients, we should do so since it improves the convergence speed of the optimization algorithm.
+   </para>
+   <para>
+Furthermore, we must enable the "GradObj" option with the statement :
+<programlisting>
+minimaxOptions = list("GradObj",fGrad);
+</programlisting>
+This will let fminimax know that the exact gradient of the objective function is known, so that it can change the calling sequence to the objective function. Note that, fGrad should be mentioned in the form of N x n where n is the number of variables, N is the number of functions in objective function.
+   </para>
+   <para>
+The constraint function must have header :
+<programlisting>
+[c, ceq] = confun(x)
+</programlisting>
+where x is a n x 1 matrix of dominmaxUbles, c is a 1 x nni matrix of doubles and ceq is a 1 x nne matrix of doubles (nni : number of nonlinear inequality constraints, nne : number of nonlinear equality constraints).
+On input, the variable x contains the current point and, on output, the variable c must contain the nonlinear inequality constraints and ceq must contain the nonlinear equality constraints.
+   </para>
+   <para>
+By default, the gradient options for fminimax are turned off and and fmincon does the gradient opproximation of confun. In case the GradObj option is on and GradCons option is off, fminimax approximates confun gradient using numderivative toolbox.
+   </para>
+   <para>
+If we can provide exact gradients, we should do so since it improves the convergence speed of the optimization algorithm.
+   </para>
+   <para>
+Furthermore, we must enable the "GradCon" option with the statement :
+<programlisting>
+minimaxOptions = list("GradCon",confunGrad);
+</programlisting>
+This will let fminimax know that the exact gradient of the objective function is known, so that it can change the calling sequence to the objective function.
+   </para>
+   <para>
+The constraint derivative function must have header :
+<programlisting>
+[dc,dceq] = confungrad(x)
+</programlisting>
+where dc is a nni x n matrix of doubles and dceq is a nne x n matrix of doubles.
+   </para>
+   <para>
+The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>exitflag=0 : Optimal Solution Found </listitem>
+<listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=2 : Maximum amount of CPU Time exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=3 : Stop at Tiny Step.</listitem>
+<listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
+<listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.Iterations: The number of iterations performed during the search</listitem>
+<listitem>output.Cpu_Time: The total cpu-time spend during the search</listitem>
+<listitem>output.Objective_Evaluation: The number of Objective Evaluations performed during the search</listitem>
+<listitem>output.Dual_Infeasibility: The Dual Infeasiblity of the final soution</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>lambda.lower: The Lagrange multipliers for the lower bound constraints.</listitem>
+<listitem>lambda.upper: The Lagrange multipliers for the upper bound constraints.</listitem>
+<listitem>lambda.eqlin: The Lagrange multipliers for the linear equality constraints.</listitem>
+<listitem>lambda.ineqlin: The Lagrange multipliers for the linear inequality constraints.</listitem>
+<listitem>lambda.eqnonlin: The Lagrange multipliers for the non-linear equality constraints.</listitem>
+<listitem>lambda.ineqnonlin: The Lagrange multipliers for the non-linear inequality constraints.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// A basic case :
+// we provide only the objective function and the nonlinear constraint
+// function
+function f = myfun(x)
+f(1)= 2*x(1)^2 + x(2)^2 - 48*x(1) - 40*x(2) + 304;     //Objectives
+f(2)= -x(1)^2 - 3*x(2)^2;
+f(3)= x(1) + 3*x(2) -18;
+f(4)= -x(1) - x(2);
+f(5)= x(1) + x(2) - 8;
+endfunction
+// The initial guess
+x0 = [0.1,0.1];
+// The expected solution : only 4 digits are guaranteed
+xopt = [4 4]
+fopt = [0 -64 -2 -8 0]
+maxfopt = 0
+
+// Calling Sequence
+[x,fval,maxfval,exitflag,output,lambda] = fminimax(myfun, x0)
+// Press ENTER to continue
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+// A case where we provide the gradient of the objective
+// functions and the Jacobian matrix of the constraints.
+// The objective function and its gradient
+function f = myfun(x)
+f(1)= 2*x(1)^2 + x(2)^2 - 48*x(1) - 40*x(2) + 304;
+f(2)= -x(1)^2 - 3*x(2)^2;
+f(3)= x(1) + 3*x(2) -18;
+f(4)= -x(1) - x(2);
+f(5)= x(1) + x(2) - 8;
+endfunction
+// Defining gradient of myfun
+function G = myfungrad(x)
+G = [ 4*x(1) - 48, -2*x(1), 1, -1, 1;
+2*x(2) - 40, -6*x(2), 3, -1, 1; ]'
+endfunction
+// The nonlinear constraints and the Jacobian
+// matrix of the constraints
+function [c,ceq] = confun(x)
+// Inequality constraints
+c = [1.5 + x(1)*x(2) - x(1) - x(2), -x(1)*x(2) - 10]
+// No nonlinear equality constraints
+ceq=[]
+endfunction
+// Defining gradient of confungrad
+function [DC,DCeq] = cgrad(x)
+// DC(:,i) = gradient of the i-th constraint
+// DC = [
+//   Dc1/Dx1  Dc1/Dx2
+//   Dc2/Dx1  Dc2/Dx2
+//   ]
+DC= [
+x(2)-1, -x(2)
+x(1)-1, -x(1)
+]'
+DCeq = []'
+endfunction
+// Test with both gradient of objective and gradient of constraints
+minimaxOptions = list("GradObj",myfungrad,"GradCon",cgrad);
+// The initial guess
+x0 = [0,10];
+// The expected solution : only 4 digits are guaranteed
+xopt = [0.92791 7.93551]
+fopt = [6.73443  -189.778  6.73443  -8.86342  0.86342]
+maxfopt = 6.73443
+
+// Calling Sequence
+[x,fval,maxfval,exitflag,output] = fminimax(myfun,x0,[],[],[],[],[],[], confun, minimaxOptions)
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Animesh Baranawal</member>
+   </simplelist>
+</refsection>
+</refentry>

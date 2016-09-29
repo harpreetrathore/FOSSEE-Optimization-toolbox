@@ -24,12 +24,12 @@
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   x = qpipoptmat(H,f)
-   x = qpipoptmat(H,f,A,b)
-   x = qpipoptmat(H,f,A,b,Aeq,beq)
-   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub)
-   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0)
-   x = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0,param)
+   xopt = qpipoptmat(H,f)
+   xopt = qpipoptmat(H,f,A,b)
+   xopt = qpipoptmat(H,f,A,b,Aeq,beq)
+   xopt = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub)
+   xopt = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0)
+   xopt = qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0,param)
    [xopt,fopt,exitflag,output,lamda] = qpipoptmat( ... )
    
    </synopsis>
@@ -39,35 +39,35 @@
    <title>Parameters</title>
    <variablelist>
    <varlistentry><term>H :</term>
-      <listitem><para> a vector of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</para></listitem></varlistentry>
+      <listitem><para> a symmetric matrix of double, represents coefficients of quadratic in the quadratic problem.</para></listitem></varlistentry>
    <varlistentry><term>f :</term>
-      <listitem><para> a vector of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
+      <listitem><para> a vector of double, represents coefficients of linear in the quadratic problem</para></listitem></varlistentry>
    <varlistentry><term>A :</term>
-      <listitem><para> a vector of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
+      <listitem><para> a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
    <varlistentry><term>b :</term>
-      <listitem><para> a vector of doubles, represents the linear coefficients in the inequality constraints</para></listitem></varlistentry>
+      <listitem><para> a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
    <varlistentry><term>Aeq :</term>
-      <listitem><para> a matrix of doubles, represents the linear coefficients in the equality constraints</para></listitem></varlistentry>
+      <listitem><para> a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
    <varlistentry><term>beq :</term>
-      <listitem><para> a vector of doubles, represents the linear coefficients in the equality constraints</para></listitem></varlistentry>
-   <varlistentry><term>LB :</term>
-      <listitem><para> a vector of doubles, where n is number of variables, contains lower bounds of the variables.</para></listitem></varlistentry>
-   <varlistentry><term>UB :</term>
-      <listitem><para> a vector of doubles, where n is number of variables, contains upper bounds of the variables.</para></listitem></varlistentry>
+      <listitem><para> a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
+   <varlistentry><term>lb :</term>
+      <listitem><para> a vector of double, contains lower bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>ub :</term>
+      <listitem><para> a vector of double, contains upper bounds of the variables.</para></listitem></varlistentry>
    <varlistentry><term>x0 :</term>
-      <listitem><para> a vector of doubles, contains initial guess of variables.</para></listitem></varlistentry>
+      <listitem><para> a vector of double, contains initial guess of variables.</para></listitem></varlistentry>
    <varlistentry><term>param :</term>
-      <listitem><para> a list containing the the parameters to be set.</para></listitem></varlistentry>
+      <listitem><para> a list containing the parameters to be set.</para></listitem></varlistentry>
    <varlistentry><term>xopt :</term>
-      <listitem><para> a vector of doubles, the computed solution of the optimization problem.</para></listitem></varlistentry>
+      <listitem><para> a vector of double, the computed solution of the optimization problem.</para></listitem></varlistentry>
    <varlistentry><term>fopt :</term>
-      <listitem><para> a double, the function value at x.</para></listitem></varlistentry>
+      <listitem><para> a double, the value of the function at x.</para></listitem></varlistentry>
    <varlistentry><term>exitflag :</term>
-      <listitem><para> Integer identifying the reason the algorithm terminated.</para></listitem></varlistentry>
+      <listitem><para> The exit status. See below for details.</para></listitem></varlistentry>
    <varlistentry><term>output :</term>
-      <listitem><para> Structure containing information about the optimization.</para></listitem></varlistentry>
+      <listitem><para> The structure consist of statistics about the optimization. See below for details.</para></listitem></varlistentry>
    <varlistentry><term>lambda :</term>
-      <listitem><para> Structure containing the Lagrange multipliers at the solution x (separated by constraint type).</para></listitem></varlistentry>
+      <listitem><para> The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -75,21 +75,63 @@
    <title>Description</title>
    <para>
 Search the minimum of a constrained linear quadratic optimization problem specified by :
-find the minimum of f(x) such that
    </para>
    <para>
 <latex>
 \begin{eqnarray}
 &amp;\mbox{min}_{x}
-&amp; 1/2*x'*H*x + f'*x  \\
-&amp; \text{subject to} &amp; A.x \leq b \\
-&amp; &amp; Aeq.x \leq beq \\
+&amp; 1/2⋅x^T⋅H⋅x + f^T⋅x  \\
+&amp; \text{subject to} &amp; A⋅x \leq b \\
+&amp; &amp; Aeq⋅x = beq \\
 &amp; &amp; lb \leq x \leq ub \\
 \end{eqnarray}
 </latex>
    </para>
    <para>
-We are calling IPOpt for solving the quadratic problem, IPOpt is a library written in C++. The code has been written by ​Andreas Wächter and ​Carl Laird.
+The routine calls Ipopt for solving the quadratic problem, Ipopt is a library written in C++.
+   </para>
+   <para>
+The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type "list" and contains the following fields.
+<itemizedlist>
+<listitem>Syntax : options= list("MaxIter", [---], "CpuTime", [---]);</listitem>
+<listitem>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</listitem>
+<listitem>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</listitem>
+<listitem>Default Values : options = list("MaxIter", [3000], "CpuTime", [600]);</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>exitflag=0 : Optimal Solution Found </listitem>
+<listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=3 : Stop at Tiny Step.</listitem>
+<listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
+<listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.iterations: The number of iterations performed during the search</listitem>
+<listitem>output.constrviolation: The max-norm of the constraint violation.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>lambda.lower: The Lagrange multipliers for the lower bound constraints.</listitem>
+<listitem>lambda.upper: The Lagrange multipliers for the upper bound constraints.</listitem>
+<listitem>lambda.eqlin: The Lagrange multipliers for the linear equality constraints.</listitem>
+<listitem>lambda.ineqlin: The Lagrange multipliers for the linear inequality constraints.</listitem>
+</itemizedlist>
    </para>
    <para>
 </para>
@@ -98,8 +140,33 @@ We are calling IPOpt for solving the quadratic problem, IPOpt is a library writt
 <refsection>
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
-//Find x in R^6 such that:
+//Ref : example 14 :
+//https://www.me.utexas.edu/~jensen/ORMM/supplements/methods/nlpmethod/S2_quadratic.pdf
+// min. -8*x1*x1 -16*x2*x2 + x1 + 4*x2
+// such that
+//    x1 + x2 <= 5,
+//    x1 <= 3,
+//    x1 >= 0,
+//    x2 >= 0
+H = [2 0
+0 8];
+f = [-8; -16];
+A = [1 1;1 0];
+b = [5;3];
+lb = [0; 0];
+ub = [%inf; %inf];
 
+// Calling Sequence
+[xopt,fopt,exitflag,output,lambda] = qpipoptmat(H,f,A,b,[],[],lb,ub)
+// Press ENTER to continue
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//Find x in R^6 such that:
 Aeq= [1,-1,1,0,3,1;
 -1,0,-3,-4,5,6;
 2,5,3,0,1,0];
@@ -111,32 +178,11 @@ lb=[-1000; -10000; 0; -1000; -1000; -1000];
 ub=[10000; 100; 1.5; 100; 100; 1000];
 x0 = repmat(0,6,1);
 param = list("MaxIter", 300, "CpuTime", 100);
-//and minimize 0.5*x'*Q*x + p'*x with
+//and minimize 0.5*x'*H*x + f'*x with
 f=[1; 2; 3; 4; 5; 6]; H=eye(6,6);
-[xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,[],param)
-clear H f A b Aeq beq lb ub;
 
-   ]]></programlisting>
-</refsection>
-
-<refsection>
-   <title>Examples</title>
-   <programlisting role="example"><![CDATA[
-//Find the value of x that minimize following function
-// f(x) = 0.5*x1^2 + x2^2 - x1*x2 - 2*x1 - 6*x2
-// Subject to:
-// x1 + x2 ≤ 2
-// –x1 + 2x2 ≤ 2
-// 2x1 + x2 ≤ 3
-// 0 ≤ x1, 0 ≤ x2.
-H = [1 -1; -1 2];
-f = [-2; -6];
-A = [1 1; -1 2; 2 1];
-b = [2; 2; 3];
-lb = [0; 0];
-ub = [%inf; %inf];
-[xopt,fopt,exitflag,output,lambda] = qpipoptmat(H,f,A,b,[],[],lb,ub)
-
+// Calling Sequence
+[xopt,fopt,exitflag,output,lambda]=qpipoptmat(H,f,A,b,Aeq,beq,lb,ub,x0,param)
    ]]></programlisting>
 </refsection>
 

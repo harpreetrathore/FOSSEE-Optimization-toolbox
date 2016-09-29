@@ -24,10 +24,10 @@
 <refsynopsisdiv>
    <title>Calling Sequence</title>
    <synopsis>
-   xopt = symphonymat(f,intcon,A,b)
-   xopt = symphonymat(f,intcon,A,b,Aeq,beq)
-   xopt = symphonymat(f,intcon,A,b,Aeq,beq,lb,ub)
-   xopt = symphonymat(f,intcon,A,b,Aeq,beq,lb,ub,options)
+   xopt = symphonymat(c,intcon,A,b)
+   xopt = symphonymat(c,intcon,A,b,Aeq,beq)
+   xopt = symphonymat(c,intcon,A,b,Aeq,beq,lb,ub)
+   xopt = symphonymat(c,intcon,A,b,Aeq,beq,lb,ub,options)
    [xopt,fopt,status,output] = symphonymat( ... )
    
    </synopsis>
@@ -36,30 +36,32 @@
 <refsection>
    <title>Parameters</title>
    <variablelist>
-   <varlistentry><term>f :</term>
-      <listitem><para> a vector of doubles, where n is number of variables, contains coefficients of the variables in the objective</para></listitem></varlistentry>
+   <varlistentry><term>c :</term>
+      <listitem><para> a vector of double, contains coefficients of the variables in the objective</para></listitem></varlistentry>
    <varlistentry><term>intcon :</term>
       <listitem><para> Vector of integer constraints, specified as a vector of positive integers. The values in intcon indicate the components of the decision variable x that are integer-valued. intcon has values from 1 through number of variable.</para></listitem></varlistentry>
    <varlistentry><term>A :</term>
-      <listitem><para> Linear inequality constraint matrix, specified as a matrix of doubles. A represents the linear coefficients in the constraints A*x ≤ b. A has size M-by-N, where M is the number of constraints and N is number of variables</para></listitem></varlistentry>
+      <listitem><para> a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
    <varlistentry><term>b :</term>
-      <listitem><para> Linear inequality constraint vector, specified as a vector of doubles. b represents the constant vector in the constraints A*x ≤ b. b has length M, where A is M-by-N</para></listitem></varlistentry>
+      <listitem><para> a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
    <varlistentry><term>Aeq :</term>
-      <listitem><para> Linear equality constraint matrix, specified as a matrix of doubles. Aeq represents the linear coefficients in the constraints Aeq*x = beq. Aeq has size Meq-by-N, where Meq is the number of constraints and N is number of variables</para></listitem></varlistentry>
+      <listitem><para> a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
    <varlistentry><term>beq :</term>
-      <listitem><para> Linear equality constraint vector, specified as a vector of doubles. beq represents the constant vector in the constraints Aeq*x = beq. beq has length Meq, where Aeq is Meq-by-N.</para></listitem></varlistentry>
+      <listitem><para> a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
    <varlistentry><term>lb :</term>
-      <listitem><para> Lower bounds, specified as a vector or array of doubles. lb represents the lower bounds elementwise in lb ≤ x ≤ ub.</para></listitem></varlistentry>
+      <listitem><para> Lower bounds, specified as a vector or array of double. lb represents the lower bounds elementwise in lb ≤ x ≤ ub.</para></listitem></varlistentry>
    <varlistentry><term>ub :</term>
-      <listitem><para> Upper bounds, specified as a vector or array of doubles. ub represents the upper bounds elementwise in lb ≤ x ≤ ub.</para></listitem></varlistentry>
+      <listitem><para> Upper bounds, specified as a vector or array of double. ub represents the upper bounds elementwise in lb ≤ x ≤ ub.</para></listitem></varlistentry>
    <varlistentry><term>options :</term>
-      <listitem><para> a list containing the the parameters to be set.</para></listitem></varlistentry>
+      <listitem><para> a list containing the parameters to be set.</para></listitem></varlistentry>
    <varlistentry><term>xopt :</term>
-      <listitem><para> a 1xn matrix of doubles, the computed solution of the optimization problem</para></listitem></varlistentry>
+      <listitem><para> a vector of double, the computed solution of the optimization problem.</para></listitem></varlistentry>
    <varlistentry><term>fopt :</term>
-      <listitem><para> a 1x1 matrix of doubles, the function value at x</para></listitem></varlistentry>
+      <listitem><para> a double, the value of the function at x.</para></listitem></varlistentry>
+   <varlistentry><term>status :</term>
+      <listitem><para> status flag returned from symphony. See below for details.</para></listitem></varlistentry>
    <varlistentry><term>output :</term>
-      <listitem><para> The output data structure contains detailed informations about the optimization process.</para></listitem></varlistentry>
+      <listitem><para> The output data structure contains detailed information about the optimization process. See below for details.</para></listitem></varlistentry>
    </variablelist>
 </refsection>
 
@@ -67,21 +69,40 @@
    <title>Description</title>
    <para>
 Search the minimum or maximum of a constrained mixed integer linear programming optimization problem specified by :
-find the minimum or maximum of f(x) such that
    </para>
    <para>
 <latex>
 \begin{eqnarray}
 &amp;\mbox{min}_{x}
-&amp; f(x) \\
-&amp; \text{subject to} &amp; A.x \leq b \\
-&amp; &amp; Aeq.x \leq beq \\
+&amp; C^T⋅x \\
+&amp; \text{subject to} &amp; A⋅x \leq b \\
+&amp; &amp; Aeq⋅x = beq \\
 &amp; &amp; lb \leq x \leq ub \\
+&amp; &amp; x_i \in \!\, \mathbb{Z}, i \in \!\, I
 \end{eqnarray}
 </latex>
    </para>
    <para>
-We are calling SYMPHONY written in C by gateway files for the actual computation. SYMPHONY was originally written by ​Ted Ralphs, ​Menal Guzelsoy and ​Ashutosh Mahajan.
+The routine calls SYMPHONY written in C by gateway files for the actual computation.
+   </para>
+   <para>
+The status allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>status=227 : Optimal Solution Found </listitem>
+<listitem>status=228 : Maximum CPU Time exceeded.</listitem>
+<listitem>status=229 : Maximum Number of Node Limit Exceeded.</listitem>
+<listitem>status=230 : Maximum Number of Iterations Limit Exceeded.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on status see the symphony documentation, go to http://www.coin-or.org/SYMPHONY/man-5.6/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.iterations: The number of iterations performed during the search</listitem>
+</itemizedlist>
    </para>
    <para>
 </para>
@@ -91,7 +112,8 @@ We are calling SYMPHONY written in C by gateway files for the actual computation
    <title>Examples</title>
    <programlisting role="example"><![CDATA[
 // Objective function
-c = [350*5,330*3,310*4,280*6,500,450,400,100]
+// Reference: Westerberg, Carl-Henrik, Bengt Bjorklund, and Eskil Hultman. "An application of mixed integer programming in a Swedish steel mill." Interfaces 7, no. 2 (1977): 39-43.
+c = [350*5,330*3,310*4,280*6,500,450,400,100]';
 // Lower Bound of variable
 lb = repmat(0,1,8);
 // Upper Bound of variables
@@ -102,8 +124,10 @@ Aeq = [5,3,4,6,1,1,1,1;
 5*0.03,3*0.03,4*0.04,6*0.04,0.06,0.07,0.08,0.09;]
 beq = [ 25, 1.25, 1.25]
 intcon = [1 2 3 4];
-// Calling Symphony
+
+// Calling Sequence
 [x,f,status,output] = symphonymat(c,intcon,[],[],Aeq,beq,lb,ub)
+// Press ENTER to continue
 
    ]]></programlisting>
 </refsection>
@@ -121,15 +145,15 @@ intcon = [1 2 3 4];
 // st   sum{j=1,...,n} r(i,j)x(j) <= b(i)       i=1,...,m
 //                     x(j)=0 or 1
 // The function to be maximize i.e. P(j)
-objCoef = -1*[   504 803 667 1103 834 585 811 856 690 832 846 813 868 793 ..
+c = -1*[   504 803 667 1103 834 585 811 856 690 832 846 813 868 793 ..
 825 1002 860 615 540 797 616 660 707 866 647 746 1006 608 ..
 877 900 573 788 484 853 942 630 591 630 640 1169 932 1034 ..
 957 798 669 625 467 1051 552 717 654 388 559 555 1104 783 ..
 959 668 507 855 986 831 821 825 868 852 832 828 799 686 ..
 510 671 575 740 510 675 996 636 826 1022 1140 654 909 799 ..
-1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]
+1162 653 814 625 599 476 767 954 906 904 649 873 565 853 1008 632]';
 //Constraint Matrix
-conMatrix = [   //Constraint 1
+A = [   //Constraint 1
 42 41 523 215 819 551 69 193 582 375 367 478 162 898 ..
 550 553 298 577 493 183 260 224 852 394 958 282 402 604 ..
 164 308 218 61 273 772 191 117 276 877 415 873 902 465 ..
@@ -170,8 +194,8 @@ conMatrix = [   //Constraint 1
 483 336 765 637 981 980 202 35 594 689 602 76 767 693 ..
 893 160 785 311 417 748 375 362 617 553 474 915 457 261 350 635 ;
 ];
-nbVar = size(objCoef,2)
-conUB=[11927 13727 11551 13056 13460 ];
+nbVar = size(c,1)
+b=[11927 13727 11551 13056 13460 ];
 // Lower Bound of variables
 lb = repmat(0,1,nbVar)
 // Upper Bound of variables
@@ -188,10 +212,10 @@ xopt = [0 1 1 0 0 1 0 1 0 1 0 0 0 0 0 0 0 1 0 0 0 0 1 0 1 1 0 1 1 0 1 ..
 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 1 1 ..
 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 1 0 0 0 0 0 1 1 0 0 0 0 0 1 1 0 0 1 0 0 1 0]
 // Optimal value
-fopt = [ 24381 ]
-// Calling Symphony
-[x,f,status,output] = symphonymat(objCoef,intcon,conMatrix,conUB,[],[],lb,ub,options);
+fopt = [ -24381 ]
 
+// Calling Sequence
+[x,f,status,output] = symphonymat(c,intcon,A,b,[],[],lb,ub,options);
    ]]></programlisting>
 </refsection>
 

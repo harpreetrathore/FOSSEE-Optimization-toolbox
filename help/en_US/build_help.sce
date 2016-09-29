@@ -3,11 +3,11 @@
 // Author: Harpreet Singh
 // Organization: FOSSEE, IIT Bombay
 // Email: harpreet.mertia@gmail.com
-// This file must be used under the terms of the CeCILL.
-// This source file is licensed as described in the file COPYING, which
+// This file must be used under the terms of the BSD.
+// This source file is licensed as described in the file LICENSE, which
 // you should have received as part of this distribution.  The terms
 // are also available at
-// http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+// https://opensource.org/licenses/BSD-3-Clause
 
 help_lang_dir = get_absolute_file_path('build_help.sce');
 

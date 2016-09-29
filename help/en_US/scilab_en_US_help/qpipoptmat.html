@@ -16,7 +16,7 @@
 
       </td>
       <td width="40%" class="center">
-      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
 
       </td>
       <td width="30%" class="next">
@@ -29,7 +29,7 @@
 
 
 
-    <span class="path"><a href="index.html">Symphony Toolbox</a> &gt;&gt; <a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a> &gt; qpipoptmat</span>
+    <span class="path"><a href="index.html">FOSSEE Optimization Toolbox</a> &gt;&gt; <a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a> &gt; qpipoptmat</span>
 
     <br /><br />
     <div class="refnamediv"><h1 class="refname">qpipoptmat</h1>
@@ -37,56 +37,100 @@
 
 
 <div class="refsynopsisdiv"><h3 class="title">Calling Sequence</h3>
-   <div class="synopsis"><pre><span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">)</span>
-<span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">)</span>
-<span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">)</span>
-<span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">)</span>
-<span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">x0</span><span class="default">)</span>
-<span class="default">x</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">x0</span><span class="default">,</span><span class="default">param</span><span class="default">)</span>
+   <div class="synopsis"><pre><span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">x0</span><span class="default">)</span>
+<span class="default">xopt</span><span class="default"> = </span><span class="functionid">qpipoptmat</span><span class="default">(</span><span class="default">H</span><span class="default">,</span><span class="default">f</span><span class="default">,</span><span class="default">A</span><span class="default">,</span><span class="default">b</span><span class="default">,</span><span class="default">Aeq</span><span class="default">,</span><span class="default">beq</span><span class="default">,</span><span class="default">lb</span><span class="default">,</span><span class="default">ub</span><span class="default">,</span><span class="default">x0</span><span class="default">,</span><span class="default">param</span><span class="default">)</span>
 <span class="default">[</span><span class="default">xopt</span><span class="default">,</span><span class="default">fopt</span><span class="default">,</span><span class="default">exitflag</span><span class="default">,</span><span class="default">output</span><span class="default">,</span><span class="default">lamda</span><span class="default">] = </span><span class="functionid">qpipoptmat</span><span class="default">( ... )</span></pre></div></div>
 
 <div class="refsection"><h3 class="title">Parameters</h3>
    <dl><dt><span class="term">H :</span>
-      <dd><p class="para">a vector of doubles, where n is number of variables, represents coefficients of quadratic in the quadratic problem.</p></dd></dt>
+      <dd><p class="para">a symmetric matrix of double, represents coefficients of quadratic in the quadratic problem.</p></dd></dt>
    <dt><span class="term">f :</span>
-      <dd><p class="para">a vector of doubles, where n is number of variables, represents coefficients of linear in the quadratic problem</p></dd></dt>
+      <dd><p class="para">a vector of double, represents coefficients of linear in the quadratic problem</p></dd></dt>
    <dt><span class="term">A :</span>
-      <dd><p class="para">a vector of doubles, represents the linear coefficients in the inequality constraints</p></dd></dt>
+      <dd><p class="para">a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</p></dd></dt>
    <dt><span class="term">b :</span>
-      <dd><p class="para">a vector of doubles, represents the linear coefficients in the inequality constraints</p></dd></dt>
+      <dd><p class="para">a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</p></dd></dt>
    <dt><span class="term">Aeq :</span>
-      <dd><p class="para">a matrix of doubles, represents the linear coefficients in the equality constraints</p></dd></dt>
+      <dd><p class="para">a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</p></dd></dt>
    <dt><span class="term">beq :</span>
-      <dd><p class="para">a vector of doubles, represents the linear coefficients in the equality constraints</p></dd></dt>
-   <dt><span class="term">LB :</span>
-      <dd><p class="para">a vector of doubles, where n is number of variables, contains lower bounds of the variables.</p></dd></dt>
-   <dt><span class="term">UB :</span>
-      <dd><p class="para">a vector of doubles, where n is number of variables, contains upper bounds of the variables.</p></dd></dt>
+      <dd><p class="para">a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</p></dd></dt>
+   <dt><span class="term">lb :</span>
+      <dd><p class="para">a vector of double, contains lower bounds of the variables.</p></dd></dt>
+   <dt><span class="term">ub :</span>
+      <dd><p class="para">a vector of double, contains upper bounds of the variables.</p></dd></dt>
    <dt><span class="term">x0 :</span>
-      <dd><p class="para">a vector of doubles, contains initial guess of variables.</p></dd></dt>
+      <dd><p class="para">a vector of double, contains initial guess of variables.</p></dd></dt>
    <dt><span class="term">param :</span>
-      <dd><p class="para">a list containing the the parameters to be set.</p></dd></dt>
+      <dd><p class="para">a list containing the parameters to be set.</p></dd></dt>
    <dt><span class="term">xopt :</span>
-      <dd><p class="para">a vector of doubles, the computed solution of the optimization problem.</p></dd></dt>
+      <dd><p class="para">a vector of double, the computed solution of the optimization problem.</p></dd></dt>
    <dt><span class="term">fopt :</span>
-      <dd><p class="para">a double, the function value at x.</p></dd></dt>
+      <dd><p class="para">a double, the value of the function at x.</p></dd></dt>
    <dt><span class="term">exitflag :</span>
-      <dd><p class="para">Integer identifying the reason the algorithm terminated.</p></dd></dt>
+      <dd><p class="para">The exit status. See below for details.</p></dd></dt>
    <dt><span class="term">output :</span>
-      <dd><p class="para">Structure containing information about the optimization.</p></dd></dt>
+      <dd><p class="para">The structure consist of statistics about the optimization. See below for details.</p></dd></dt>
    <dt><span class="term">lambda :</span>
-      <dd><p class="para">Structure containing the Lagrange multipliers at the solution x (separated by constraint type).</p></dd></dt></dl></div>
+      <dd><p class="para">The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</p></dd></dt></dl></div>
 
 <div class="refsection"><h3 class="title">Description</h3>
-   <p class="para">Search the minimum of a constrained linear quadratic optimization problem specified by :
-find the minimum of f(x) such that</p>
-   <p class="para"><span><img src='./_LaTeX_qpipoptmat.xml_1.png' style='position:relative;top:40px;width:284px;height:88px'/></span></p>
-   <p class="para">We are calling IPOpt for solving the quadratic problem, IPOpt is a library written in C++. The code has been written by ​Andreas Wächter and ​Carl Laird.</p>
+   <p class="para">Search the minimum of a constrained linear quadratic optimization problem specified by :</p>
+   <p class="para"><span><img src='./_LaTeX_qpipoptmat.xml_1.png' style='position:relative;top:41px;width:277px;height:90px'/></span></p>
+   <p class="para">The routine calls Ipopt for solving the quadratic problem, Ipopt is a library written in C++.</p>
+   <p class="para">The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type &#0034;list&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>Syntax : options= list(&#0034;MaxIter&#0034;, [---], &#0034;CpuTime&#0034;, [---]);</li>
+<li>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</li>
+<li>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</li>
+<li>Default Values : options = list(&#0034;MaxIter&#0034;, [3000], &#0034;CpuTime&#0034;, [600]);</li></ul></p>
+   <p class="para">The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<ul class="itemizedlist"><li>exitflag=0 : Optimal Solution Found</li>
+<li>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</li>
+<li>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</li>
+<li>exitflag=3 : Stop at Tiny Step.</li>
+<li>exitflag=4 : Solved To Acceptable Level.</li>
+<li>exitflag=5 : Converged to a point of local infeasibility.</li></ul></p>
+   <p class="para">For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/</p>
+   <p class="para">The output data structure contains detailed informations about the optimization process.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>output.iterations: The number of iterations performed during the search</li>
+<li>output.constrviolation: The max-norm of the constraint violation.</li></ul></p>
+   <p class="para">The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type &#0034;struct&#0034; and contains the following fields.
+<ul class="itemizedlist"><li>lambda.lower: The Lagrange multipliers for the lower bound constraints.</li>
+<li>lambda.upper: The Lagrange multipliers for the upper bound constraints.</li>
+<li>lambda.eqlin: The Lagrange multipliers for the linear equality constraints.</li>
+<li>lambda.ineqlin: The Lagrange multipliers for the linear inequality constraints.</li></ul></p>
    <p class="para"></p></div>
 
 <div class="refsection"><h3 class="title">Examples</h3>
-   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Find x in R^6 such that:</span>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Ref : example 14 :</span>
+<span class="scilabcomment">//https://www.me.utexas.edu/~jensen/ORMM/supplements/methods/nlpmethod/S2_quadratic.pdf</span>
+<span class="scilabcomment">// min. -8*x1*x1 -16*x2*x2 + x1 + 4*x2</span>
+<span class="scilabcomment">// such that</span>
+<span class="scilabcomment">//    x1 + x2 </span><span class="scilabcomment">&#0060;</span><span class="scilabcomment">= 5,</span>
+<span class="scilabcomment">//    x1 </span><span class="scilabcomment">&#0060;</span><span class="scilabcomment">= 3,</span>
+<span class="scilabcomment">//    x1 </span><span class="scilabcomment">&#0062;</span><span class="scilabcomment">= 0,</span>
+<span class="scilabcomment">//    x2 </span><span class="scilabcomment">&#0062;</span><span class="scilabcomment">= 0</span>
+<span class="scilabid">H</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">2</span> <span class="scilabnumber">0</span>
+<span class="scilabnumber">0</span> <span class="scilabnumber">8</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">f</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">8</span><span class="scilabdefault">;</span> <span class="scilaboperator">-</span><span class="scilabnumber">16</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">A</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">1</span><span class="scilabdefault">;</span><span class="scilabnumber">1</span> <span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">b</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">5</span><span class="scilabdefault">;</span><span class="scilabnumber">3</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">lb</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">;</span> <span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
+<span class="scilabid">ub</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabconstants">%inf</span><span class="scilabdefault">;</span> <span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
 
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">qpipoptmat</span><span class="scilabopenclose">(</span><span class="scilabid">H</span><span class="scilabdefault">,</span><span class="scilabid">f</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabopenclose">)</span>
+<span class="scilabcomment">// Press ENTER to continue</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+
+<div class="refsection"><h3 class="title">Examples</h3>
+   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Find x in R^6 such that:</span>
 <span class="scilabid">Aeq</span><span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span>
 <span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilaboperator">-</span><span class="scilabnumber">4</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilabnumber">6</span><span class="scilabdefault">;</span>
 <span class="scilabnumber">2</span><span class="scilabdefault">,</span><span class="scilabnumber">5</span><span class="scilabdefault">,</span><span class="scilabnumber">3</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabdefault">,</span><span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
@@ -98,26 +142,11 @@ find the minimum of f(x) such that</p>
 <span class="scilabid">ub</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">10000</span><span class="scilabdefault">;</span> <span class="scilabnumber">100</span><span class="scilabdefault">;</span> <span class="scilabnumber">1.5</span><span class="scilabdefault">;</span> <span class="scilabnumber">100</span><span class="scilabdefault">;</span> <span class="scilabnumber">100</span><span class="scilabdefault">;</span> <span class="scilabnumber">1000</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
 <span class="scilabid">x0</span> <span class="scilaboperator">=</span> <a class="scilabmacro" href="scilab://repmat">repmat</a><span class="scilabopenclose">(</span><span class="scilabnumber">0</span><span class="scilabdefault">,</span><span class="scilabnumber">6</span><span class="scilabdefault">,</span><span class="scilabnumber">1</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
 <span class="scilabid">param</span> <span class="scilaboperator">=</span> <a class="scilabcommand" href="scilab://list">list</a><span class="scilabopenclose">(</span><span class="scilabstring">&#0034;</span><span class="scilabstring">MaxIter</span><span class="scilabstring">&#0034;</span><span class="scilabdefault">,</span> <span class="scilabnumber">300</span><span class="scilabdefault">,</span> <span class="scilabstring">&#0034;</span><span class="scilabstring">CpuTime</span><span class="scilabstring">&#0034;</span><span class="scilabdefault">,</span> <span class="scilabnumber">100</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
-<span class="scilabcomment">//and minimize 0.5*x</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*Q*x + p</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*x with</span>
+<span class="scilabcomment">//and minimize 0.5*x</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*H*x + f</span><span class="scilabcomment">&#0039;</span><span class="scilabcomment">*x with</span>
 <span class="scilabid">f</span><span class="scilaboperator">=</span><span class="scilabopenclose">[</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span> <span class="scilabnumber">2</span><span class="scilabdefault">;</span> <span class="scilabnumber">3</span><span class="scilabdefault">;</span> <span class="scilabnumber">4</span><span class="scilabdefault">;</span> <span class="scilabnumber">5</span><span class="scilabdefault">;</span> <span class="scilabnumber">6</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span> <span class="scilabid">H</span><span class="scilaboperator">=</span><a class="scilabcommand" href="scilab://eye">eye</a><span class="scilabopenclose">(</span><span class="scilabnumber">6</span><span class="scilabdefault">,</span><span class="scilabnumber">6</span><span class="scilabopenclose">)</span><span class="scilabdefault">;</span>
-<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span><span class="scilaboperator">=</span><span class="scilabid">qpipoptmat</span><span class="scilabopenclose">(</span><span class="scilabid">H</span><span class="scilabdefault">,</span><span class="scilabid">f</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabid">Aeq</span><span class="scilabdefault">,</span><span class="scilabid">beq</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabid">param</span><span class="scilabopenclose">)</span>
-<span class="scilabid">clear</span> <span class="scilabid">H</span> <span class="scilabid">f</span> <span class="scilabid">A</span> <span class="scilabid">b</span> <span class="scilabid">Aeq</span> <span class="scilabid">beq</span> <span class="scilabid">lb</span> <span class="scilabid">ub</span><span class="scilabdefault">;</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
 
-<div class="refsection"><h3 class="title">Examples</h3>
-   <div class="programlisting"><table border="0" width="100%"><tr><td width="98%"><pre class="scilabcode"><span class="scilabcomment">//Find the value of x that minimize following function</span>
-<span class="scilabcomment">// f(x) = 0.5*x1^2 + x2^2 - x1*x2 - 2*x1 - 6*x2</span>
-<span class="scilabcomment">// Subject to:</span>
-<span class="scilabcomment">// x1 + x2 ≤ 2</span>
-<span class="scilabcomment">// –x1 + 2x2 ≤ 2</span>
-<span class="scilabcomment">// 2x1 + x2 ≤ 3</span>
-<span class="scilabcomment">// 0 ≤ x1, 0 ≤ x2.</span>
-<span class="scilabid">H</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilaboperator">-</span><span class="scilabnumber">1</span><span class="scilabdefault">;</span> <span class="scilaboperator">-</span><span class="scilabnumber">1</span> <span class="scilabnumber">2</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabid">f</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilaboperator">-</span><span class="scilabnumber">2</span><span class="scilabdefault">;</span> <span class="scilaboperator">-</span><span class="scilabnumber">6</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabid">A</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">1</span> <span class="scilabnumber">1</span><span class="scilabdefault">;</span> <span class="scilaboperator">-</span><span class="scilabnumber">1</span> <span class="scilabnumber">2</span><span class="scilabdefault">;</span> <span class="scilabnumber">2</span> <span class="scilabnumber">1</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabid">b</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">2</span><span class="scilabdefault">;</span> <span class="scilabnumber">2</span><span class="scilabdefault">;</span> <span class="scilabnumber">3</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabid">lb</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabnumber">0</span><span class="scilabdefault">;</span> <span class="scilabnumber">0</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabid">ub</span> <span class="scilaboperator">=</span> <span class="scilabopenclose">[</span><span class="scilabconstants">%inf</span><span class="scilabdefault">;</span> <span class="scilabconstants">%inf</span><span class="scilabopenclose">]</span><span class="scilabdefault">;</span>
-<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span> <span class="scilaboperator">=</span> <span class="scilabid">qpipoptmat</span><span class="scilabopenclose">(</span><span class="scilabid">H</span><span class="scilabdefault">,</span><span class="scilabid">f</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabopenclose">[</span><span class="scilabopenclose">]</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
+<span class="scilabcomment">// Calling Sequence</span>
+<span class="scilabopenclose">[</span><span class="scilabid">xopt</span><span class="scilabdefault">,</span><span class="scilabid">fopt</span><span class="scilabdefault">,</span><span class="scilabid">exitflag</span><span class="scilabdefault">,</span><span class="scilabid">output</span><span class="scilabdefault">,</span><span class="scilabid">lambda</span><span class="scilabopenclose">]</span><span class="scilaboperator">=</span><span class="scilabid">qpipoptmat</span><span class="scilabopenclose">(</span><span class="scilabid">H</span><span class="scilabdefault">,</span><span class="scilabid">f</span><span class="scilabdefault">,</span><span class="scilabid">A</span><span class="scilabdefault">,</span><span class="scilabid">b</span><span class="scilabdefault">,</span><span class="scilabid">Aeq</span><span class="scilabdefault">,</span><span class="scilabid">beq</span><span class="scilabdefault">,</span><span class="scilabid">lb</span><span class="scilabdefault">,</span><span class="scilabid">ub</span><span class="scilabdefault">,</span><span class="scilabid">x0</span><span class="scilabdefault">,</span><span class="scilabid">param</span><span class="scilabopenclose">)</span></pre></td><td valign="top"><a href="scilab://scilab.execexample/"><img src="ScilabExecute.png" border="0"/></a></td><td valign="top"><a href="scilab://scilab.editexample/"><img src="ScilabEdit.png" border="0"/></a></td><td></td></tr></table></div></div>
 
 <div class="refsection"><h3 class="title">Authors</h3>
    <ul class="itemizedlist"><li class="member">Keyur Joshi, Saikiran, Iswarya, Harpreet Singh</li></ul></div>
@@ -132,7 +161,7 @@ find the minimum of f(x) such that</p>
 
       </td>
       <td width="40%" class="center">
-      	<span class="top"><a href="section_19f4f1e5726c01d683e8b82be0a7e910.html">Symphony Toolbox</a></span>
+      	<span class="top"><a href="section_031bbc67ce78762a40093bfdff4eaa3b.html">FOSSEE Optimization Toolbox</a></span>
 
       </td>
       <td width="30%" class="next">

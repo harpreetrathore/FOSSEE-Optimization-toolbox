@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from fgoalattain.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="fgoalattain" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>fgoalattain</refname>
+    <refpurpose>Solves a multiobjective goal attainment problem</refpurpose>
+  </refnamediv>
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   xopt = fgoalattain(fun,x0,goal,weight)
+   xopt = fgoalattain(fun,x0,goal,weight,A,b)
+   xopt = fgoalattain(fun,x0,goal,weight,A,b,Aeq,beq)
+   xopt = fgoalattain(fun,x0,goal,weight,A,b,Aeq,beq,lb,ub)
+   xopt = fgoalattain(fun,x0,goal,weight,A,b,Aeq,beq,lb,ub,nonlcon)
+   xopt = fgoalattain(fun,x0,goal,weight,A,b,Aeq,beq,lb,ub,nonlcon,options)
+   [xopt,fval] = fgoalattain(...)
+   [xopt,fval,attainfactor] = fgoalattain(...)
+   [xopt,fval,attainfactor,exitflag] = fgoalattain(...)
+   [xopt,fval,attainfactor,exitflag,output] = fgoalattain(...)
+   [xopt,fval,attainfactor,exitflag,output,lambda] = fgoalattain(...)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>fun:</term>
+      <listitem><para> a function that accepts a vector x and returns a vector F</para></listitem></varlistentry>
+   <varlistentry><term>x0 :</term>
+      <listitem><para> a vector of double, contains initial guess of variables.</para></listitem></varlistentry>
+   <varlistentry><term>A :</term>
+      <listitem><para> a matrix of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
+   <varlistentry><term>b :</term>
+      <listitem><para> a vector of double, represents the linear coefficients in the inequality constraints A⋅x ≤ b.</para></listitem></varlistentry>
+   <varlistentry><term>Aeq :</term>
+      <listitem><para> a matrix of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
+   <varlistentry><term>beq :</term>
+      <listitem><para> a vector of double, represents the linear coefficients in the equality constraints Aeq⋅x = beq.</para></listitem></varlistentry>
+   <varlistentry><term>lb :</term>
+      <listitem><para> a vector of double, contains lower bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>ub :</term>
+      <listitem><para> a vector of double,  contains upper bounds of the variables.</para></listitem></varlistentry>
+   <varlistentry><term>nonlcon:</term>
+      <listitem><para> a function, the nonlinear constraints</para></listitem></varlistentry>
+   <varlistentry><term>options :</term>
+      <listitem><para> a list, containing the option for user to specify. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>xopt :</term>
+      <listitem><para> a vector of double, the computed solution of the optimization problem.</para></listitem></varlistentry>
+   <varlistentry><term>fopt :</term>
+      <listitem><para> a double, the value of the function at x.</para></listitem></varlistentry>
+   <varlistentry><term>attainfactor:</term>
+      <listitem><para> The amount of over- or underachievement of the goals,γ at the solution.</para></listitem></varlistentry>
+   <varlistentry><term>exitflag :</term>
+      <listitem><para> The exit status. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>output :</term>
+      <listitem><para> The structure consist of statistics about the optimization. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>lambda :</term>
+      <listitem><para> The structure consist of the Lagrange multipliers at the solution of problem. See below for details.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+fgoalattain solves the goal attainment problem, which is one formulation for minimizing a multiobjective optimization problem.
+Finds the minimum of a problem specified by:
+Minimise Y such that
+   </para>
+   <para>
+<latex>
+\begin{eqnarray}
+\mbox{min}_{x,\gamma}  &amp; f(x)-weight \ast \gamma \leq goal \\
+\mbox{subject to} &amp; c(x) \leq 0 \\
+&amp; c_{eq}(x) = 0 \\
+&amp; Ax \leq b \\
+&amp; A_{eq} x = b_{eq} \\
+&amp; lb \leq x \leq ub
+\end{eqnarray}
+</latex>
+   </para>
+   <para>
+The solver makes use of fmincon to find the minimum.
+   </para>
+   <para>
+The fgoalattain finds out the maximum value of Y for the objectives evaluated at the starting point and
+adds that as another variable to the vector x
+This is passed to the fmincon function to get the optimised value of Y
+Hence, the algorithm used mainly is "ipopt" to obtain the optimum solution
+The relations between f(x), Y, weights and goals are added as additional non-linear inequality constraints
+   </para>
+   <para>
+The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type "list" and contains the following fields.
+<itemizedlist>
+<listitem>Syntax : options= list("MaxIter", [---], "CpuTime", [---], "GradObj", ---, "GradCon", ---);</listitem>
+<listitem>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</listitem>
+<listitem>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</listitem>
+<listitem>GradObj : a function, representing the gradient function of the Objective in Vector Form.</listitem>
+<listitem>GradCon : a function, representing the gradient of the Non-Linear Constraints (both Equality and Inequality) of the problem. It is declared in such a way that gradient of non-linear inequality constraints are defined first as a separate Matrix (cg of size m2 X n or as an empty), followed by gradient of non-linear equality constraints as a separate Matrix (ceqg of size m2 X n or as an empty) where m2 &amp; m3 are number of non-linear inequality and equality constraints respectively.</listitem>
+<listitem>Default Values : options = list("MaxIter", [3000], "CpuTime", [600]);</listitem>
+</itemizedlist>
+   </para>
+   <para>
+By default, the gradient options for fminimax are turned off and and fmincon does the gradient opproximation of gattainObjfun. In case the GradObj option is off and GradConstr option is on, fminimax approximates gattainObjfun gradient using numderivative toolbox.
+   </para>
+   <para>
+If we can provide exact gradients, we should do so since it improves the convergence speed of the optimization algorithm.
+   </para>
+   <para>
+Furthermore, we must enable the "GradObj" option with the statement :
+<programlisting>
+minimaxOptions = list("GradObj",fGrad);
+</programlisting>
+This will let fminimax know that the exact gradient of the objective function is known, so that it can change the calling sequence to the objective function. Note that, fGrad should be mentioned in the form of N x n where n is the number of variables, N is the number of functions in objective function.
+   </para>
+   <para>
+The constraint function must have header :
+<programlisting>
+[c, ceq] = confun(x)
+</programlisting>
+where x is a n x 1 matrix of doubles, c is a 1 x nni matrix of doubles and ceq is a 1 x nne matrix of doubles (nni : number of nonlinear inequality constraints, nne : number of nonlinear equality constraints).
+On input, the variable x contains the current point and, on output, the variable c must contain the nonlinear inequality constraints and ceq must contain the nonlinear equality constraints.
+   </para>
+   <para>
+By default, the gradient options for fminimax are turned off and and fmincon does the gradient opproximation of confun. In case the GradObj option is on and GradCons option is off, fminimax approximates confun gradient using numderivative toolbox.
+   </para>
+   <para>
+If we can provide exact gradients, we should do so since it improves the convergence speed of the optimization algorithm.
+   </para>
+   <para>
+Furthermore, we must enable the "GradCon" option with the statement :
+<programlisting>
+minimaxOptions = list("GradCon",confunGrad);
+</programlisting>
+This will let fminimax know that the exact gradient of the objective function is known, so that it can change the calling sequence to the objective function.
+   </para>
+   <para>
+The constraint derivative function must have header :
+<programlisting>
+[dc,dceq] = confungrad(x)
+</programlisting>
+where dc is a nni x n matrix of doubles and dceq is a nne x n matrix of doubles.
+   </para>
+   <para>
+The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>exitflag=0 : Optimal Solution Found </listitem>
+<listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=2 : Maximum amount of CPU Time exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=3 : Stop at Tiny Step.</listitem>
+<listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
+<listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.Iterations: The number of iterations performed during the search</listitem>
+<listitem>output.Cpu_Time: The total cpu-time spend during the search</listitem>
+<listitem>output.Objective_Evaluation: The number of Objective Evaluations performed during the search</listitem>
+<listitem>output.Dual_Infeasibility: The Dual Infeasiblity of the final soution</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The lambda data structure contains the Lagrange multipliers at the end
+of optimization. In the current version the values are returned only when the the solution is optimal.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>lambda.lower: The Lagrange multipliers for the lower bound constraints.</listitem>
+<listitem>lambda.upper: The Lagrange multipliers for the upper bound constraints.</listitem>
+<listitem>lambda.eqlin: The Lagrange multipliers for the linear equality constraints.</listitem>
+<listitem>lambda.ineqlin: The Lagrange multipliers for the linear inequality constraints.</listitem>
+<listitem>lambda.eqnonlin: The Lagrange multipliers for the non-linear equality constraints.</listitem>
+<listitem>lambda.ineqnonlin: The Lagrange multipliers for the non-linear inequality constraints.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+function f1 = gattainObjfun(x)
+f1(1)=2*x(1)*x(1)+x(2)*x(2)-48*x(1)-40*x(2)+304
+f1(2)=-x(1)*x(1)-3*x(2)*x(2)
+f1(3)=x(1)+3*x(2)-18
+f1(4)=-x(1)-x(2)
+f1(5)=x(1)+x(2)-8
+endfunction
+x0=[-1,1];
+goal=[-5,-3,-2,-1,-4];
+weight=abs(goal)
+//gval  =[- 0.0000011 -63.999998 -2.0000002 -8 3.485D-08]
+//z  = [4 3.99]
+
+// Calling Sequence
+[x,fval,attainfactor,exitflag,output,lambda]=fgoalattain(gattainObjfun,x0,goal,weight)
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>Prajwala TM, Sheetal Shalini , 2015</member>
+   </simplelist>
+</refsection>
+</refentry>

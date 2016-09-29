@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *
+ * This help file was generated from fminunc.sci using help_from_sci().
+ *
+ -->
+
+<refentry version="5.0-subset Scilab" xml:id="fminunc" xml:lang="en"
+          xmlns="http://docbook.org/ns/docbook"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:ns3="http://www.w3.org/1999/xhtml"
+          xmlns:mml="http://www.w3.org/1998/Math/MathML"
+          xmlns:scilab="http://www.scilab.org"
+          xmlns:db="http://docbook.org/ns/docbook">
+
+  <refnamediv>
+    <refname>fminunc</refname>
+    <refpurpose>Solves a multi-variable unconstrainted optimization problem</refpurpose>
+  </refnamediv>
+
+
+<refsynopsisdiv>
+   <title>Calling Sequence</title>
+   <synopsis>
+   xopt = fminunc(f,x0)
+   xopt = fminunc(f,x0,options)
+   [xopt,fopt] = fminunc(.....)
+   [xopt,fopt,exitflag]= fminunc(.....)
+   [xopt,fopt,exitflag,output]= fminunc(.....)
+   [xopt,fopt,exitflag,output,gradient]=fminunc(.....)
+   [xopt,fopt,exitflag,output,gradient,hessian]=fminunc(.....)
+   
+   </synopsis>
+</refsynopsisdiv>
+
+<refsection>
+   <title>Parameters</title>
+   <variablelist>
+   <varlistentry><term>f :</term>
+      <listitem><para> a function, representing the objective function of the problem</para></listitem></varlistentry>
+   <varlistentry><term>x0 :</term>
+      <listitem><para> a vector of doubles, containing the starting of variables.</para></listitem></varlistentry>
+   <varlistentry><term>options:</term>
+      <listitem><para> a list, containing the option for user to specify. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>xopt :</term>
+      <listitem><para> a vector of doubles, the computed solution of the optimization problem.</para></listitem></varlistentry>
+   <varlistentry><term>fopt :</term>
+      <listitem><para> a scalar of double, the function value at x.</para></listitem></varlistentry>
+   <varlistentry><term>exitflag :</term>
+      <listitem><para> a scalar of integer, containing the flag which denotes the reason for termination of algorithm. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>output   :</term>
+      <listitem><para> a structure, containing the information about the optimization. See below for details.</para></listitem></varlistentry>
+   <varlistentry><term>gradient :</term>
+      <listitem><para> a vector of doubles, containing the the gradient of the solution.</para></listitem></varlistentry>
+   <varlistentry><term>hessian  :</term>
+      <listitem><para> a matrix of doubles, containing the the hessian of the solution.</para></listitem></varlistentry>
+   </variablelist>
+</refsection>
+
+<refsection>
+   <title>Description</title>
+   <para>
+Search the minimum of an unconstrained optimization problem specified by :
+Find the minimum of f(x) such that
+   </para>
+   <para>
+<latex>
+\begin{eqnarray}
+&amp;\mbox{min}_{x}
+&amp; f(x)\\
+\end{eqnarray}
+</latex>
+   </para>
+   <para>
+The routine calls Ipopt for solving the Un-constrained Optimization problem, Ipopt is a library written in C++.
+   </para>
+   <para>
+The options allows the user to set various parameters of the Optimization problem.
+It should be defined as type "list" and contains the following fields.
+<itemizedlist>
+<listitem>Syntax : options= list("MaxIter", [---], "CpuTime", [---], "Gradient", ---, "Hessian", ---);</listitem>
+<listitem>MaxIter : a Scalar, containing the Maximum Number of Iteration that the solver should take.</listitem>
+<listitem>CpuTime : a Scalar, containing the Maximum amount of CPU Time that the solver should take.</listitem>
+<listitem>Gradient : a function, representing the gradient function of the Objective in Vector Form.</listitem>
+<listitem>Hessian : a function, representing the hessian function of the Objective in Symmetric Matrix Form.</listitem>
+<listitem>Default Values : options = list("MaxIter", [3000], "CpuTime", [600]);</listitem>
+</itemizedlist>
+   </para>
+   <para>
+The exitflag allows to know the status of the optimization which is given back by Ipopt.
+<itemizedlist>
+<listitem>exitflag=0 : Optimal Solution Found </listitem>
+<listitem>exitflag=1 : Maximum Number of Iterations Exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=2 : Maximum CPU Time exceeded. Output may not be optimal.</listitem>
+<listitem>exitflag=3 : Stop at Tiny Step.</listitem>
+<listitem>exitflag=4 : Solved To Acceptable Level.</listitem>
+<listitem>exitflag=5 : Converged to a point of local infeasibility.</listitem>
+</itemizedlist>
+   </para>
+   <para>
+For more details on exitflag see the ipopt documentation, go to http://www.coin-or.org/Ipopt/documentation/
+   </para>
+   <para>
+The output data structure contains detailed informations about the optimization process.
+It has type "struct" and contains the following fields.
+<itemizedlist>
+<listitem>output.Iterations: The number of iterations performed during the search</listitem>
+<listitem>output.Cpu_Time: The total cpu-time spend during the search</listitem>
+<listitem>output.Objective_Evaluation: The number of Objective Evaluations performed during the search</listitem>
+<listitem>output.Dual_Infeasibility: The Dual Infeasiblity of the final soution</listitem>
+<listitem>output.Message: The output message for the problem</listitem>
+</itemizedlist>
+   </para>
+   <para>
+</para>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//Find x in R^2 such that it minimizes the Rosenbrock function
+//f = 100*(x2 - x1^2)^2 + (1-x1)^2
+//Objective function to be minimised
+function y= f(x)
+y= 100*(x(2) - x(1)^2)^2 + (1-x(1))^2;
+endfunction
+//Starting point
+x0=[-1,2];
+//Gradient of objective function
+function y= fGrad(x)
+y= [-400*x(1)*x(2) + 400*x(1)^3 + 2*x(1)-2, 200*(x(2)-x(1)^2)];
+endfunction
+//Hessian of Objective Function
+function y= fHess(x)
+y= [1200*x(1)^2- 400*x(2) + 2, -400*x(1);-400*x(1), 200 ];
+endfunction
+//Options
+options=list("MaxIter", [1500], "CpuTime", [500], "Gradient", fGrad, "Hessian", fHess);
+
+// Calling Sequence
+[xopt,fopt,exitflag,output,gradient,hessian]=fminunc(f,x0,options)
+// Press ENTER to continue
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//Find x in R^2 such that the below function is minimum
+//f = x1^2 + x2^2
+//Objective function to be minimised
+function y= f(x)
+y= x(1)^2 + x(2)^2;
+endfunction
+//Starting point
+x0=[2,1];
+
+// Calling Sequence
+[xopt,fopt]=fminunc(f,x0)
+// Press ENTER to continue
+
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Examples</title>
+   <programlisting role="example"><![CDATA[
+//The below problem is an unbounded problem:
+//Find x in R^2 such that the below function is minimum
+//f = - x1^2 - x2^2
+//Objective function to be minimised
+function y= f(x)
+y= -x(1)^2 - x(2)^2;
+endfunction
+//Starting point
+x0=[2,1];
+//Gradient of objective function
+function y= fGrad(x)
+y= [-2*x(1),-2*x(2)];
+endfunction
+//Hessian of Objective Function
+function y= fHess(x)
+y= [-2,0;0,-2];
+endfunction
+//Options
+options=list("MaxIter", [1500], "CpuTime", [500], "Gradient", fGrad, "Hessian", fHess);
+// Calling Sequence
+[xopt,fopt,exitflag,output,gradient,hessian]=fminunc(f,x0,options)
+   ]]></programlisting>
+</refsection>
+
+<refsection>
+   <title>Authors</title>
+   <simplelist type="vert">
+   <member>R.Vidyadhar , Vignesh Kannan</member>
+   </simplelist>
+</refsection>
+</refentry>
